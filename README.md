@@ -1,11 +1,3 @@
-# Can I use SALD for my own projects?
-
-Sure
-
-# Should I?
-
-Probably not. This is a tiny project and other engines do a lot more and better. I'd personally recommend Godot: [Website](https://godotengine.org/), [Repository](https://github.com/godotengine/godot)
-
 # Build environment
 
 This is just a recommendation, as any modern compiler can do the job well, but I currently work with:
@@ -23,7 +15,19 @@ This is just a recommendation, as any modern compiler can do the job well, but I
 ### Debug
 
     sudo apt install gdb
-    
+ 
+# FAQ
+
+### 1) Can you use SALD for your own projects?
+
+Sure
+
+### 1.1) Should you use it?
+
+Probably not. This is a tiny project and other engines everything SALD does, but better, and even more. 
+
+I'd personally recommend Godot: [Website](https://godotengine.org/), [Repository](https://github.com/godotengine/godot)
+ 
 # Development
 
 Update submodules:
