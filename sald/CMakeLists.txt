@@ -17,12 +17,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/vendor/assimp/include
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC glad glfw glm assimp)
-
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
 
 install(FILES ${HEADERS}

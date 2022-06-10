@@ -16,11 +16,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/../sald/include
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
-
 target_link_libraries(${PROJECT_NAME} PRIVATE sald)
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
 install(TARGETS ${PROJECT_NAME}
 	DESTINATION ${PROJECT_SOURCE_DIR}/../release/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}
