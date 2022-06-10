@@ -44,6 +44,8 @@ bool Sald::ShadowMap::Init(GLuint width, GLuint height)
 void Sald::ShadowMap::CreateFrameBuffer()
 {
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_FBO);
+    glViewport(0, 0, GetShadowWidth(), GetShadowHeight());
+    glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 void Sald::ShadowMap::DeleteFrameBuffer()

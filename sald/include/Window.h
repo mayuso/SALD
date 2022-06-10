@@ -1,7 +1,7 @@
 #pragma once
 #include "sald_api.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <stdio.h>
@@ -31,6 +31,8 @@ namespace Sald
 		SALD_API void ShowFPS();
 		SALD_API void SetVSync(bool vSync);
 		SALD_API void SetCursorEnabled(bool enabled);
+
+		SALD_API void ResizeViewport(int width, int height);
 
 	private:
 		GLFWwindow *m_MainWindow;

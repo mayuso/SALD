@@ -10,13 +10,7 @@ if (UNIX)
 	add_compile_options (-fPIC)
 endif()
 
-
-if (UNIX)
-	add_subdirectory(sald/vendor/glew EXCLUDE_FROM_ALL)
-elseif(WIN32)
-	add_subdirectory(sald/vendor/glew/build/cmake EXCLUDE_FROM_ALL)
-endif()
-
+add_subdirectory(sald/vendor/glad EXCLUDE_FROM_ALL)
 add_subdirectory(sald/vendor/glfw EXCLUDE_FROM_ALL)
 add_subdirectory(sald/vendor/glm EXCLUDE_FROM_ALL)
 add_subdirectory(sald/vendor/assimp EXCLUDE_FROM_ALL)

@@ -1,7 +1,7 @@
 #pragma once
 #include "sald_api.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 namespace Sald
 {

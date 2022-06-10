@@ -1,7 +1,7 @@
 #pragma once
 #include "sald_api.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/glm.hpp>
 

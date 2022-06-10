@@ -67,16 +67,11 @@ int Sald::Window::Initialize()
 	// Handle key + Mmouse input
 	CreateCallbacks();
 
-	// Allow modern extension features
-	glewExperimental = GL_TRUE;
-
-	if (glewInit() != GLEW_OK)
-	{
-		printf("GLEW initialization failed!");
-		glfwDestroyWindow(m_MainWindow);
-		glfwTerminate();
-		return 1;
-	}
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        printf("Failed to initialize GLAD");
+        return 1;
+    }
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -155,6 +150,11 @@ void Sald::Window::CreateCallbacks()
 	glfwSetFramebufferSizeCallback(m_MainWindow, HandleResize);
 	glfwSetKeyCallback(m_MainWindow, HandleKeys);
 	glfwSetCursorPosCallback(m_MainWindow, HandleMouse);
+}
+
+void Sald::Window::ResizeViewport(int width, int height)
+{
+	HandleResize(m_MainWindow, width, height);
 }
 
 void Sald::Window::HandleResize(GLFWwindow *window, int width, int height)

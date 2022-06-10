@@ -215,12 +215,9 @@ void RenderScene(Sald::Shader &currentShader)
 
 void DirectionalShadowMapPass(Sald::DirectionalLight *light)
 {
-
     directionalShadowShader.Bind();
-    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
 
     light->GetShadowMap()->CreateFrameBuffer();
-    glClear(GL_DEPTH_BUFFER_BIT);
 
     glm::mat4 calculatedLightTransform = light->CalculateLightTransform();
     directionalShadowShader.SetDirectionalLightTransform(&calculatedLightTransform);
@@ -232,11 +229,8 @@ void DirectionalShadowMapPass(Sald::DirectionalLight *light)
 
 void OmniShadowMapPass(Sald::PointLight *light)
 {
-    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
-
     omniShadowShader.Bind();
     light->GetShadowMap()->CreateFrameBuffer();
-    glClear(GL_DEPTH_BUFFER_BIT);
 
     omniShadowShader.SetFloat3("lightPos", light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
     omniShadowShader.SetFloat("farPlane", light->GetFarPlane());
@@ -250,8 +244,7 @@ void OmniShadowMapPass(Sald::PointLight *light)
 
 void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
-
-    glViewport(0, 0, 1280, 720);
+    mainWindow->ResizeViewport(1280, 720);
 
     Sald::Renderer::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     Sald::Renderer::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -368,10 +361,9 @@ int main()
     glm::mat4 projection = glm::perspective(glm::radians(60.0f), mainWindow->GetBufferWidth() / mainWindow->GetBufferHeight(), 0.1f, 100.0f);
     while (!mainWindow->GetShouldClose())
     {
-        GLfloat now = glfwGetTime();
+        GLfloat now = glfwGetTime(); // This seems to fail if done here, do it inside SALD library???
         deltaTime = now - lastTime;
         lastTime = now;
-
         mainWindow->PollEvents();
 
         camera.KeyControl(mainWindow->GetKeys(), deltaTime);
