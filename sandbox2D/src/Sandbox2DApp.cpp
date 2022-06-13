@@ -80,8 +80,8 @@ void Sandbox2DApp::Run()
             sizeDirection = !sizeDirection;
         }
 
-        Sald::Renderer::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        Sald::Renderer::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        Sald::Renderer2D::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Sald::Renderer2D::Clear();
 
         shaderList[0].Bind();
 

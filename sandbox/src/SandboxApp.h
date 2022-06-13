@@ -4,8 +4,7 @@
 #include "Application.h"
 #include "Mesh.h"
 #include "Shader.h"
-#include "Window.h"
-#include "Renderer.h"
+#include "Renderer3D.h"
 #include "Camera.h"
 #include "Texture.h"
 #include "DirectionalLight.h"
@@ -35,10 +34,10 @@ public:
     ~SandboxApp();
 
     void Run() override;
-private:
 
+private:
     void CalcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount,
-                        unsigned int vLength, unsigned int normalOffset);
+                            unsigned int vLength, unsigned int normalOffset);
     void CreateObjects();
     void CreateShaders();
     void RenderScene(Sald::Shader &currentShader);
@@ -46,7 +45,7 @@ private:
     void OmniShadowMapPass(Sald::PointLight *light);
     void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
     void LightningPass();
-    
+
     Sald::Camera camera;
 
     std::vector<Sald::Mesh *> meshList;

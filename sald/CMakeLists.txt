@@ -3,13 +3,13 @@ cmake_minimum_required (VERSION 3.16)
 project (sald)
 
 file(GLOB SOURCES src/*.cpp)
-file(GLOB HEADERS include/*)
+file(GLOB HEADERS ${PROJECT_SOURCE_DIR}/src/*.h)
 add_library(${PROJECT_NAME} SHARED
 	${SOURCES}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-	${PROJECT_SOURCE_DIR}/include
+	${PROJECT_SOURCE_DIR}/src
 	${PROJECT_SOURCE_DIR}/vendor/glfw/include
 	${PROJECT_SOURCE_DIR}/vendor/glad/include
 	${PROJECT_SOURCE_DIR}/vendor/glm

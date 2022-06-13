@@ -76,7 +76,7 @@ void SandboxApp::Run()
     glm::mat4 projection = glm::perspective(glm::radians(60.0f), m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight(), 0.1f, 100.0f);
     while (!m_MainWindow->GetShouldClose())
     {
-        GLfloat now = glfwGetTime(); // This seems to fail if done here, do it inside SALD library???
+        GLfloat now = glfwGetTime(); // TODO: This fails here, do it inside Sald::Application when layers are implemented
         deltaTime = now - lastTime;
         lastTime = now;
         m_MainWindow->PollEvents();
@@ -285,10 +285,9 @@ void SandboxApp::OmniShadowMapPass(Sald::PointLight *light)
 
 void SandboxApp::RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
-    m_MainWindow->ResizeViewport(1280, 720);
-
-    Sald::Renderer::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    Sald::Renderer::Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    Sald::Renderer3D::SetViewport(0, 0, 1280, 720);
+    Sald::Renderer3D::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    Sald::Renderer3D::Clear();
 
     skybox.DrawSkybox(viewMatrix, projectionMatrix);
 

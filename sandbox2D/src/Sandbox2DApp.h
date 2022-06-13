@@ -2,7 +2,7 @@
 #include "sald_api.h"
 
 #include "Application.h"
-#include "Renderer.h"
+#include "Renderer2D.h"
 #include "Mesh.h"
 #include "Shader.h"
 
@@ -11,9 +11,6 @@
 #include <cmath>
 #include <vector>
 #include <memory>
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -48,7 +45,7 @@ private:
     float curSize = 0.4f;
     float maxSize = 0.8f;
     float minSize = 0.1f;
-    
+
     std::vector<Sald::Mesh *> meshList;
     std::vector<Sald::Shader> shaderList;
 
