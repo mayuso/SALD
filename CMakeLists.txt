@@ -22,6 +22,6 @@ set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "Build tests")
 add_subdirectory(sald/vendor/assimp EXCLUDE_FROM_ALL)
 
 add_subdirectory(sald)
+add_subdirectory(saldGui)
 add_subdirectory(sandbox)
 add_subdirectory(sandbox2D)
-add_subdirectory(gui)

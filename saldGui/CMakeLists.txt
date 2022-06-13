@@ -1,6 +1,6 @@
 # Projects Settings
 cmake_minimum_required (VERSION 3.16)
-project (gui)
+project (SaldGui)
 
 if (UNIX)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath='$ORIGIN'")

@@ -9,7 +9,6 @@
 
 #include <stdio.h>
 #include <memory>
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 // static void error_callback(int error, const char* description)
@@ -78,7 +77,7 @@ int main(int, char **)
         // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
         // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
         // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
-        glfwPollEvents();
+        mainWindow->PollEvents();
 
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
@@ -89,11 +88,10 @@ int main(int, char **)
 
         // Rendering
         ImGui::Render();
-        int display_w, display_h;
-        glfwGetFramebufferSize(mainWindow->GetWindow(), &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+        uint32_t display_w, display_h;
+        Sald::Renderer::SetViewport(0, 0, display_w, display_h);
+        Sald::Renderer::SetClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+        Sald::Renderer::Clear();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         // Update and Render additional Platform Windows
@@ -107,7 +105,7 @@ int main(int, char **)
             glfwMakeContextCurrent(backup_current_context);
         }
 
-        glfwSwapBuffers(mainWindow->GetWindow());
+        mainWindow->SwapBuffers();
     }
     // Cleanup
     ImGui_ImplOpenGL3_Shutdown();
