@@ -4,9 +4,6 @@
 [submodule "sald/vendor/glm"]
 	path = sald/vendor/glm
 	url = https://github.com/g-truc/glm.git
-[submodule "gui/vendor/imgui"]
-	path = gui/vendor/imgui
-	url = https://github.com/ocornut/imgui.git
 [submodule "sald/vendor/stb"]
 	path = sald/vendor/stb
 	url = https://github.com/nothings/stb.git
@@ -16,3 +13,6 @@
 [submodule "sald/vendor/soil"]
 	path = sald/vendor/soil
 	url = https://github.com/littlstar/soil.git
+[submodule "saldGui/vendor/imgui"]
+	path = saldGui/vendor/imgui
+	url = https://github.com/ocornut/imgui.git
