@@ -11,6 +11,7 @@ This is just a recommendation, as any modern compiler can do the job well, but I
 ### Compile
 
     sudo apt install xorg-dev libglu1-mesa-dev
+	sudo apt install ninja-build
 
 ### Debug
 
