@@ -1,7 +1,29 @@
 #include "SandboxApp.h"
 
+#include "Layer.h"
+
+class ExampleLayer : public Sald::Layer
+{
+
+public:
+    ExampleLayer()
+        : Layer(" Example ")
+    {
+    }
+    void OnUpdate(GLfloat deltaTime) override
+    {
+        std::cout << " Example Layer :: Update - DeltaTime: " << deltaTime << std::endl;
+    }
+    void OnEvent(Sald::Event &event) override
+    {
+        // std::cout << event << std::endl;
+    }
+};
+
 SandboxApp::SandboxApp() : Sald::Application(1280, 720)
 {
+    PushLayer(new ExampleLayer());
+    /*
     m_MainWindow->SetCursorEnabled(false);
     m_MainWindow->SetVSync(true);
 
@@ -65,20 +87,19 @@ SandboxApp::SandboxApp() : Sald::Application(1280, 720)
     skyboxFaces.push_back("Textures/Skybox/cupertin-lake_ft.tga");
 
     skybox = Sald::Skybox(skyboxFaces);
+    */
 }
 
 SandboxApp::~SandboxApp()
 {
 }
 
+/*
 void SandboxApp::Run()
 {
     glm::mat4 projection = glm::perspective(glm::radians(60.0f), m_MainWindow->GetBufferWidth() / m_MainWindow->GetBufferHeight(), 0.1f, 100.0f);
     while (!m_MainWindow->GetShouldClose())
     {
-        GLfloat now = glfwGetTime(); // TODO: This fails here, do it inside Sald::Application when layers are implemented
-        deltaTime = now - lastTime;
-        lastTime = now;
         m_MainWindow->PollEvents();
 
         camera.KeyControl(m_MainWindow->GetKeys(), deltaTime);
@@ -97,7 +118,7 @@ void SandboxApp::Run()
         m_MainWindow->ShowFPS();
     }
 }
-
+*/
 void SandboxApp::CalcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount,
                                     unsigned int vLength, unsigned int normalOffset)
 {

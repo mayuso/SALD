@@ -1,11 +1,32 @@
 #include "Sandbox2DApp.h"
 
+class ExampleLayer : public Sald::Layer
+{
+
+public:
+    ExampleLayer()
+        : Layer(" Example ")
+    {
+    }
+    void OnUpdate(GLfloat deltaTime) override
+    {
+        std::cout << " Example Layer :: Update - DeltaTime: " << deltaTime << std::endl;
+    }
+    void OnEvent(Sald::Event &event) override
+    {
+        // std::cout << event << std::endl;
+    }
+};
+
 Sandbox2DApp::Sandbox2DApp() : Sald::Application(800, 600)
 {
+    PushLayer(new ExampleLayer());
+    /*
     m_MainWindow->SetCursorEnabled(false);
     m_MainWindow->SetVSync(true);
     CreateTriangle();
     CreateShaders();
+    */
 }
 
 Sandbox2DApp::~Sandbox2DApp()
@@ -38,7 +59,7 @@ void Sandbox2DApp::CreateShaders()
     shaderList.push_back(*shader1);
 }
 
-void Sandbox2DApp::Run()
+/*void Sandbox2DApp::Run()
 {
     // Loop until window closed
     while (!m_MainWindow->GetShouldClose())
@@ -96,4 +117,4 @@ void Sandbox2DApp::Run()
         m_MainWindow->SwapBuffers();
         m_MainWindow->ShowFPS();
     }
-}
+}*/

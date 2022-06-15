@@ -23,8 +23,6 @@ public:
     Sandbox2DApp(GLint windowWidth, GLint windowHeight);
     ~Sandbox2DApp();
 
-    void Run() override;
-
 private:
     void CreateTriangle();
     void CreateShaders();

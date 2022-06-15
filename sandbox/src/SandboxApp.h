@@ -33,8 +33,6 @@ public:
     SandboxApp(GLint windowWidth, GLint windowHeight);
     ~SandboxApp();
 
-    void Run() override;
-
 private:
     void CalcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount,
                             unsigned int vLength, unsigned int normalOffset);
@@ -68,8 +66,6 @@ private:
 
     unsigned int pointLightCount = 0;
     unsigned int spotLightCount = 0;
-
-    GLfloat deltaTime = 0.0f, lastTime = 0.0f;
 
     GLfloat blackhawkAngle = 0.0f;
 
