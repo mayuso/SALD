@@ -1,9 +1,9 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "CommonValues.h"
-#include "Shader.h"
-#include "Mesh.h"
+#include "Sald/CommonValues.h"
+#include "Sald/Shader.h"
+#include "Sald/Mesh.h"
 
 #include <glad/glad.h>
 

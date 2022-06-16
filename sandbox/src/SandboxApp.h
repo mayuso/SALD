@@ -1,19 +1,19 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Application.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "Renderer3D.h"
-#include "Camera.h"
-#include "Texture.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "Material.h"
-#include "Model.h"
-#include "Skybox.h"
-#include "TimeManager.h"
+#include "Sald/Application.h"
+#include "Sald/Mesh.h"
+#include "Sald/Shader.h"
+#include "Sald/Renderer3D.h"
+#include "Sald/Camera.h"
+#include "Sald/Texture.h"
+#include "Sald/DirectionalLight.h"
+#include "Sald/PointLight.h"
+#include "Sald/SpotLight.h"
+#include "Sald/Material.h"
+#include "Sald/Model.h"
+#include "Sald/Skybox.h"
+#include "Sald/TimeManager.h"
 
 #include <assimp/Importer.hpp>
 #include <glm/glm.hpp>

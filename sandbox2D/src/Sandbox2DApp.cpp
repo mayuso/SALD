@@ -1,5 +1,7 @@
 #include "Sandbox2DApp.h"
 
+#include "Sald/Log.h"
+
 class ExampleLayer : public Sald::Layer
 {
 
@@ -10,7 +12,7 @@ public:
     }
     void OnUpdate(GLfloat deltaTime) override
     {
-        std::cout << " Example Layer :: Update - DeltaTime: " << deltaTime << std::endl;
+        LOG("ExampleLayer :: OnUpdate - DeltaTime: %f", deltaTime);
     }
     void OnEvent(Sald::Event &event) override
     {

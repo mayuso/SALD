@@ -1,7 +1,7 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "CommonValues.h"
+#include "Sald/CommonValues.h"
 
 #include <glad/glad.h>
 

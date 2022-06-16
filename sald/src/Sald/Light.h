@@ -1,8 +1,8 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Shader.h"
-#include "ShadowMap.h"
+#include "Sald/Shader.h"
+#include "Sald/ShadowMap.h"
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>

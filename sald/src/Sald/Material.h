@@ -1,7 +1,7 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Shader.h"
+#include "Sald/Shader.h"
 
 #include <glad/glad.h>
 

@@ -1,7 +1,7 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Renderer.h"
+#include "Sald/Renderer.h"
 
 namespace Sald
 {

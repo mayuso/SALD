@@ -1,8 +1,8 @@
 #pragma once
-#include "sald_api.h"
-#include "Light.h"
-#include "CommonValues.h"
-#include "OmniShadowMap.h"
+#include "Sald/sald_api.h"
+#include "Sald/Light.h"
+#include "Sald/CommonValues.h"
+#include "Sald/OmniShadowMap.h"
 
 #include <vector>
 

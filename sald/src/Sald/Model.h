@@ -1,8 +1,8 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Mesh.h"
-#include "Texture.h"
+#include "Sald/Mesh.h"
+#include "Sald/Texture.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

@@ -1,7 +1,7 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Renderer.h"
+#include "Sald/Renderer.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>

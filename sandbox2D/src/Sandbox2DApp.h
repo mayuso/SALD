@@ -1,10 +1,10 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Application.h"
-#include "Renderer2D.h"
-#include "Mesh.h"
-#include "Shader.h"
+#include "Sald/Application.h"
+#include "Sald/Renderer2D.h"
+#include "Sald/Mesh.h"
+#include "Sald/Shader.h"
 
 #include <stdio.h>
 #include <string.h>

@@ -1,6 +1,6 @@
 #pragma once
-#include "sald_api.h"
-#include "Light.h"
+#include "Sald/sald_api.h"
+#include "Sald/Light.h"
 
 namespace Sald
 {

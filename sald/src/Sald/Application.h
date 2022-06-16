@@ -1,10 +1,10 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/sald_api.h"
 
-#include "Window.h"
-#include "Layer.h"
-#include "LayerStack.h"
-#include "Event.h"
+#include "Sald/Window.h"
+#include "Sald/Layer.h"
+#include "Sald/LayerStack.h"
+#include "Sald/Event.h"
 
 #include <memory>
 

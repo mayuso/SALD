@@ -2,8 +2,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 
-#include "Window.h"
-#include "Renderer.h"
+#include "Sald/Window.h"
+#include "Sald/Renderer.h"
 
 #include "Gui.h"
 
