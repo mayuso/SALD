@@ -1,8 +1,8 @@
 #pragma once
-#include "Sald/sald_api.h"
-#include "Sald/PointLight.h"
+#include "Core.h"
+#include "PointLight.h"
 
-#include "Sald/CommonValues.h"
+#include "CommonValues.h"
 
 namespace Sald
 {

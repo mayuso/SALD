@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Log.h"
 
 void Sald::Log::Debug(const char *format, ...)

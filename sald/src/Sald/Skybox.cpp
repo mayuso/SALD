@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Skybox.h"
 #include "Utils.h"
 Sald::Skybox::Skybox()

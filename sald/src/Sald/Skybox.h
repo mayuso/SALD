@@ -1,9 +1,9 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
-#include "Sald/CommonValues.h"
-#include "Sald/Shader.h"
-#include "Sald/Mesh.h"
+#include "CommonValues.h"
+#include "Shader.h"
+#include "Mesh.h"
 
 #include <glad/glad.h>
 
@@ -11,8 +11,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <vector>
-#include <string>
 
 namespace Sald
 {

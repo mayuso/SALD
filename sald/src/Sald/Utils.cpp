@@ -1,5 +1,6 @@
+#include "saldpch.h"
 #include "Utils.h"
-#include "stdio.h"
+#include <stdio.h>
 #include "GLFW/glfw3.h"
 
 void Sald::Utils::PrintInfo()

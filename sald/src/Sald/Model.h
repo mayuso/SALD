@@ -1,15 +1,13 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
-#include "Sald/Mesh.h"
-#include "Sald/Texture.h"
+#include "Mesh.h"
+#include "Texture.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <vector>
-#include <string>
 
 namespace Sald
 {

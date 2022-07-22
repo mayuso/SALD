@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Model.h"
 
 Sald::Model::Model()

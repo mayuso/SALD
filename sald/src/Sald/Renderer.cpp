@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Renderer.h"
 
 void Sald::Renderer::SetClearColor(float r, float g, float b, float a)

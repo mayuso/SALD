@@ -1,5 +1,5 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
 namespace Sald
 {

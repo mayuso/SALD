@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "PointLight.h"
 
 Sald::PointLight::PointLight() : Light()

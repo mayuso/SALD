@@ -1,35 +1,46 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
-#include "Sald/Window.h"
-#include "Sald/Layer.h"
-#include "Sald/LayerStack.h"
-#include "Sald/Event.h"
-
-#include <memory>
+#include "Window.h"
+#include "Layer.h"
+#include "LayerStack.h"
+#include "Sald/Events/Event.h"
+#include "Sald/Events/ApplicationEvent.h"
 
 namespace Sald
 {
+
     class Application
     {
     public:
         SALD_API Application();
         SALD_API Application(GLint windowWidth, GLint windowHeight);
-        SALD_API ~Application();
+
+        static Application& GetInstance() { return *m_Instance;}
 
         SALD_API void Run();
 
-
-        void OnEvent(Event& e);
+        void OnEvent(Event &e);
 
         SALD_API void PushLayer(Layer *layer);
         SALD_API void PushOverlay(Layer *layer);
 
-        std::unique_ptr<Window> m_MainWindow;
+        SALD_API bool OnWindowClose(WindowCloseEvent &e);
+        SALD_API bool OnWindowResize(WindowResizeEvent &e);
+
+        SALD_API std::shared_ptr<Window> GetWindow();
+
+        SALD_API ~Application();
+
+    public:
+        
 
     private:
+        static Application* m_Instance;
+        std::shared_ptr<Window> m_MainWindow;
         LayerStack m_LayerStack;
         bool m_Running = true;
+        bool m_Minimized = false;
         GLfloat deltaTime = 0.0f, lastTime = 0.0f;
     };
 

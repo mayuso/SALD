@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "OmniShadowMap.h"
 
 Sald::OmniShadowMap::OmniShadowMap() : ShadowMap() {}

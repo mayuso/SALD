@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "TimeManager.h"
 
 double Sald::TimeManager::CalculateFrameRate(bool writeToConsole = false)

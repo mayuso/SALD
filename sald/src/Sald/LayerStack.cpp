@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "LayerStack.h"
 
 Sald::LayerStack::LayerStack()
@@ -39,5 +40,4 @@ void Sald::LayerStack::PopOverlay(Layer *overlay)
     {
         m_Layers.erase(it);
     }
-        
 }

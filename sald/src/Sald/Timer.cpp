@@ -1,8 +1,7 @@
+#include "saldpch.h"
 #include "Timer.h"
 
 #include <stdio.h>
-
-
 
 Sald::Timer::Timer()
 {
@@ -21,5 +20,5 @@ void Sald::Timer::Stop()
 
 	auto duration = end - start;
 
-	printf("%ld μs\n", duration); 
+	printf("%lld μs\n", duration);
 }

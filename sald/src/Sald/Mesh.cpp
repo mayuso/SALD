@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Mesh.h"
 
 Sald::Mesh::Mesh()

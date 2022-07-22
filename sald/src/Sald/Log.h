@@ -1,9 +1,7 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
-#include <iostream>
 #include <limits>
-#include <string>
 #include <stdio.h>
 #include <stdarg.h>
 

@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Material.h"
 
 Sald::Material::Material()

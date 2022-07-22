@@ -7,6 +7,7 @@ file(GLOB HEADERS ${PROJECT_SOURCE_DIR}/src/Sald/*.h)
 add_library(${PROJECT_NAME} SHARED
     ${SOURCES}
 )
+target_precompile_headers(${PROJECT_NAME} PRIVATE src/saldpch.h)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/src

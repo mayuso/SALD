@@ -1,9 +1,7 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
-#include "Sald/Layer.h"
-
-#include <vector>
+#include "Layer.h"
 
 namespace Sald
 {

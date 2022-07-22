@@ -1,9 +1,12 @@
+#include "saldpch.h"
 #include "Camera.h"
+
+#include "Input.h"
 
 Sald::Camera::Camera()
 {
-
 }
+
 Sald::Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed)
 {
     m_Position = startPosition;
@@ -15,41 +18,51 @@ Sald::Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYa
     m_MovementSpeed = startMoveSpeed;
     m_TurnSpeed = startTurnSpeed;
 
-    Update();
+    MoveCamera();
 }
 
 Sald::Camera::~Camera()
 {
 }
 
-void Sald::Camera::KeyControl(bool *keys, GLfloat deltaTime)
+void Sald::Camera::OnUpdate(GLfloat deltaTime)
+{
+    const glm::vec2 &mouse{Input::GetMouseX(), Input::GetMouseY()};
+    glm::vec2 mouseMoveDelta = (mouse - m_InitialMousePosition) * 0.003f;
+    m_InitialMousePosition = mouse;
+
+    KeyControl(deltaTime);
+    MouseControl(mouseMoveDelta);
+}
+
+void Sald::Camera::KeyControl(GLfloat deltaTime)
 {
     GLfloat velocity = m_MovementSpeed * deltaTime;
-    if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
+    if (Input::IsKeyPressed(Key::W) || Input::IsKeyPressed(Key::Up))
     {
         m_Position += m_Front * velocity;
     }
-    if (keys[GLFW_KEY_S] || keys[GLFW_KEY_DOWN])
+    if (Input::IsKeyPressed(Key::S) || Input::IsKeyPressed(Key::Down))
     {
         m_Position -= m_Front * velocity;
     }
-    if (keys[GLFW_KEY_A] || keys[GLFW_KEY_LEFT])
+    if (Input::IsKeyPressed(Key::A) || Input::IsKeyPressed(Key::Left))
     {
         m_Position -= m_Right * velocity;
     }
-    if (keys[GLFW_KEY_D] || keys[GLFW_KEY_RIGHT])
+    if (Input::IsKeyPressed(Key::D) || Input::IsKeyPressed(Key::Right))
     {
         m_Position += m_Right * velocity;
     }
 }
-void Sald::Camera::MouseControl(GLfloat xChange, GLfloat yChange)
+void Sald::Camera::MouseControl(glm::vec2 mouseMoveDelta)
 {
-    xChange *= m_TurnSpeed;
+    mouseMoveDelta.x *= m_TurnSpeed;
     // TODO [MAR]: 0.5625 is 9/16, for 16:9 screens. If I wanna keep it: Make it configurable depending on the current window aspect ratio?
-    yChange *= m_TurnSpeed * 0.5625;
+    mouseMoveDelta.y *= m_TurnSpeed * 0.5625;
 
-    m_Yaw += xChange;
-    m_Pitch += yChange;
+    m_Yaw += mouseMoveDelta.x;
+    m_Pitch += mouseMoveDelta.y;
 
     if (m_Pitch > 89.9f)
     {
@@ -60,7 +73,7 @@ void Sald::Camera::MouseControl(GLfloat xChange, GLfloat yChange)
         m_Pitch = -89.9f;
     }
 
-    Update();
+    MoveCamera();
 }
 
 glm::vec3 Sald::Camera::GetCameraPosition()
@@ -75,10 +88,10 @@ glm::vec3 Sald::Camera::GetCameraDirection()
 glm::mat4 Sald::Camera::CalculateViewMatrix()
 {
     return glm::lookAt(m_Position, m_Position + m_Front, m_Up); // First person camera
-    //return glm::lookAt(m_Position, <object to look at>, m_Up); // Look at an object, AKA: third person camera
+    // return glm::lookAt(m_Position, <object to look at>, m_Up); // Look at an object, AKA: third person camera
 }
 
-void Sald::Camera::Update()
+void Sald::Camera::MoveCamera()
 {
     m_Front.x = cos(glm::radians(m_Yaw)) * cos(glm::radians(m_Pitch));
     m_Front.y = sin(glm::radians(m_Pitch));

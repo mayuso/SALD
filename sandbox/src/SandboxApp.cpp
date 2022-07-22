@@ -2,6 +2,7 @@
 
 #include "Sald/Layer.h"
 #include "Sald/Log.h"
+#include "Sald/Input.h"
 
 class ExampleLayer : public Sald::Layer
 {
@@ -17,7 +18,7 @@ public:
     }
     void OnEvent(Sald::Event &event) override
     {
-        // std::cout << event << std::endl;
+        //LOG("ExampleLayer :: OnUpdate - DeltaTime: %f", event);
     }
 };
 

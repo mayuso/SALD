@@ -1,8 +1,11 @@
+#include "saldpch.h"
 #include "Window.h"
 #include "Utils.h"
 #include "TimeManager.h"
 
-#include <string>
+#include "Sald/Events/ApplicationEvent.h"
+#include "Sald/Events/KeyEvent.h"
+#include "Sald/Events/MouseEvent.h"
 
 Sald::Window::Window()
     : m_Width(1280), m_Height(720), m_XChange(0.0f), m_YChange(0.0f)
@@ -59,9 +62,6 @@ int Sald::Window::Initialize()
     // Set context for GLEW to use
     glfwMakeContextCurrent(m_MainWindow);
 
-    // Handle key + Mmouse input
-    CreateCallbacks();
-
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         printf("Failed to initialize GLAD");
@@ -70,8 +70,92 @@ int Sald::Window::Initialize()
 
     glEnable(GL_DEPTH_TEST);
 
+    // Set GLFW callbacks
+    glfwSetWindowSizeCallback(m_MainWindow, [](GLFWwindow *window, int width, int height)
+                              {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        
+        data.Width = width;
+        data.Height = height;
+
+        WindowResizeEvent event(width, height);
+        data.EventCallback(event); });
+
+    glfwSetWindowCloseCallback(m_MainWindow, [](GLFWwindow *window)
+                               {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+        WindowCloseEvent event;
+        data.EventCallback(event); });
+
+    glfwSetKeyCallback(m_MainWindow, [](GLFWwindow *window, int key, int scancode, int action, int mods)
+                       {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        switch (action)
+        {
+            case GLFW_PRESS:
+            {
+                KeyPressedEvent event(key, 0);
+                data.EventCallback(event);
+                break;
+            }
+            case GLFW_RELEASE:
+            {
+                KeyReleasedEvent event(key);
+                data.EventCallback(event);
+                break;
+            }
+            case GLFW_REPEAT:
+            {
+                KeyPressedEvent event(key, true);
+                data.EventCallback(event);
+                break;
+            }
+        } });
+
+    glfwSetCharCallback(m_MainWindow, [](GLFWwindow *window, unsigned int keycode)
+                        {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        KeyTypedEvent event(keycode);
+        data.EventCallback(event); });
+
+    glfwSetMouseButtonCallback(m_MainWindow, [](GLFWwindow *window, int button, int action, int mods)
+                               {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        switch (action)
+        {
+            case GLFW_PRESS:
+            {
+                MouseButtonPressedEvent event(button);
+                data.EventCallback(event);
+                break;
+            }
+            case GLFW_RELEASE:
+            {
+                MouseButtonReleasedEvent event(button);
+                data.EventCallback(event);
+                break;
+            }
+        } });
+
+    glfwSetScrollCallback(m_MainWindow, [](GLFWwindow *window, double xOffset, double yOffset)
+                          {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        MouseScrolledEvent event((float)xOffset, (float)yOffset);
+        data.EventCallback(event); });
+
+    glfwSetCursorPosCallback(m_MainWindow, [](GLFWwindow *window, double xPos, double yPos)
+                             {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        MouseMovedEvent event((float)xPos, (float)yPos);
+        data.EventCallback(event); });
+
     // Setup Viewport size
-    HandleResize(m_MainWindow, m_BufferWidth, m_BufferHeight);
+    // HandleResize(m_MainWindow, m_BufferWidth, m_BufferHeight);
 
     glfwSetWindowUserPointer(m_MainWindow, this);
 
@@ -91,21 +175,6 @@ bool Sald::Window::GetShouldClose() { return glfwWindowShouldClose(m_MainWindow)
 bool *Sald::Window::GetKeys()
 {
     return m_Keys;
-}
-
-GLfloat Sald::Window::GetXChange()
-{
-    // Might be better to just return the value, without resetting it to 0; In case that is better, implement the getter in the header directly.
-    GLfloat theChange = m_XChange;
-    m_XChange = 0.0f;
-    return theChange;
-}
-GLfloat Sald::Window::GetYChange()
-{
-    // Might be better to just return the value, without resetting it to 0; In case that is better, implement the getter in the header directly.
-    GLfloat theChange = m_YChange;
-    m_YChange = 0.0f;
-    return theChange;
 }
 
 void Sald::Window::SwapBuffers() { glfwSwapBuffers(m_MainWindow); }
@@ -140,54 +209,11 @@ void Sald::Window::SetCursorEnabled(bool enabled)
     }
 }
 
-void Sald::Window::CreateCallbacks()
+void Sald::Window::SetEventCallback(const EventCallbackFn &callback)
 {
-    glfwSetFramebufferSizeCallback(m_MainWindow, HandleResize);
-    glfwSetKeyCallback(m_MainWindow, HandleKeys);
-    glfwSetCursorPosCallback(m_MainWindow, HandleMouse);
+    EventCallback = callback;
 }
 
-void Sald::Window::HandleResize(GLFWwindow *window, int width, int height)
+void Sald::Window::OnUpdate()
 {
-    Renderer::SetViewport(0, 0, width, height);
-}
-
-void Sald::Window::HandleKeys(GLFWwindow *window, int key, int code, int action, int mode)
-{
-    Sald::Window *auxWindow = static_cast<Sald::Window *>(glfwGetWindowUserPointer(window));
-
-    if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
-    {
-        glfwSetWindowShouldClose(window, GL_TRUE);
-    }
-    if (key >= 0 && key < (int)sizeof(m_Keys))
-    {
-        if (action == GLFW_PRESS)
-        {
-            auxWindow->m_Keys[key] = true;
-            printf("Pressed: %d\n", key);
-        }
-        else if (action == GLFW_RELEASE)
-        {
-            auxWindow->m_Keys[key] = false;
-            printf("Released: %d\n", key);
-        }
-    }
-}
-void Sald::Window::HandleMouse(GLFWwindow *window, double xPos, double yPos)
-{
-    Sald::Window *auxWindow = static_cast<Sald::Window *>(glfwGetWindowUserPointer(window));
-
-    if (auxWindow->m_MouseFirstMoved)
-    {
-        auxWindow->m_LastX = xPos;
-        auxWindow->m_LastY = yPos;
-        auxWindow->m_MouseFirstMoved = false;
-    }
-
-    auxWindow->m_XChange = xPos - auxWindow->m_LastX;
-    auxWindow->m_YChange = auxWindow->m_LastY - yPos;
-
-    auxWindow->m_LastX = xPos;
-    auxWindow->m_LastY = yPos;
 }

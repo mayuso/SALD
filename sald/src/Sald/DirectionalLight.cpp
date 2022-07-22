@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "DirectionalLight.h"
 
 Sald::DirectionalLight::DirectionalLight() : Light()

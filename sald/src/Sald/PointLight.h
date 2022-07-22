@@ -1,10 +1,8 @@
 #pragma once
-#include "Sald/sald_api.h"
-#include "Sald/Light.h"
-#include "Sald/CommonValues.h"
-#include "Sald/OmniShadowMap.h"
-
-#include <vector>
+#include "Core.h"
+#include "Light.h"
+#include "CommonValues.h"
+#include "OmniShadowMap.h"
 
 namespace Sald
 {

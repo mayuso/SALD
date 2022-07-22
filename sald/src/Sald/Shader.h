@@ -1,15 +1,12 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/glm.hpp>
 
 #include <stdio.h>
-#include <string>
-#include <iostream>
 #include <fstream>
-#include <vector>
 
 namespace Sald
 {

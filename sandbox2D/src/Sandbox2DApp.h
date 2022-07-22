@@ -1,5 +1,5 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Sald/Core.h"
 
 #include "Sald/Application.h"
 #include "Sald/Renderer2D.h"

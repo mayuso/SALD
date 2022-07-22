@@ -1,6 +1,6 @@
 #pragma once
-#include "Sald/sald_api.h"
-#include "Sald/Light.h"
+#include "Core.h"
+#include "Light.h"
 
 namespace Sald
 {
@@ -9,9 +9,9 @@ namespace Sald
     public:
         SALD_API DirectionalLight();
         SALD_API DirectionalLight(GLuint shadowWidth, GLuint shadowHeight,
-                                     GLfloat red, GLfloat green, GLfloat blue,
-                                     GLfloat aIntensity, GLfloat dIntensity,
-                                     GLfloat xDir, GLfloat yDir, GLfloat zDir);
+                                  GLfloat red, GLfloat green, GLfloat blue,
+                                  GLfloat aIntensity, GLfloat dIntensity,
+                                  GLfloat xDir, GLfloat yDir, GLfloat zDir);
         SALD_API ~DirectionalLight();
 
         SALD_API void UseLight(Shader *shader);

@@ -1,6 +1,6 @@
 #ifndef _TimeManager_H
 #define _TimeManager_H
-#include "Sald/sald_api.h"
+#include "Core.h"
 
 #include <chrono> // Used for the C++ 11 time functionality
 #include <thread> // used for the C++ 11 sleep functionality

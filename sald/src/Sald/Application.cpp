@@ -1,16 +1,23 @@
+#include "saldpch.h"
 #include "Application.h"
+#include "Input.h"
+
+Sald::Application* Sald::Application::m_Instance = nullptr;
 
 Sald::Application::Application()
 {
-    m_MainWindow = std::make_unique<Window>();
+    m_MainWindow = std::make_shared<Window>();
     m_MainWindow->Initialize();
+    m_MainWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 }
 
 Sald::Application::Application(GLint windowWidth, GLint windowHeight)
 {
-    m_MainWindow = std::make_unique<Window>(windowWidth, windowHeight);
+    m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
     m_MainWindow->Initialize();
+    m_MainWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 }
+
 
 Sald::Application::~Application()
 {
@@ -18,34 +25,56 @@ Sald::Application::~Application()
 
 void Sald::Application::Run()
 {
-    while (!m_MainWindow->GetShouldClose())
+    while (m_Running)
     {
         GLfloat now = glfwGetTime(); // TODO: This fails here, do it inside Sald::Application when layers are implemented
         deltaTime = now - lastTime;
         lastTime = now;
 
-        for (Layer *layer : m_LayerStack)
-            layer->OnUpdate(deltaTime);
-
-        // m_MainWindow->OnUpdate();
+        if (!m_Minimized)
+        {
+            for (Layer *layer : m_LayerStack)
+                layer->OnUpdate(deltaTime);
+        }
+        m_MainWindow->OnUpdate();
     }
 }
 
 void Sald::Application::OnEvent(Event &e)
 {
-    // EventDispatcher dispatcher(e);
-    // dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+    EventDispatcher dispatcher(e);
+    dispatcher.Dispatch<Sald::WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+    dispatcher.Dispatch<Sald::WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
-    // HZ_CORE_TRACE("{0}", e);
-
-    /*
     for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
     {
         (*--it)->OnEvent(e);
         if (e.Handled)
             break;
     }
-    */
+}
+bool Sald::Application::OnWindowClose(Sald::WindowCloseEvent &e)
+{
+    m_Running = false;
+    return true;
+}
+
+bool Sald::Application::OnWindowResize(Sald::WindowResizeEvent &e)
+{
+
+    if (e.GetWidth() == 0 || e.GetHeight() == 0)
+    {
+        m_Minimized = true;
+        return false;
+    }
+    m_Minimized = false;
+    Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+    return false;
+}
+
+std::shared_ptr<Sald::Window> Sald::Application::GetWindow()
+{
+    return m_MainWindow;
 }
 
 void Sald::Application::PushLayer(Layer *layer)

@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "Sprite.h"
 
 Sald::Sprite::Sprite()

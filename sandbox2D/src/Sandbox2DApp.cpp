@@ -16,7 +16,7 @@ public:
     }
     void OnEvent(Sald::Event &event) override
     {
-        // std::cout << event << std::endl;
+        //LOG("ExampleLayer :: OnUpdate - DeltaTime: %f", event);
     }
 };
 

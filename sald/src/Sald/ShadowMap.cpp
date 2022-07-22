@@ -1,3 +1,4 @@
+#include "saldpch.h"
 #include "ShadowMap.h"
 
 Sald::ShadowMap::ShadowMap()

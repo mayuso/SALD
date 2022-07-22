@@ -1,10 +1,9 @@
 #pragma once
-#include "Sald/sald_api.h"
+#include "Core.h"
 
-#include "Sald/Event.h"
+#include "Sald/Events/Event.h"
 
 #include <glad/glad.h>
-#include <iostream>
 
 namespace Sald
 {
