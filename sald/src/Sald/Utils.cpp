@@ -1,16 +1,19 @@
 #include "saldpch.h"
 #include "Utils.h"
-#include <stdio.h>
+#include "Log.h"
+
 #include "GLFW/glfw3.h"
+
+#include <stdio.h>
 
 void Sald::Utils::PrintInfo()
 {
-    printf("\n--- RENDERER INFO: ---\n");
-    printf("VENDOR: %s\n", glGetString(GL_VENDOR));
-    printf("RENDERER: %s\n", glGetString(GL_RENDERER));
-    printf("VERSION: %s\n", glGetString(GL_VERSION));
-    printf("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-    printf("----------------------\n\n");
+    SALD_CORE_LOG("--- RENDERER INFO: ---");
+    SALD_CORE_LOG("VENDOR: {0}", glGetString(GL_VENDOR));
+    SALD_CORE_LOG("RENDERER: {0}", glGetString(GL_RENDERER));
+    SALD_CORE_LOG("VERSION: {0}", glGetString(GL_VERSION));
+    SALD_CORE_LOG("GLSL: {0}", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    SALD_CORE_LOG("----------------------");
 }
 
 GLenum Sald::Utils::GetFormat(int bitDepth)
@@ -23,7 +26,7 @@ GLenum Sald::Utils::GetFormat(int bitDepth)
         return GL_RGBA;
     else
     {
-        printf("Can't detected the format of the image from the number of channels, defaulting to GL_RGBA");
+        SALD_CORE_WARN("Can't detected the format of the image from the number of channels, defaulting to GL_RGBA");
         return GL_RGBA;
     }
 }

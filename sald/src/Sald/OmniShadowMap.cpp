@@ -1,6 +1,8 @@
 #include "saldpch.h"
 #include "OmniShadowMap.h"
 
+#include "Log.h"
+
 Sald::OmniShadowMap::OmniShadowMap() : ShadowMap() {}
 
 Sald::OmniShadowMap::~OmniShadowMap()
@@ -38,7 +40,7 @@ bool Sald::OmniShadowMap::Init(unsigned int width, unsigned int height)
 
     if (Status != GL_FRAMEBUFFER_COMPLETE)
     {
-        printf("Framebuffer error: %i\n", Status);
+        SALD_CORE_ERROR("Framebuffer error: {0}", Status);
         return false;
     }
 

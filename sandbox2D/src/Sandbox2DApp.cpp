@@ -12,11 +12,11 @@ public:
     }
     void OnUpdate(GLfloat deltaTime) override
     {
-        LOG("ExampleLayer :: OnUpdate - DeltaTime: %f", deltaTime);
+        SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", deltaTime);
     }
     void OnEvent(Sald::Event &event) override
     {
-        //LOG("ExampleLayer :: OnUpdate - DeltaTime: %f", event);
+        //SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", event);
     }
 };
 

@@ -1,6 +1,8 @@
 #include "saldpch.h"
 #include "TimeManager.h"
 
+#include "Log.h"
+
 double Sald::TimeManager::CalculateFrameRate(bool writeToConsole = false)
 {
 	static double frameCount = 0.0f;
@@ -20,7 +22,7 @@ double Sald::TimeManager::CalculateFrameRate(bool writeToConsole = false)
 		currentFPS = frameCount * 1000 / (CurrentTime - timeSinceLastFPSRefresh);
 
 		if (writeToConsole)
-			fprintf(stdout, "Current Frames Per Second: %f ---- DeltaTime: %f\n", currentFPS, DeltaTime);
+			SALD_CORE_ERROR("Current Frames Per Second: {0} ---- DeltaTime: {1}", currentFPS, DeltaTime);
 
 		frameCount = 0;
 		timeSinceLastFPSRefresh = CurrentTime;

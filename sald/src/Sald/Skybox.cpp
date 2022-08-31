@@ -1,6 +1,8 @@
 #include "saldpch.h"
 #include "Skybox.h"
 #include "Utils.h"
+#include "Log.h"
+
 Sald::Skybox::Skybox()
 {
 }
@@ -21,7 +23,7 @@ Sald::Skybox::Skybox(std::vector<std::string> faceLocations)
         unsigned char *texData = stbi_load(faceLocations[i].c_str(), &width, &height, &bitDepth, 0);
         if (!texData)
         {
-            printf("Failed to find: %s\n", faceLocations[i].c_str());
+            SALD_CORE_ERROR("Failed to find: {0}", faceLocations[i].c_str());
             return;
         }
         GLenum format = Utils::GetFormat(bitDepth);

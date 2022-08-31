@@ -13,7 +13,7 @@
 #define SALD_API __attribute__((visibility("default")))
 #endif // defined(__GNUC__) || defined(LINUX)
 
-#endif // !defined(SALD_API)
+#endif // !defined(SALD_API)	
 
 #define BIT(x) (1 << x)
 

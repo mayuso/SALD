@@ -2,10 +2,13 @@
 #include "Application.h"
 #include "Input.h"
 
-Sald::Application* Sald::Application::m_Instance = nullptr;
+#include "Log.h"
+
+Sald::Application *Sald::Application::m_Instance = nullptr;
 
 Sald::Application::Application()
 {
+    Log::Init();
     m_MainWindow = std::make_shared<Window>();
     m_MainWindow->Initialize();
     m_MainWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
@@ -13,11 +16,11 @@ Sald::Application::Application()
 
 Sald::Application::Application(GLint windowWidth, GLint windowHeight)
 {
+    Log::Init();
     m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
     m_MainWindow->Initialize();
     m_MainWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
 }
-
 
 Sald::Application::~Application()
 {

@@ -16,9 +16,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/vendor/glm
     ${PROJECT_SOURCE_DIR}/vendor/stb
     ${PROJECT_SOURCE_DIR}/vendor/assimp/include
+    ${PROJECT_SOURCE_DIR}/vendor/spdlog/include
 )
 
-target_link_libraries(${PROJECT_NAME} PUBLIC glad glfw glm assimp)
+target_link_libraries(${PROJECT_NAME} PUBLIC glad glfw glm assimp spdlog)
 
 install(FILES ${HEADERS}
     DESTINATION ${PROJECT_SOURCE_DIR}/../release/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}/include/Sald

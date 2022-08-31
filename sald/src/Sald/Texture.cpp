@@ -3,6 +3,7 @@
 #include "saldpch.h"
 #include "Texture.h"
 #include "Utils.h"
+#include "Log.h"
 
 #include <cstring>
 
@@ -32,7 +33,7 @@ bool Sald::Texture::LoadTexture()
     unsigned char *texData = stbi_load(m_FileLocation, &m_Width, &m_Height, &m_BitDepth, 0);
     if (!texData)
     {
-        printf("Failed to find: %s\n", m_FileLocation);
+        SALD_CORE_ERROR("Failed to find: {0}", m_FileLocation);
         return false;
     }
 

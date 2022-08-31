@@ -1,8 +1,11 @@
 #include "saldpch.h"
 #include "Shader.h"
-#include <cstring>
 
-#include <glm/gtc/type_ptr.hpp>
+#include "Log.h"
+
+#include "glm/gtc/type_ptr.hpp"
+
+#include <cstring>
 
 Sald::Shader::Shader()
     : m_RendererID(0)
@@ -45,7 +48,7 @@ std::string Sald::Shader::ReadFile(const char *fileLocation)
 
     if (!fileStream.is_open())
     {
-        printf("Failed to read %s! File does not exist.", fileLocation);
+        SALD_CORE_ERROR("Failed to read {0}! File does not exist.", fileLocation);
         return "";
     }
 
@@ -82,7 +85,7 @@ void Sald::Shader::CompileShader(const char *vertexCode, const char *fragmentCod
     m_RendererID = glCreateProgram();
     if (!m_RendererID)
     {
-        printf("Error creating shader program!\n");
+        SALD_CORE_ERROR("Error creating shader program!");
         return;
     }
 
@@ -97,7 +100,7 @@ void Sald::Shader::CompileShader(const char *vertexCode, const char *geometryCod
     m_RendererID = glCreateProgram();
     if (!m_RendererID)
     {
-        printf("Error creating shader program!\n");
+        SALD_CORE_ERROR("Error creating shader program!");
         return;
     }
 
@@ -117,7 +120,7 @@ void Sald::Shader::Validate()
     if (!result)
     {
         glGetProgramInfoLog(m_RendererID, sizeof(eLog), NULL, eLog);
-        printf("Error validating program: '%s'\n", eLog);
+        SALD_CORE_ERROR("Error validating program: '{0}'", eLog);
         return;
     }
 }
@@ -132,7 +135,7 @@ void Sald::Shader::CompileProgram()
     if (!result)
     {
         glGetProgramInfoLog(m_RendererID, sizeof(eLog), NULL, eLog);
-        printf("Error linking program: '%s'\n", eLog);
+        SALD_CORE_ERROR("Error linking program: '{0}'", eLog);
         return;
     }
 }
@@ -157,7 +160,7 @@ void Sald::Shader::AddShader(GLuint theProgram, const char *shaderCode, GLenum s
     if (!result)
     {
         glGetProgramInfoLog(theShader, sizeof(eLog), NULL, eLog);
-        printf("Error compiling the %d shader: '%s'\n", shaderType, eLog);
+        SALD_CORE_ERROR("Error compiling the {0} shader: '{1}'", shaderType, eLog);
         return;
     }
 

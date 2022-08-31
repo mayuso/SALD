@@ -1,5 +1,6 @@
 #include "saldpch.h"
 #include "ShadowMap.h"
+#include "Log.h"
 
 Sald::ShadowMap::ShadowMap()
 {
@@ -34,7 +35,7 @@ bool Sald::ShadowMap::Init(GLuint width, GLuint height)
 
     if (Status != GL_FRAMEBUFFER_COMPLETE)
     {
-        printf("Framebuffer error: %i\n", Status);
+        SALD_CORE_ERROR("Framebuffer error: {0}", Status);
         return false;
     }
     DeleteFrameBuffer();

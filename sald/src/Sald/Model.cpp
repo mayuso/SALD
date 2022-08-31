@@ -1,6 +1,8 @@
 #include "saldpch.h"
 #include "Model.h"
 
+#include "Log.h"
+
 Sald::Model::Model()
 {
 }
@@ -30,7 +32,7 @@ void Sald::Model::LoadModel(const std::string &fileName)
 
     if (!scene)
     {
-        printf("Model (%s) failed to load: %s", fileName.c_str(), importer.GetErrorString());
+        SALD_CORE_ERROR("Model ({0}) failed to load: {1}", fileName.c_str(), importer.GetErrorString());
         return;
     }
     LoadNode(scene->mRootNode, scene);
@@ -108,7 +110,7 @@ void Sald::Model::LoadMaterials(const aiScene *scene)
                 m_TextureList[i] = new Texture(texPath.c_str());
                 if (!m_TextureList[i]->LoadTexture())
                 {
-                    printf("Failed to load texture at: %s\n", texPath.c_str());
+                    SALD_CORE_ERROR("Failed to load texture at: {0}", texPath.c_str());
                     delete m_TextureList[i];
                     m_TextureList[i] = nullptr;
                 }

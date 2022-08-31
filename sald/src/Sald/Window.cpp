@@ -3,6 +3,8 @@
 #include "Utils.h"
 #include "TimeManager.h"
 
+#include "Log.h"
+
 #include "Sald/Events/ApplicationEvent.h"
 #include "Sald/Events/KeyEvent.h"
 #include "Sald/Events/MouseEvent.h"
@@ -36,7 +38,7 @@ int Sald::Window::Initialize()
     // Initialize GLFW
     if (!glfwInit())
     {
-        printf("GLFW Initialization failed!");
+        SALD_CORE_ERROR("GLFW Initialization failed!");
         glfwTerminate();
         return 1;
     }
@@ -51,7 +53,7 @@ int Sald::Window::Initialize()
     m_MainWindow = glfwCreateWindow(m_Width, m_Height, "SALD - Main window", NULL, NULL);
     if (!m_MainWindow)
     {
-        printf("GLFW Window creation failed!");
+        SALD_CORE_ERROR("GLFW Window creation failed!");
         glfwTerminate();
         return 1;
     }
@@ -64,7 +66,7 @@ int Sald::Window::Initialize()
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        printf("Failed to initialize GLAD");
+        SALD_CORE_ERROR("Failed to initialize GLAD");
         return 1;
     }
 
@@ -74,7 +76,7 @@ int Sald::Window::Initialize()
     glfwSetWindowSizeCallback(m_MainWindow, [](GLFWwindow *window, int width, int height)
                               {
         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-        
+
         data.Width = width;
         data.Height = height;
 
