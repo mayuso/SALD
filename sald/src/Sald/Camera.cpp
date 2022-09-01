@@ -58,7 +58,7 @@ void Sald::Camera::KeyControl(GLfloat deltaTime)
 void Sald::Camera::MouseControl(glm::vec2 mouseMoveDelta)
 {
     mouseMoveDelta.x *= m_TurnSpeed;
-    // TODO [MAR]: 0.5625 is 9/16, for 16:9 screens. If I wanna keep it: Make it configurable depending on the current window aspect ratio?
+    // TODO: 0.5625 is 9/16, for 16:9 screens. If I wanna keep it: Make it configurable depending on the current window aspect ratio?
     mouseMoveDelta.y *= m_TurnSpeed * 0.5625;
 
     m_Yaw += mouseMoveDelta.x;

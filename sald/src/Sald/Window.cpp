@@ -10,8 +10,10 @@
 #include "Sald/Events/MouseEvent.h"
 
 Sald::Window::Window()
-    : m_Width(1280), m_Height(720), m_XChange(0.0f), m_YChange(0.0f)
+    : m_XChange(0.0f), m_YChange(0.0f)
 {
+    m_Data.Width = 1280;
+    m_Data.Height = 720;
     for (size_t i = 0; i < sizeof(m_Keys); ++i)
     {
         m_Keys[i] = 0;
@@ -19,8 +21,10 @@ Sald::Window::Window()
 }
 
 Sald::Window::Window(GLint windowWidth, GLint windowHeight)
-    : m_Width(windowWidth), m_Height(windowHeight), m_XChange(0.0f), m_YChange(0.0f)
+    : m_XChange(0.0f), m_YChange(0.0f)
 {
+    m_Data.Width = windowWidth;
+    m_Data.Height = windowHeight;
     for (size_t i = 0; i < sizeof(m_Keys); ++i)
     {
         m_Keys[i] = 0;
@@ -35,6 +39,8 @@ Sald::Window::~Window()
 
 int Sald::Window::Initialize()
 {
+    m_Data.Title = "SALD - Main window";
+
     // Initialize GLFW
     if (!glfwInit())
     {
@@ -50,7 +56,7 @@ int Sald::Window::Initialize()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // Allow forward compatibility
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    m_MainWindow = glfwCreateWindow(m_Width, m_Height, "SALD - Main window", NULL, NULL);
+    m_MainWindow = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), NULL, NULL);
     if (!m_MainWindow)
     {
         SALD_CORE_ERROR("GLFW Window creation failed!");
@@ -58,19 +64,15 @@ int Sald::Window::Initialize()
         return 1;
     }
 
+    m_Context = OpenGLContext::Create(m_MainWindow);
+    m_Context->Init();
+
     // Get Buffer size information
     glfwGetFramebufferSize(m_MainWindow, &m_BufferWidth, &m_BufferHeight);
 
-    // Set context for GLEW to use
-    glfwMakeContextCurrent(m_MainWindow);
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        SALD_CORE_ERROR("Failed to initialize GLAD");
-        return 1;
-    }
-
     glEnable(GL_DEPTH_TEST);
+
+    glfwSetWindowUserPointer(m_MainWindow, &m_Data);
 
     // Set GLFW callbacks
     glfwSetWindowSizeCallback(m_MainWindow, [](GLFWwindow *window, int width, int height)
@@ -81,13 +83,13 @@ int Sald::Window::Initialize()
         data.Height = height;
 
         WindowResizeEvent event(width, height);
-        data.EventCallback(event); });
+        data.eventCallback(event); });
 
     glfwSetWindowCloseCallback(m_MainWindow, [](GLFWwindow *window)
                                {
         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
         WindowCloseEvent event;
-        data.EventCallback(event); });
+        data.eventCallback(event); });
 
     glfwSetKeyCallback(m_MainWindow, [](GLFWwindow *window, int key, int scancode, int action, int mods)
                        {
@@ -98,19 +100,19 @@ int Sald::Window::Initialize()
             case GLFW_PRESS:
             {
                 KeyPressedEvent event(key, 0);
-                data.EventCallback(event);
+                data.eventCallback(event);
                 break;
             }
             case GLFW_RELEASE:
             {
                 KeyReleasedEvent event(key);
-                data.EventCallback(event);
+                data.eventCallback(event);
                 break;
             }
             case GLFW_REPEAT:
             {
                 KeyPressedEvent event(key, true);
-                data.EventCallback(event);
+                data.eventCallback(event);
                 break;
             }
         } });
@@ -120,7 +122,7 @@ int Sald::Window::Initialize()
         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
         KeyTypedEvent event(keycode);
-        data.EventCallback(event); });
+        data.eventCallback(event); });
 
     glfwSetMouseButtonCallback(m_MainWindow, [](GLFWwindow *window, int button, int action, int mods)
                                {
@@ -131,13 +133,13 @@ int Sald::Window::Initialize()
             case GLFW_PRESS:
             {
                 MouseButtonPressedEvent event(button);
-                data.EventCallback(event);
+                data.eventCallback(event);
                 break;
             }
             case GLFW_RELEASE:
             {
                 MouseButtonReleasedEvent event(button);
-                data.EventCallback(event);
+                data.eventCallback(event);
                 break;
             }
         } });
@@ -147,21 +149,14 @@ int Sald::Window::Initialize()
         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
         MouseScrolledEvent event((float)xOffset, (float)yOffset);
-        data.EventCallback(event); });
+        data.eventCallback(event); });
 
     glfwSetCursorPosCallback(m_MainWindow, [](GLFWwindow *window, double xPos, double yPos)
                              {
         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
         MouseMovedEvent event((float)xPos, (float)yPos);
-        data.EventCallback(event); });
-
-    // Setup Viewport size
-    // HandleResize(m_MainWindow, m_BufferWidth, m_BufferHeight);
-
-    glfwSetWindowUserPointer(m_MainWindow, this);
-
-    Sald::Utils::PrintInfo();
+        data.eventCallback(event); });
 
     return 0;
 }
@@ -179,13 +174,6 @@ bool *Sald::Window::GetKeys()
     return m_Keys;
 }
 
-void Sald::Window::SwapBuffers() { glfwSwapBuffers(m_MainWindow); }
-
-void Sald::Window::PollEvents()
-{
-    glfwPollEvents();
-}
-
 void Sald::Window::ShowFPS()
 {
     double fpsCount = TimeManager::Instance().CalculateFrameRate(false);
@@ -198,7 +186,15 @@ void Sald::Window::SetVSync(bool vSync)
         glfwSwapInterval(1);
     else
         glfwSwapInterval(0);
+
+    m_Data.VSync = vSync;
 }
+
+bool Sald::Window::GetVSync()
+{
+    return m_Data.VSync;
+}
+
 void Sald::Window::SetCursorEnabled(bool enabled)
 {
     if (enabled)
@@ -213,9 +209,12 @@ void Sald::Window::SetCursorEnabled(bool enabled)
 
 void Sald::Window::SetEventCallback(const EventCallbackFn &callback)
 {
-    EventCallback = callback;
+    m_Data.eventCallback = callback;
 }
 
 void Sald::Window::OnUpdate()
 {
+    glfwPollEvents();
+    m_Context->SwapBuffers();
+    ShowFPS();
 }

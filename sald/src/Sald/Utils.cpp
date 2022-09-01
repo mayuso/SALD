@@ -6,15 +6,6 @@
 
 #include <stdio.h>
 
-void Sald::Utils::PrintInfo()
-{
-    SALD_CORE_LOG("--- RENDERER INFO: ---");
-    SALD_CORE_LOG("VENDOR: {0}", glGetString(GL_VENDOR));
-    SALD_CORE_LOG("RENDERER: {0}", glGetString(GL_RENDERER));
-    SALD_CORE_LOG("VERSION: {0}", glGetString(GL_VERSION));
-    SALD_CORE_LOG("GLSL: {0}", glGetString(GL_SHADING_LANGUAGE_VERSION));
-    SALD_CORE_LOG("----------------------");
-}
 
 GLenum Sald::Utils::GetFormat(int bitDepth)
 {

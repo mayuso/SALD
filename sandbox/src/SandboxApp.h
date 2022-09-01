@@ -4,7 +4,6 @@
 #include "Sald/Application.h"
 #include "Sald/Mesh.h"
 #include "Sald/Shader.h"
-#include "Sald/Renderer3D.h"
 #include "Sald/Camera.h"
 #include "Sald/Texture.h"
 #include "Sald/DirectionalLight.h"
@@ -14,6 +13,7 @@
 #include "Sald/Model.h"
 #include "Sald/Skybox.h"
 #include "Sald/TimeManager.h"
+#include "Sald/Renderer3D.h"
 
 #include <assimp/Importer.hpp>
 #include <glm/glm.hpp>

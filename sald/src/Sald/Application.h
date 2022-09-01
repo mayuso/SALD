@@ -33,7 +33,7 @@ namespace Sald
         SALD_API ~Application();
 
     public:
-        
+
 
     private:
         static Application* m_Instance;

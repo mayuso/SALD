@@ -3,6 +3,7 @@
 #include "Sald/Layer.h"
 #include "Sald/Input.h"
 #include "Sald/Log.h"
+
 class ExampleLayer : public Sald::Layer
 {
 
@@ -13,11 +14,11 @@ public:
     }
     void OnUpdate(GLfloat deltaTime) override
     {
-        SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", deltaTime);
+        //SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", deltaTime);
     }
     void OnEvent(Sald::Event &event) override
     {
-        //SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", event);
+        SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", event);
     }
 };
 
@@ -210,7 +211,7 @@ void SandboxApp::CreateShaders()
     omniShadowShader.CreateFromFiles("Shaders/omni_directional_shadow_map.vert", "Shaders/omni_directional_shadow_map.geom", "Shaders/omni_directional_shadow_map.frag");
 }
 
-// TODO [MAR]: Shader Manager
+// TODO: Shader Manager
 /*
 So there are two ways to fix this:
 
@@ -308,7 +309,7 @@ void SandboxApp::OmniShadowMapPass(Sald::PointLight *light)
 void SandboxApp::RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
     Sald::Renderer3D::SetViewport(0, 0, 1280, 720);
-    Sald::Renderer3D::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    Sald::Renderer3D::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Sald::Renderer3D::Clear();
 
     skybox.DrawSkybox(viewMatrix, projectionMatrix);

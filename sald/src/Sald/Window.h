@@ -4,6 +4,8 @@
 #include "Renderer.h"
 #include "Sald/Events/Event.h"
 
+#include "OpenGLContext.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -25,12 +27,10 @@ namespace Sald
         SALD_API bool GetShouldClose();
 
         SALD_API bool *GetKeys();
-        SALD_API void SwapBuffers();
-
-        SALD_API void PollEvents();
 
         SALD_API void ShowFPS();
         SALD_API void SetVSync(bool vSync);
+        SALD_API bool GetVSync();
         SALD_API void SetCursorEnabled(bool enabled);
 
         using EventCallbackFn = std::function<void(Event &)>;
@@ -39,8 +39,8 @@ namespace Sald
 
     private:
         GLFWwindow *m_MainWindow;
+        std::unique_ptr<OpenGLContext> m_Context;
 
-        GLint m_Width, m_Height;
         GLint m_BufferWidth, m_BufferHeight;
 
         double m_LastFrameTime, m_FrameCount;
@@ -49,7 +49,6 @@ namespace Sald
 
         GLfloat m_LastX, m_LastY, m_XChange, m_YChange;
         bool m_MouseFirstMoved;
-        EventCallbackFn EventCallback;
 
         struct WindowData
         {
@@ -57,7 +56,7 @@ namespace Sald
             unsigned int Width, Height;
             bool VSync;
 
-            EventCallbackFn EventCallback;
+            EventCallbackFn eventCallback;
         };
 
         WindowData m_Data;

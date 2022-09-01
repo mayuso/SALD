@@ -11,7 +11,9 @@ Sald::Application::Application()
     Log::Init();
     m_MainWindow = std::make_shared<Window>();
     m_MainWindow->Initialize();
-    m_MainWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
+    m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+    m_MainWindow->SetCursorEnabled(true);
+    m_MainWindow->SetVSync(true);
 }
 
 Sald::Application::Application(GLint windowWidth, GLint windowHeight)
@@ -19,7 +21,9 @@ Sald::Application::Application(GLint windowWidth, GLint windowHeight)
     Log::Init();
     m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
     m_MainWindow->Initialize();
-    m_MainWindow->SetEventCallback(BIND_EVENT_FN(OnEvent));
+    m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+    m_MainWindow->SetCursorEnabled(true);
+    m_MainWindow->SetVSync(true);
 }
 
 Sald::Application::~Application()
@@ -30,7 +34,8 @@ void Sald::Application::Run()
 {
     while (m_Running)
     {
-        GLfloat now = glfwGetTime(); // TODO: This fails here, do it inside Sald::Application when layers are implemented
+
+        GLfloat now = glfwGetTime();
         deltaTime = now - lastTime;
         lastTime = now;
 
@@ -56,6 +61,7 @@ void Sald::Application::OnEvent(Event &e)
             break;
     }
 }
+
 bool Sald::Application::OnWindowClose(Sald::WindowCloseEvent &e)
 {
     m_Running = false;
