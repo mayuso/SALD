@@ -1,30 +1,7 @@
 #pragma once
-#include "sald_api.h"
+#include "Sald/Core.h"
 
-#include "Application.h"
-#include "Mesh.h"
-#include "Shader.h"
-#include "Renderer3D.h"
-#include "Camera.h"
-#include "Texture.h"
-#include "DirectionalLight.h"
-#include "PointLight.h"
-#include "SpotLight.h"
-#include "Material.h"
-#include "Model.h"
-#include "Skybox.h"
-#include "TimeManager.h"
-
-#include <assimp/Importer.hpp>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <stdio.h>
-#include <string.h>
-#include <cmath>
-#include <vector>
-#include <memory>
+#include "Sald/Application.h"
 
 class SandboxApp : public Sald::Application
 {
@@ -32,50 +9,4 @@ public:
     SandboxApp();
     SandboxApp(GLint windowWidth, GLint windowHeight);
     ~SandboxApp();
-
-    void Run() override;
-
-private:
-    void CalcAverageNormals(unsigned int *indices, unsigned int indiceCount, GLfloat *vertices, unsigned int verticeCount,
-                            unsigned int vLength, unsigned int normalOffset);
-    void CreateObjects();
-    void CreateShaders();
-    void RenderScene(Sald::Shader &currentShader);
-    void DirectionalShadowMapPass(Sald::DirectionalLight *light);
-    void OmniShadowMapPass(Sald::PointLight *light);
-    void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
-    void LightningPass();
-
-    Sald::Camera camera;
-
-    std::vector<Sald::Mesh *> meshList;
-    std::vector<Sald::Shader> shaderList;
-    Sald::Shader directionalShadowShader;
-    Sald::Shader omniShadowShader;
-
-    Sald::Material shinyMaterial;
-    Sald::Material dullMaterial;
-
-    Sald::Texture brickTexture, dirtTexture, plainTexture;
-
-    Sald::Model blackhawk, xwing;
-
-    Sald::DirectionalLight directionalLight;
-    Sald::PointLight pointLights[MAX_POINT_LIGHTS];
-    Sald::SpotLight spotLights[MAX_SPOT_LIGHTS];
-
-    Sald::Skybox skybox;
-
-    unsigned int pointLightCount = 0;
-    unsigned int spotLightCount = 0;
-
-    GLfloat deltaTime = 0.0f, lastTime = 0.0f;
-
-    GLfloat blackhawkAngle = 0.0f;
-
-    // Vertex Shader
-    const char *vShader = "Shaders/shader.vert";
-
-    // Fragment Shader
-    const char *fShader = "Shaders/shader.frag";
 };
