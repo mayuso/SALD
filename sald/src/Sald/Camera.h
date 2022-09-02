@@ -26,6 +26,8 @@ namespace Sald
 
         SALD_API glm::mat4 CalculateViewMatrix();
 
+        SALD_API float GetAspectRatio();
+
         SALD_API ~Camera();
 
     private:
@@ -38,6 +40,8 @@ namespace Sald
         glm::vec2 m_InitialMousePosition = {0.0f, 0.0f};
 
         void MoveCamera();
+
+        float m_ViewportWidth = 1280, m_ViewportHeight = 720;
     };
 
 }

@@ -16,7 +16,7 @@ namespace Sald
         SALD_API Application();
         SALD_API Application(GLint windowWidth, GLint windowHeight);
 
-        static Application& GetInstance() { return *m_Instance;}
+        static Application& GetInstance() { return *s_Instance;}
 
         SALD_API void Run();
 
@@ -36,7 +36,7 @@ namespace Sald
 
 
     private:
-        static Application* m_Instance;
+        static Application* s_Instance;
         std::shared_ptr<Window> m_MainWindow;
         LayerStack m_LayerStack;
         bool m_Running = true;

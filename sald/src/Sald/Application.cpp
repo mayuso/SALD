@@ -4,10 +4,14 @@
 
 #include "Log.h"
 
-Sald::Application *Sald::Application::m_Instance = nullptr;
+Sald::Application *Sald::Application::s_Instance = nullptr;
 
 Sald::Application::Application()
 {
+    if(s_Instance)
+        SALD_CORE_ERROR("Application already exists");
+    s_Instance = this;
+
     Log::Init();
     m_MainWindow = std::make_shared<Window>();
     m_MainWindow->Initialize();
@@ -18,6 +22,10 @@ Sald::Application::Application()
 
 Sald::Application::Application(GLint windowWidth, GLint windowHeight)
 {
+    if(s_Instance)
+        SALD_CORE_ERROR("Application already exists");
+    s_Instance = this;
+
     Log::Init();
     m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
     m_MainWindow->Initialize();
@@ -34,7 +42,6 @@ void Sald::Application::Run()
 {
     while (m_Running)
     {
-
         GLfloat now = glfwGetTime();
         deltaTime = now - lastTime;
         lastTime = now;

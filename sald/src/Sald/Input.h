@@ -13,9 +13,9 @@ namespace Sald
 	{
 	public:
 
-		static bool IsKeyPressed(KeyCode key);
+		SALD_API static bool IsKeyPressed(KeyCode key);
+		SALD_API static bool IsMouseButtonPressed(MouseCode button);
 
-		static bool IsMouseButtonPressed(MouseCode button);
 		static glm::vec2 GetMousePosition();
 		static float GetMouseX();
 		static float GetMouseY();

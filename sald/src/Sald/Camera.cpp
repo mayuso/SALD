@@ -28,7 +28,7 @@ Sald::Camera::~Camera()
 void Sald::Camera::OnUpdate(GLfloat deltaTime)
 {
     const glm::vec2 &mouse{Input::GetMouseX(), Input::GetMouseY()};
-    glm::vec2 mouseMoveDelta = (mouse - m_InitialMousePosition) * 0.003f;
+    glm::vec2 mouseMoveDelta = (mouse - m_InitialMousePosition) * 0.01f;
     m_InitialMousePosition = mouse;
 
     KeyControl(deltaTime);
@@ -58,9 +58,9 @@ void Sald::Camera::KeyControl(GLfloat deltaTime)
 void Sald::Camera::MouseControl(glm::vec2 mouseMoveDelta)
 {
     mouseMoveDelta.x *= m_TurnSpeed;
-    // TODO: 0.5625 is 9/16, for 16:9 screens. If I wanna keep it: Make it configurable depending on the current window aspect ratio?
-    mouseMoveDelta.y *= m_TurnSpeed * 0.5625;
-
+    // This makes vertical mouse movement less sensitive. Still not sure if it feels right.
+    // mouseMoveDelta.y *= -m_TurnSpeed * (m_ViewportHeight / m_ViewportWidth);
+    mouseMoveDelta.y *= -m_TurnSpeed;
     m_Yaw += mouseMoveDelta.x;
     m_Pitch += mouseMoveDelta.y;
 
@@ -100,4 +100,9 @@ void Sald::Camera::MoveCamera()
 
     m_Right = glm::normalize(glm::cross(m_Front, m_WorldUp));
     m_Up = glm::normalize(glm::cross(m_Right, m_Front));
+}
+
+float Sald::Camera::GetAspectRatio()
+{
+    return m_ViewportWidth / m_ViewportHeight;
 }
