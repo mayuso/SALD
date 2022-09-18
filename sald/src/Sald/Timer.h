@@ -9,8 +9,6 @@
 }
 */
 
-#include <chrono>
-
 namespace Sald
 {
 	class Timer

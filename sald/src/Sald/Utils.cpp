@@ -4,9 +4,6 @@
 
 #include "GLFW/glfw3.h"
 
-#include <stdio.h>
-
-
 GLenum Sald::Utils::GetFormat(int bitDepth)
 {
     if (bitDepth == 1)

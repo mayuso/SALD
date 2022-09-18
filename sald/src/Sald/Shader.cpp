@@ -5,8 +5,6 @@
 
 #include "glm/gtc/type_ptr.hpp"
 
-#include <cstring>
-
 Sald::Shader::Shader()
     : m_RendererID(0)
 {

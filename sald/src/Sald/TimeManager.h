@@ -2,9 +2,6 @@
 #define _TimeManager_H
 #include "Core.h"
 
-#include <chrono> // Used for the C++ 11 time functionality
-#include <thread> // used for the C++ 11 sleep functionality
-
 namespace Sald
 {
     class TimeManager

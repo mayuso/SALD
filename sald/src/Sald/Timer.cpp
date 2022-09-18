@@ -1,8 +1,6 @@
 #include "saldpch.h"
 #include "Timer.h"
 
-#include <stdio.h>
-
 #include "Log.h"
 
 Sald::Timer::Timer()

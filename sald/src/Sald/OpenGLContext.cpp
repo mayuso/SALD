@@ -3,7 +3,6 @@
 
 #include "Log.h"
 
-#include <memory>
 Sald::OpenGLContext::OpenGLContext(GLFWwindow *windowHandle)
     : m_WindowHandle(windowHandle)
 {

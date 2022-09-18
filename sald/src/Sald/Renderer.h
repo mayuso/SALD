@@ -1,9 +1,8 @@
 #pragma once
+#include "saldpch.h"
 #include "Core.h"
 
 #include <glad/glad.h>
-
-#include <cstdint>
 
 namespace Sald
 {

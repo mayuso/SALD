@@ -3,8 +3,6 @@
 
 #include <glad/glad.h>
 
-#include <stdio.h>
-
 namespace Sald
 {
     class ShadowMap

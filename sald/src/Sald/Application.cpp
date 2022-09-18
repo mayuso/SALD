@@ -8,7 +8,7 @@ Sald::Application *Sald::Application::s_Instance = nullptr;
 
 Sald::Application::Application()
 {
-    if(s_Instance)
+    if (s_Instance)
         SALD_CORE_ERROR("Application already exists");
     s_Instance = this;
 
@@ -22,7 +22,7 @@ Sald::Application::Application()
 
 Sald::Application::Application(GLint windowWidth, GLint windowHeight)
 {
-    if(s_Instance)
+    if (s_Instance)
         SALD_CORE_ERROR("Application already exists");
     s_Instance = this;
 

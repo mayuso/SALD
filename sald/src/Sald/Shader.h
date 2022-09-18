@@ -5,8 +5,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/glm.hpp>
 
-#include <stdio.h>
-#include <fstream>
 
 namespace Sald
 {
