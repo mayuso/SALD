@@ -17,6 +17,5 @@ class Sandbox2DApp : public Sald::Application
 {
 public:
     Sandbox2DApp();
-    Sandbox2DApp(GLint windowWidth, GLint windowHeight);
     ~Sandbox2DApp();
 };

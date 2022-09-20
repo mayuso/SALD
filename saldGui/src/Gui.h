@@ -1,4 +1,0 @@
-namespace Application
-{
-    void RenderUI();
-}

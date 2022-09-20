@@ -7,6 +7,5 @@ class SandboxApp : public Sald::Application
 {
 public:
     SandboxApp();
-    SandboxApp(GLint windowWidth, GLint windowHeight);
     ~SandboxApp();
 };

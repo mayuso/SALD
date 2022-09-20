@@ -26,9 +26,9 @@ void Sald::OpenGLContext::Init()
 
     SALD_CORE_LOG("----------------------");
     SALD_CORE_LOG("OpenGL Info:");
-    SALD_CORE_LOG("  Vendor: {0}", glGetString(GL_VENDOR));
-    SALD_CORE_LOG("  Renderer: {0}", glGetString(GL_RENDERER));
-    SALD_CORE_LOG("  Version: {0}", glGetString(GL_VERSION));
+    SALD_CORE_LOG("Vendor: {0}", glGetString(GL_VENDOR));
+    SALD_CORE_LOG("Renderer: {0}", glGetString(GL_RENDERER));
+    SALD_CORE_LOG("Version: {0}", glGetString(GL_VERSION));
     SALD_CORE_LOG("GLSL: {0}", glGetString(GL_SHADING_LANGUAGE_VERSION));
     SALD_CORE_LOG("----------------------");
 }
