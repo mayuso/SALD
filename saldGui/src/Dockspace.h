@@ -1,4 +1,0 @@
-namespace Dockspace
-{
-    void RenderUI();
-}
