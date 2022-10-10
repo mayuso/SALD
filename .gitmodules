@@ -13,9 +13,6 @@
 [submodule "sald/vendor/soil"]
 	path = sald/vendor/soil
 	url = https://github.com/littlstar/soil.git
-[submodule "saldGui/vendor/imgui"]
-	path = saldGui/vendor/imgui
-	url = https://github.com/ocornut/imgui.git
 [submodule "sald/vendor/spdlog"]
 	path = sald/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
