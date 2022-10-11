@@ -25,7 +25,7 @@ Sure
 
 ### 1.1) Should you use it?
 
-Probably not. This is a tiny project and other engines everything SALD does, but better, and even more. 
+Probably not. This is a tiny project and other engines do everything SALD does, but better, and even more. 
 
 I'd personally recommend Godot: [Website](https://godotengine.org/), [Repository](https://github.com/godotengine/godot)
  
