@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(sald)
 
-add_library(sald "")
+add_library(sald)
 
 add_subdirectory(src)
 

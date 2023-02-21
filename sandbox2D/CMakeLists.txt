@@ -6,9 +6,13 @@ if (UNIX)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath='$ORIGIN'")
 endif()
 
-file(GLOB SOURCES src/*.cpp)
-add_executable(${PROJECT_NAME}
-	${SOURCES}
+add_executable(${PROJECT_NAME})
+
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        src/main.cpp
+        src/Sandbox2DApp.cpp
+        src/Sandbox2DLayer.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -23,9 +27,5 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 install(DIRECTORY src/Shaders
-	DESTINATION ${PROJECT_SOURCE_DIR}/../release/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}
-)
-
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/../release/sald/${CMAKE_BUILD_TYPE}/lib/"
 	DESTINATION ${PROJECT_SOURCE_DIR}/../release/${PROJECT_NAME}/${CMAKE_BUILD_TYPE}
 )
