@@ -1,6 +1,6 @@
 #pragma once
-#include "saldpch.h"
-#include "../Core.h"
+#include <saldpch.h>
+#include "Sald/Core/Core.h"
 
 namespace Sald
 {

@@ -1,7 +1,5 @@
 #include "Sandbox2DLayer.h"
-#include "Sald/Renderer2D.h"
-
-#include "Sald/Log.h"
+#include "sald.h"
 
 Sandbox2DLayer::Sandbox2DLayer()
     : Layer(" Sandbox2DLayer ")

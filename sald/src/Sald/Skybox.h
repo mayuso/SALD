@@ -1,9 +1,10 @@
 #pragma once
-#include "Core.h"
+#include "Sald/Core/Core.h"
 
-#include "CommonValues.h"
-#include "Shader.h"
-#include "Mesh.h"
+#include "Sald/Utils/CommonValues.h"
+#include "Sald/Renderer/Shader.h"
+#include "Sald/Renderer/3D/Mesh.h"
+#include "Sald/Renderer/Texture.h"
 
 #include <glad/glad.h>
 
@@ -28,6 +29,7 @@ namespace Sald
         Shader *skyShader;
 
         GLuint textureId;
+        Sald::Texture texture;
     };
 
 }

@@ -16,6 +16,7 @@ add_subdirectory(sald/vendor/glad EXCLUDE_FROM_ALL)
 add_subdirectory(sald/vendor/glfw EXCLUDE_FROM_ALL)
 add_subdirectory(sald/vendor/glm EXCLUDE_FROM_ALL)
 add_subdirectory(sald/vendor/spdlog EXCLUDE_FROM_ALL)
+
 set(ASSIMP_BUILD_STATIC_LIB ON CACHE BOOL "Build library as static (.a)")
 set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "Build supplementary tools")
 set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "Build tests")

@@ -1,9 +1,5 @@
 #include "SandboxLayer.h"
-#include "Sald/Renderer.h"
-
-#include "Sald/Log.h"
-#include "Sald/Input.h"
-#include "Sald/KeyCodes.h"
+#include "sald.h"
 
 SandboxLayer::SandboxLayer()
     : Layer(" SandboxLayer ")

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Sald/Events/Event.h"
+#include <Sald/Events/Event.h>
 
 namespace Sald
 {

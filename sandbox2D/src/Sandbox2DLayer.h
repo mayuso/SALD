@@ -1,10 +1,5 @@
 #pragma once
-#include "Sald/Core.h"
-
-#include "Sald/Layer.h"
-#include "Sald/Events/Event.h"
-#include "Sald/Mesh.h"
-#include "Sald/Shader.h"
+#include "sald.h"
 
 class Sandbox2DLayer : public Sald::Layer
 {

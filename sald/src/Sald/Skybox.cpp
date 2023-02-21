@@ -1,7 +1,8 @@
 #include "saldpch.h"
 #include "Skybox.h"
-#include "Utils.h"
-#include "Log.h"
+#include "Sald/Utils/Utils.h"
+#include "Sald/Core/Log.h"
+
 
 Sald::Skybox::Skybox()
 {

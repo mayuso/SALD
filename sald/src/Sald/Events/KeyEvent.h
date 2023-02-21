@@ -1,7 +1,7 @@
 #pragma once
-#include "../Core.h"
+#include "Sald/Core/Core.h"
 #include "Sald/Events/Event.h"
-#include "../KeyCodes.h"
+#include "Sald/Core/KeyCodes.h"
 
 namespace Sald
 {

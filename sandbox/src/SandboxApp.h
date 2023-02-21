@@ -1,7 +1,7 @@
 #pragma once
-#include "Sald/Core.h"
+#include "Sald/Core/Core.h"
 
-#include "Sald/Application.h"
+#include "Sald/Core/Application.h"
 
 class SandboxApp : public Sald::Application
 {

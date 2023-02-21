@@ -1,23 +1,5 @@
 #pragma once
-#include "Sald/Core.h"
-
-#include "Sald/Layer.h"
-#include "Sald/Events/Event.h"
-#include "Sald/Mesh.h"
-#include "Sald/Shader.h"
-
-#include "Sald/Mesh.h"
-#include "Sald/Shader.h"
-#include "Sald/Camera.h"
-#include "Sald/Texture.h"
-#include "Sald/DirectionalLight.h"
-#include "Sald/PointLight.h"
-#include "Sald/SpotLight.h"
-#include "Sald/Material.h"
-#include "Sald/Model.h"
-#include "Sald/Skybox.h"
-#include "Sald/TimeManager.h"
-#include "Sald/Renderer3D.h"
+#include "sald.h"
 
 #include <assimp/Importer.hpp>
 #include <glm/glm.hpp>

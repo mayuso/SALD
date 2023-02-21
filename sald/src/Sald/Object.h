@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.h"
+#include "Sald/Core/Core.h"
 
-#include "Model.h"
+#include "Sald/Renderer/3D/Model.h"
 
 namespace Sald
 {

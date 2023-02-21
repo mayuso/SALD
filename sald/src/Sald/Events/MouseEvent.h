@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Sald/Events/Event.h"
-#include "../MouseCodes.h"
+#include "Sald/Core/MouseCodes.h"
 
 namespace Sald
 {
