@@ -40,7 +40,7 @@ target_sources(sald
         Sald/Utils/Timer.cpp
         
         Sald/Object.cpp
-        Sald/SkyBox.cpp      
+        Sald/Skybox.cpp      
 )
 
 target_include_directories(sald 
