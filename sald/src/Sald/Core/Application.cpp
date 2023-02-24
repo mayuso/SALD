@@ -11,8 +11,12 @@ Sald::Application::Application()
     if (s_Instance)
         SALD_CORE_ERROR("Application already exists");
     s_Instance = this;
-
+    
     Log::Init();
+
+    m_ShaderManager = new ShaderManager();
+    m_ShaderManager->Initialize();
+
     m_MainWindow = std::make_shared<Window>();
     m_MainWindow->Initialize();
     m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
@@ -27,6 +31,10 @@ Sald::Application::Application(GLint windowWidth, GLint windowHeight)
     s_Instance = this;
 
     Log::Init();
+
+    m_ShaderManager = new ShaderManager();
+    m_ShaderManager->Initialize();
+
     m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
     m_MainWindow->Initialize();
     m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
@@ -36,10 +44,13 @@ Sald::Application::Application(GLint windowWidth, GLint windowHeight)
 
 Sald::Application::~Application()
 {
+    if(m_ShaderManager)
+        delete m_ShaderManager;
 }
 
 void Sald::Application::Run()
 {
+
     while (m_Running)
     {
         GLfloat now = glfwGetTime();

@@ -12,7 +12,6 @@ Sald::Shader::Shader()
 
 Sald::Shader::~Shader()
 {
-    ClearShader();
 }
 
 void Sald::Shader::CreateFromFiles(const char *vertexLocation, const char *fragmentLocation)

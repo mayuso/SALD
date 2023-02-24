@@ -25,6 +25,7 @@ target_sources(sald
         Sald/Renderer/OpenGLContext.cpp
         Sald/Renderer/Renderer.cpp
         Sald/Renderer/Shader.cpp
+        Sald/Renderer/ShaderManager.cpp
         Sald/Renderer/Texture.cpp
 
         Sald/Renderer/2D/Renderer2D.cpp

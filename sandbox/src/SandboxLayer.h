@@ -26,7 +26,7 @@ private:
                             unsigned int vLength, unsigned int normalOffset);
     void CreateObjects();
     void CreateShaders();
-    void RenderScene(Sald::Shader &currentShader);
+    void RenderScene(Sald::Shader *currentShader);
     void DirectionalShadowMapPass(Sald::DirectionalLight *light);
     void OmniShadowMapPass(Sald::PointLight *light);
     void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix);
@@ -35,9 +35,6 @@ private:
     Sald::Camera m_Camera;
 
     std::vector<Sald::Mesh *> meshList;
-    std::vector<Sald::Shader> shaderList;
-    Sald::Shader directionalShadowShader;
-    Sald::Shader omniShadowShader;
 
     Sald::Material shinyMaterial;
     Sald::Material dullMaterial;

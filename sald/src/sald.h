@@ -33,6 +33,7 @@
 #include "Sald/Renderer/OpenGLContext.h"
 #include "Sald/Renderer/Renderer.h"
 #include "Sald/Renderer/Shader.h"
+#include "Sald/Renderer/ShaderManager.h"
 #include "Sald/Renderer/Texture.h"
 
 // --- Renderer2D ---

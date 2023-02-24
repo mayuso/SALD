@@ -29,9 +29,7 @@ void Sandbox2DLayer::CreateTriangle()
 
 void Sandbox2DLayer::CreateShaders()
 {
-    Sald::Shader *shader1 = new Sald::Shader();
-    shader1->CreateFromFiles(vShader, fShader);
-    shaderList.push_back(*shader1);
+    Sald::ShaderManager::NewShader(Sald::ShaderManager::COLOR, vShader, fShader);
 }
 
 void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
@@ -73,7 +71,7 @@ void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
         sizeDirection = !sizeDirection;
     }
 
-    shaderList[0].Bind();
+    Sald::ShaderManager::GetShader(Sald::ShaderManager::COLOR)->Bind();
 
     meshList[0]->RenderMesh();
 
@@ -81,7 +79,7 @@ void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
     model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 
-    shaderList[0].SetMat4("model", model);
+    Sald::ShaderManager::GetShader(Sald::ShaderManager::COLOR)->SetMat4("model", model);
 }
 
 void Sandbox2DLayer::OnEvent(Sald::Event &event)

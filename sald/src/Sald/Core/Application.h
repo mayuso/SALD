@@ -7,6 +7,8 @@
 #include "Sald/Events/Event.h"
 #include "Sald/Events/ApplicationEvent.h"
 
+#include "Sald/Renderer/ShaderManager.h"
+
 namespace Sald
 {
 
@@ -39,6 +41,9 @@ namespace Sald
         static Application* s_Instance;
         std::shared_ptr<Window> m_MainWindow;
         LayerStack m_LayerStack;
+
+        ShaderManager* m_ShaderManager;
+
         bool m_Running = true;
         bool m_Minimized = false;
         GLfloat deltaTime = 0.0f, lastTime = 0.0f;

@@ -32,7 +32,6 @@ private:
     float minSize = 0.1f;
 
     std::vector<Sald::Mesh *> meshList;
-    std::vector<Sald::Shader> shaderList;
 
     // Vertex Shader
     const char *vShader = "Shaders/shader.vert";
