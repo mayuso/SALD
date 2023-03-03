@@ -39,8 +39,6 @@ private:
     Sald::Material shinyMaterial;
     Sald::Material dullMaterial;
 
-    Sald::Texture brickTexture, dirtTexture, plainTexture;
-
     Sald::Model blackhawk, xwing;
 
     Sald::DirectionalLight directionalLight;

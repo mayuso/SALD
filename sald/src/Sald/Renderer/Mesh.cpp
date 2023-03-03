@@ -1,12 +1,13 @@
 #include "saldpch.h"
 #include "Sald/Renderer/Mesh.h"
 
-Sald::Mesh::Mesh()
+Sald::Mesh::Mesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numberOfIndices, bool vertices_includes_uv)
 {
     m_VAO = 0;
     m_VBO = 0;
     m_IBO = 0;
     m_IndexCount = 0;
+    CreateMesh(vertices, indices, numOfVertices, numberOfIndices, vertices_includes_uv);
 }
 
 Sald::Mesh::~Mesh()

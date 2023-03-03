@@ -9,21 +9,19 @@ SandboxLayer::SandboxLayer()
 
     m_Camera = Sald::Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), -90.0f, 0.0f, 10.0f, 10.0f);
 
-    brickTexture = Sald::Texture("Textures/brick.png");
-    brickTexture.LoadTexture();
-    dirtTexture = Sald::Texture("Textures/dirt.png");
-    dirtTexture.LoadTexture();
-    plainTexture = Sald::Texture("Textures/plain.png");
-    plainTexture.LoadTexture();
+    Sald::TextureManager::NewTexture("brick", "Textures/brick.png");
+    Sald::TextureManager::NewTexture("dirt", "Textures/dirt.png");
+    Sald::TextureManager::NewTexture("plain", "Textures/plain.png");
+
 
     shinyMaterial = Sald::Material(1.0f, 32.0f);
     dullMaterial = Sald::Material(0.3f, 4.0f);
 
     blackhawk = Sald::Model();
-    blackhawk.LoadModel("Models/uh60.obj");
+    blackhawk.Load("Models/uh60.obj");
 
     xwing = Sald::Model();
-    xwing.LoadModel("Models/x-wing.obj");
+    xwing.Load("Models/x-wing.obj");
 
     directionalLight = Sald::DirectionalLight(2048, 2048,
                                               1.0f, 0.53f, 0.3f,
@@ -95,16 +93,13 @@ void SandboxLayer::CreateObjects()
 
     CalcAverageNormals(indices, 12, vertices, 32, 8, 5);
 
-    Sald::Mesh *obj1 = new Sald::Mesh();
-    obj1->CreateMesh(vertices, indices, 32, 12, true);
+    Sald::Mesh *obj1 = new Sald::Mesh(vertices, indices, 32, 12, true);
     meshList.push_back(obj1);
 
-    Sald::Mesh *obj2 = new Sald::Mesh();
-    obj2->CreateMesh(vertices, indices, 32, 12, true);
+    Sald::Mesh *obj2 = new Sald::Mesh(vertices, indices, 32, 12, true);
     meshList.push_back(obj2);
 
-    Sald::Mesh *obj3 = new Sald::Mesh();
-    obj3->CreateMesh(floorVertices, floorIndices, 32, 6, true);
+    Sald::Mesh *obj3 = new Sald::Mesh(floorVertices, floorIndices, 32, 6, true);
     meshList.push_back(obj3);
 }
 
@@ -150,9 +145,9 @@ void SandboxLayer::CalcAverageNormals(unsigned int *indices, unsigned int indice
 
 void SandboxLayer::CreateShaders()
 {
-    Sald::ShaderManager::NewShader(Sald::ShaderManager::COLOR, vShader, fShader);
-    Sald::ShaderManager::NewShader(Sald::ShaderManager::DIRECTIONALLIGHT, "Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
-    Sald::ShaderManager::NewShader(Sald::ShaderManager::OMNIDIRECTIONALSHADOWMAP, "Shaders/omni_directional_shadow_map.vert", "Shaders/omni_directional_shadow_map.geom", "Shaders/omni_directional_shadow_map.frag");
+    Sald::ShaderManager::NewShader("shader", vShader, fShader);
+    Sald::ShaderManager::NewShader("light", "Shaders/directional_shadow_map.vert", "Shaders/directional_shadow_map.frag");
+    Sald::ShaderManager::NewShader("shadowMap", "Shaders/omni_directional_shadow_map.vert", "Shaders/omni_directional_shadow_map.geom", "Shaders/omni_directional_shadow_map.frag");
 }
 
 void SandboxLayer::OnUpdate(GLfloat deltaTime)
@@ -181,7 +176,7 @@ void SandboxLayer::LightningPass()
 
 void SandboxLayer::DirectionalShadowMapPass(Sald::DirectionalLight *light)
 {
-    Sald::Shader* directionalShadowShader = Sald::ShaderManager::GetShader(Sald::ShaderManager::DIRECTIONALLIGHT);
+    Sald::Shader* directionalShadowShader = Sald::ShaderManager::GetShader("light");
     directionalShadowShader->Bind();
 
     light->GetShadowMap()->CreateFrameBuffer();
@@ -196,7 +191,7 @@ void SandboxLayer::DirectionalShadowMapPass(Sald::DirectionalLight *light)
 
 void SandboxLayer::OmniShadowMapPass(Sald::PointLight *light)
 {
-    Sald::Shader* omniShadowShader = Sald::ShaderManager::GetShader(Sald::ShaderManager::OMNIDIRECTIONALSHADOWMAP);
+    Sald::Shader* omniShadowShader = Sald::ShaderManager::GetShader("shadowMap");
     omniShadowShader->Bind();
     light->GetShadowMap()->CreateFrameBuffer();
 
@@ -218,7 +213,7 @@ void SandboxLayer::RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
     skybox.DrawSkybox(viewMatrix, projectionMatrix);
 
-    Sald::Shader* shader = Sald::ShaderManager::GetShader(Sald::ShaderManager::COLOR);
+    Sald::Shader* shader = Sald::ShaderManager::GetShader("shader");
     shader->Bind();
 
     shader->SetMat4("projection", projectionMatrix);
@@ -251,7 +246,7 @@ void SandboxLayer::RenderScene(Sald::Shader *currentShader)
     model = glm::translate(model, glm::vec3(0.0f, 1.0f, -4.0f));
     // model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
     currentShader->SetMat4("model", model);
-    brickTexture.UseTexture();
+    Sald::TextureManager::GetTexture("brick")->Use();
     shinyMaterial.UseMaterial(currentShader);
     meshList[0]->RenderMesh();
 
@@ -259,7 +254,7 @@ void SandboxLayer::RenderScene(Sald::Shader *currentShader)
     model = glm::translate(model, glm::vec3(-4.0f, 1.0f, -4.0f));
     // model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
     currentShader->SetMat4("model", model);
-    dirtTexture.UseTexture();
+    Sald::TextureManager::GetTexture("dirt")->Use();
     dullMaterial.UseMaterial(currentShader);
     meshList[1]->RenderMesh();
 
@@ -277,20 +272,20 @@ void SandboxLayer::RenderScene(Sald::Shader *currentShader)
     model = glm::scale(model, glm::vec3(0.4f, 0.4f, 0.4f));
     currentShader->SetMat4("model", model);
     shinyMaterial.UseMaterial(currentShader);
-    blackhawk.RenderModel();
+    blackhawk.Render();
 
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(-7.0f, 1.0f, 10.0f));
     model = glm::scale(model, glm::vec3(0.006f, 0.006f, 0.006f));
     currentShader->SetMat4("model", model);
     shinyMaterial.UseMaterial(currentShader);
-    xwing.RenderModel();
+    xwing.Render();
 
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
     // model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
     currentShader->SetMat4("model", model);
-    dirtTexture.UseTexture();
+    Sald::TextureManager::GetTexture("dirt")->Use();
     shinyMaterial.UseMaterial(currentShader);
     meshList[2]->RenderMesh();
 }

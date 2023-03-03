@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "SaldGui Debug",
+            "name": "sald-Breakout Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/release/SaldGui/Debug/SaldGui",
+            "program": "${workspaceFolder}/release/sald-breakout/Debug/sald-breakout",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/release/SaldGui/Debug",
+            "cwd": "${workspaceFolder}/release/sald-breakout/Debug",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -24,13 +24,13 @@
             ]
         },
         {
-            "name": "(Windows) SaldGui Debug",
+            "name": "(Windows) sald-breakout Debug",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/release/SaldGui/Debug/SaldGui.exe",
+            "program": "${workspaceFolder}/release/sald-breakout/Debug/sald-breakout.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/release/SaldGui/Debug",
+            "cwd": "${workspaceFolder}/release/sald-breakout/Debug",
             "environment": [],
             "console": "externalTerminal"
         },

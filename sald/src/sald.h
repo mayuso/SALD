@@ -11,13 +11,11 @@
 #include "Sald/Core/MouseCodes.h"
 #include "Sald/Core/Window.h"
 
-
 // --- Events ---
 #include "Sald/Events/ApplicationEvent.h"
 #include "Sald/Events/Event.h"
 #include "Sald/Events/KeyEvent.h"
 #include "Sald/Events/MouseEvent.h"
-
 
 // --- Light ---
 #include "Sald/Light/DirectionalLight.h"
@@ -35,6 +33,7 @@
 #include "Sald/Renderer/Shader.h"
 #include "Sald/Renderer/ShaderManager.h"
 #include "Sald/Renderer/Texture.h"
+#include "Sald/Renderer/TextureManager.h"
 
 // --- Renderer2D ---
 #include "Sald/Renderer/2D/Renderer2D.h"
@@ -47,7 +46,6 @@
 
 // --- Camera ---
 #include "Sald/Scene/Camera.h"
-
 
 // --- Utils ---
 #include "Sald/Utils/CommonValues.h"

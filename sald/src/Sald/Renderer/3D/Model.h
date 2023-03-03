@@ -8,7 +8,6 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-
 namespace Sald
 {
     class Model
@@ -16,9 +15,9 @@ namespace Sald
     public:
         SALD_API Model();
         SALD_API ~Model();
-        SALD_API void LoadModel(const std::string &fileName);
-        SALD_API void RenderModel();
-        SALD_API void ClearModel();
+        SALD_API void Load(const std::string &fileName);
+        SALD_API void Render();
+        SALD_API void Clear();
 
     private:
         void LoadNode(aiNode *node, const aiScene *scene);

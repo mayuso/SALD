@@ -12,7 +12,6 @@ namespace Sald
         SALD_API ~Object();
 
     private:
-        Model *m_Model;
     };
 
 }

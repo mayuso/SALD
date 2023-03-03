@@ -3,7 +3,6 @@
 #include "Sald/Utils/Utils.h"
 #include "Sald/Core/Log.h"
 
-
 Sald::Skybox::Skybox()
 {
 }
@@ -69,8 +68,7 @@ Sald::Skybox::Skybox(std::vector<std::string> faceLocations)
         -1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
         1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 
-    skyMesh = new Mesh();
-    skyMesh->CreateMesh(skyboxVertices, skyboxIndices, 64, 36, true);
+    skyMesh = new Mesh(skyboxVertices, skyboxIndices, 64, 36, true);
 }
 
 void Sald::Skybox::DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)

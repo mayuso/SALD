@@ -1,7 +1,8 @@
 #pragma once
 #include "Sald/Core/Core.h"
-
 #include "Sald/Renderer/Shader.h"
+
+#include <map>
 
 namespace Sald
 {
@@ -11,21 +12,11 @@ namespace Sald
         SALD_API ShaderManager();
         SALD_API ~ShaderManager();
 
-        SALD_API enum ShaderType
-        {
-            COLOR,
-            DIRECTIONALLIGHT, 
-            OMNIDIRECTIONALSHADOWMAP,
-            SKYBOX,
-            COUNT
-        };
-        SALD_API void Initialize();
-        SALD_API static void NewShader(ShaderType type, const char* vertexFileName, const char* fragmentFileName);
-        SALD_API static void NewShader(ShaderType type, const char* vertexFileName, const char* geometryFileName, const char* fragmentFileName);
-        SALD_API static Shader* GetShader(ShaderType type);
+        SALD_API static void NewShader(std::string id, const char *vertexFileName, const char *fragmentFileName);
+        SALD_API static void NewShader(std::string id, const char *vertexFileName, const char *geometryFileName, const char *fragmentFileName);
+        SALD_API static Shader *GetShader(std::string id);
 
     private:
-        static Shader** m_Shaders;
-        
+        static std::map<std::string, Sald::Shader*> m_Shaders;
     };
 }

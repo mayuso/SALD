@@ -11,7 +11,7 @@ Sald::Model::~Model()
 {
 }
 
-void Sald::Model::RenderModel()
+void Sald::Model::Render()
 {
     for (size_t i = 0; i < m_MeshList.size(); i++)
     {
@@ -19,13 +19,13 @@ void Sald::Model::RenderModel()
 
         if (materialIndex < m_TextureList.size() && m_TextureList[materialIndex])
         {
-            m_TextureList[materialIndex]->UseTexture();
+            m_TextureList[materialIndex]->Use();
         }
         m_MeshList[i]->RenderMesh();
     }
 }
 
-void Sald::Model::LoadModel(const std::string &fileName)
+void Sald::Model::Load(const std::string &fileName)
 {
     Assimp::Importer importer;
     const aiScene *scene = importer.ReadFile(fileName, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
@@ -78,8 +78,7 @@ void Sald::Model::LoadMesh(aiMesh *mesh, const aiScene *scene)
         }
     }
 
-    Mesh *newMesh = new Mesh();
-    newMesh->CreateMesh(&vertices[0], &indices[0], vertices.size(), indices.size(), true);
+    Mesh *newMesh = new Mesh(&vertices[0], &indices[0], vertices.size(), indices.size(), true);
     m_MeshList.push_back(newMesh);
     m_MeshToTex.push_back(mesh->mMaterialIndex);
 }
@@ -108,23 +107,20 @@ void Sald::Model::LoadMaterials(const aiScene *scene)
                 std::string texPath = std::string("Textures/") + fileName;
 
                 m_TextureList[i] = new Texture(texPath.c_str());
-                if (!m_TextureList[i]->LoadTexture())
-                {
-                    SALD_CORE_ERROR("Failed to load texture at: {0}", texPath.c_str());
-                    delete m_TextureList[i];
-                    m_TextureList[i] = nullptr;
-                }
+                // TODO: Check if loaded correctly, and delete if not:
+                // delete m_TextureList[i];
+                // m_TextureList[i] = nullptr;
+                
             }
         }
         if (!m_TextureList[i])
         {
             m_TextureList[i] = new Texture("Textures/plain.png");
-            m_TextureList[i]->LoadTexture();
         }
     }
 }
 
-void Sald::Model::ClearModel()
+void Sald::Model::Clear()
 {
     for (size_t i = 0; i < m_MeshList.size(); i++)
     {

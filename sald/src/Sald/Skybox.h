@@ -29,7 +29,6 @@ namespace Sald
         Shader *skyShader;
 
         GLuint textureId;
-        Sald::Texture texture;
     };
 
 }

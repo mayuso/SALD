@@ -22,14 +22,13 @@ void Sandbox2DLayer::CreateTriangle()
         1.0f, -1.0f, 0.0f,
         0.0f, 1.0f, 0.0f};
 
-    Sald::Mesh *obj1 = new Sald::Mesh();
-    obj1->CreateMesh(vertices, indices, 12, 12, false);
+    Sald::Mesh *obj1 = new Sald::Mesh(vertices, indices, 12, 12, false);
     meshList.push_back(obj1);
 }
 
 void Sandbox2DLayer::CreateShaders()
 {
-    Sald::ShaderManager::NewShader(Sald::ShaderManager::COLOR, vShader, fShader);
+    Sald::ShaderManager::NewShader("shader", vShader, fShader);
 }
 
 void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
@@ -71,7 +70,7 @@ void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
         sizeDirection = !sizeDirection;
     }
 
-    Sald::ShaderManager::GetShader(Sald::ShaderManager::COLOR)->Bind();
+    Sald::ShaderManager::GetShader("shader")->Bind();
 
     meshList[0]->RenderMesh();
 
@@ -79,7 +78,7 @@ void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
     model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
     model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
 
-    Sald::ShaderManager::GetShader(Sald::ShaderManager::COLOR)->SetMat4("model", model);
+    Sald::ShaderManager::GetShader("shader")->SetMat4("model", model);
 }
 
 void Sandbox2DLayer::OnEvent(Sald::Event &event)
