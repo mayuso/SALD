@@ -12,7 +12,7 @@ GameObject2D::~GameObject2D()
 {
 }
 
-void GameObject2D::Draw(Sald::Sprite &renderer)
+void GameObject2D::Draw(Sald::SpriteRenderer &renderer)
 {
     renderer.Draw(this->m_Texture, this->Position, this->Size, this->Rotation, this->Color);
 }

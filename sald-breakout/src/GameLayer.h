@@ -33,6 +33,6 @@ public:
     void OnUpdate(GLfloat deltaTime) override;
     void OnEvent(Sald::Event &event) override;
 
-    Sald::Sprite *m_SpriteRenderer;
+    Sald::SpriteRenderer *m_SpriteRenderer;
     GameObject2D *player;
 };

@@ -1,20 +1,20 @@
 #include "saldpch.h"
-#include "Sprite.h"
+#include "SpriteRenderer.h"
 
 using namespace Sald;
 
-Sprite::Sprite(Shader *shader)
+SpriteRenderer::SpriteRenderer(Shader *shader)
 {
     m_Shader = shader;
     CreateSprite();
 }
 
-Sprite::~Sprite()
+SpriteRenderer::~SpriteRenderer()
 {
     glDeleteVertexArrays(1, &m_VAO);
 }
 
-void Sprite::CreateSprite()
+void SpriteRenderer::CreateSprite()
 {
     // configure VAO/VBO
     unsigned int VBO;
@@ -41,7 +41,7 @@ void Sprite::CreateSprite()
     glBindVertexArray(0);
 }
 
-void Sprite::Draw(Texture *texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color)
+void SpriteRenderer::Draw(Texture *texture, glm::vec2 position, glm::vec2 size, float rotate, glm::vec3 color)
 {
     m_Shader->Bind();
     glm::mat4 model = glm::mat4(1.0f);

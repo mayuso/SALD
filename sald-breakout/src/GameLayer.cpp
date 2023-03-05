@@ -17,7 +17,7 @@ GameLayer::GameLayer()
     ShaderManager::GetShader("sprite")->SetMat4("projection", projection);
 
     // set render-specific controls
-    m_SpriteRenderer = new Sprite(ShaderManager::GetShader("sprite"));
+    m_SpriteRenderer = new SpriteRenderer(ShaderManager::GetShader("sprite"));
     // load textures
 
     Sald::TextureManager::NewTexture("background", "Textures/background.jpg");

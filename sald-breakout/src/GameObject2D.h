@@ -20,5 +20,5 @@ public:
     Sald::Texture* m_Texture;
 
     // draw sprite
-    virtual void Draw(Sald::Sprite &renderer);
+    virtual void Draw(Sald::SpriteRenderer &renderer);
 };

@@ -15,7 +15,7 @@ public:
     // loads level from file
     void Load(const char *file, unsigned int levelWidth, unsigned int levelHeight);
     // render level
-    void Draw(Sald::Sprite &renderer);
+    void Draw(Sald::SpriteRenderer &renderer);
     // check if the level is completed (all non-solid tiles are destroyed)
     bool IsCompleted();
 private:

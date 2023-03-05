@@ -37,7 +37,7 @@
 
 // --- Renderer2D ---
 #include "Sald/Renderer/2D/Renderer2D.h"
-#include "Sald/Renderer/2D/Sprite.h"
+#include "Sald/Renderer/2D/SpriteRenderer.h"
 
 // --- Renderer3D ---
 #include "Sald/Renderer/3D/Renderer3D.h"

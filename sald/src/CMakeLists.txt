@@ -29,7 +29,7 @@ target_sources(sald
     Sald/Renderer/TextureManager.cpp
 
     Sald/Renderer/2D/Renderer2D.cpp
-    Sald/Renderer/2D/Sprite.cpp
+    Sald/Renderer/2D/SpriteRenderer.cpp
 
     Sald/Renderer/3D/Renderer3D.cpp
     Sald/Renderer/3D/Model.cpp
