@@ -70,6 +70,7 @@ int Sald::Window::Initialize()
     // Get Buffer size information
     glfwGetFramebufferSize(m_MainWindow, &m_BufferWidth, &m_BufferHeight);
 
+    // TODO: This line breaks 2D Z ordering
     glEnable(GL_DEPTH_TEST);
 
     glfwSetWindowUserPointer(m_MainWindow, &m_Data);

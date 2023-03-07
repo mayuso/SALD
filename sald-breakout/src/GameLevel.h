@@ -9,7 +9,7 @@ public:
     GameLevel();
     ~GameLevel();
     // level state
-    std::vector<GameObject2D> Bricks;
+    std::vector<GameObject2D> m_Bricks;
     // constructor
 
     // loads level from file
@@ -20,6 +20,6 @@ public:
     bool IsCompleted();
 private:
     // initialize level from tile data
-    void init(std::vector<std::vector<unsigned int>> tileData,
+    void Initialize(std::vector<std::vector<unsigned int>> tileData,
               unsigned int levelWidth, unsigned int levelHeight);
 };

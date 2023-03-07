@@ -13,7 +13,7 @@ GameLevel::~GameLevel()
 void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int levelHeight)
 {
     // clear old data
-    this->Bricks.clear();
+    m_Bricks.clear();
     // load from file
     unsigned int tileCode;
     GameLevel level;
@@ -31,26 +31,26 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
             tileData.push_back(row);
         }
         if (tileData.size() > 0)
-            this->init(tileData, levelWidth, levelHeight);
+            Initialize(tileData, levelWidth, levelHeight);
     }
 }
 
 void GameLevel::Draw(Sald::SpriteRenderer &renderer)
 {
-    for (GameObject2D &tile : this->Bricks)
+    for (GameObject2D &tile : m_Bricks)
         if (!tile.Destroyed)
             tile.Draw(renderer);
 }
 
 bool GameLevel::IsCompleted()
 {
-    for (GameObject2D &tile : this->Bricks)
+    for (GameObject2D &tile : m_Bricks)
         if (!tile.IsSolid && !tile.Destroyed)
             return false;
     return true;
 }
 
-void GameLevel::init(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight)
+void GameLevel::Initialize(std::vector<std::vector<unsigned int>> tileData, unsigned int levelWidth, unsigned int levelHeight)
 {
     // calculate dimensions
     unsigned int height = tileData.size();
@@ -68,9 +68,9 @@ void GameLevel::init(std::vector<std::vector<unsigned int>> tileData, unsigned i
                 glm::vec2 size(unit_width, unit_height);
                 GameObject2D obj(pos, size, Sald::TextureManager::GetTexture("block_solid"), glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = true;
-                this->Bricks.push_back(obj);
+                m_Bricks.push_back(obj);
             }
-            else if (tileData[y][x] > 1)	// non-solid; now determine its color based on level data
+            else if (tileData[y][x] > 1) // non-solid; now determine its color based on level data
             {
                 glm::vec3 color = glm::vec3(1.0f); // original: white
                 if (tileData[y][x] == 2)
@@ -84,7 +84,7 @@ void GameLevel::init(std::vector<std::vector<unsigned int>> tileData, unsigned i
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                this->Bricks.push_back(GameObject2D(pos, size, Sald::TextureManager::GetTexture("block"), color));
+                m_Bricks.push_back(GameObject2D(pos, size, Sald::TextureManager::GetTexture("block"), color));
             }
         }
     }
