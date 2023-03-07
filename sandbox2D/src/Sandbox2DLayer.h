@@ -15,7 +15,7 @@ private:
     void CreateShaders();
 
     // Window dimensions
-    const float toRadians = 3.14159265f / 180.0f;
+    //const float toRadians = 3.14159265f / 180.0f;
 
     GLuint VBO, VAO, IBO, shader, uniformModel;
 
@@ -31,11 +31,7 @@ private:
     float maxSize = 0.8f;
     float minSize = 0.1f;
 
-    std::vector<Sald::Mesh *> meshList;
+    //std::vector<Sald::Mesh *> meshList;
 
-    // Vertex Shader
-    const char *vShader = "Shaders/shader.vert";
-
-    // Fragment Shader
-    const char *fShader = "Shaders/shader.frag";
+    Sald::SpriteRenderer *m_SpriteRenderer;
 };

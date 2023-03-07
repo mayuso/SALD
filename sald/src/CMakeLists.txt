@@ -20,7 +20,7 @@ target_sources(sald
     Sald/Light/SpotLight.cpp
 
     Sald/Renderer/Material.cpp
-    Sald/Renderer/Mesh.cpp
+
     Sald/Renderer/OpenGLContext.cpp
     Sald/Renderer/Renderer.cpp
     Sald/Renderer/Shader.cpp
@@ -31,8 +31,9 @@ target_sources(sald
     Sald/Renderer/2D/Renderer2D.cpp
     Sald/Renderer/2D/SpriteRenderer.cpp
 
-    Sald/Renderer/3D/Renderer3D.cpp
+    Sald/Renderer/3D/Mesh.cpp
     Sald/Renderer/3D/Model.cpp
+    Sald/Renderer/3D/Renderer3D.cpp
 
     Sald/Scene/Camera.cpp
 

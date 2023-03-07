@@ -1,6 +1,7 @@
 #include "saldpch.h"
 #include "SpriteRenderer.h"
 
+#include "Sald/Core/Log.h"
 using namespace Sald;
 
 SpriteRenderer::SpriteRenderer(Shader *shader)

@@ -1,7 +1,7 @@
 #pragma once
 #include "Sald/Core/Core.h"
 
-#include "Sald/Renderer/Mesh.h"
+#include "Sald/Renderer/3D/Mesh.h"
 #include "Sald/Renderer/Texture.h"
 
 #include <assimp/Importer.hpp>

@@ -4,13 +4,16 @@
 Sandbox2DLayer::Sandbox2DLayer()
     : Layer(" Sandbox2DLayer ")
 {
-    CreateTriangle();
-    CreateShaders();
+    Sald::ShaderManager::NewShader("sprite", "Shaders/sprite.vert", "Shaders/sprite.frag");
+    Sald::ShaderManager::NewShader("shader_old", "Shaders/shader_old.vert", "Shaders/shader_old.frag");
+    Sald::TextureManager::NewTexture("triangle", "Textures/triangle.png");
+    m_SpriteRenderer = new Sald::SpriteRenderer(Sald::ShaderManager::GetShader("sprite"));
+    // CreateTriangle();
 }
 
 void Sandbox2DLayer::CreateTriangle()
 {
-    unsigned int indices[] = {
+    /*unsigned int indices[] = {
         0, 3, 1,
         1, 3, 2,
         2, 3, 0,
@@ -23,12 +26,7 @@ void Sandbox2DLayer::CreateTriangle()
         0.0f, 1.0f, 0.0f};
 
     Sald::Mesh *obj1 = new Sald::Mesh(vertices, indices, 12, 12, false);
-    meshList.push_back(obj1);
-}
-
-void Sandbox2DLayer::CreateShaders()
-{
-    Sald::ShaderManager::NewShader("shader", vShader, fShader);
+    meshList.push_back(obj1);*/
 }
 
 void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
@@ -50,7 +48,7 @@ void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
         direction = !direction;
     }
 
-    curAngle += 0.01f;
+    curAngle += 1.0f;
     if (curAngle >= 360)
     {
         curAngle -= 360;
@@ -70,20 +68,12 @@ void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
         sizeDirection = !sizeDirection;
     }
 
-    Sald::ShaderManager::GetShader("shader")->Bind();
-
-    meshList[0]->RenderMesh();
-
-    glm::mat4 model(1.0f);
-    model = glm::rotate(model, curAngle * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-
-    Sald::ShaderManager::GetShader("shader")->SetMat4("model", model);
+    m_SpriteRenderer->Draw(Sald::TextureManager::GetTexture("triangle"), glm::vec2(0.0f, 0.0f), glm::vec2(0.5f, 0.5f), curAngle);
 }
 
 void Sandbox2DLayer::OnEvent(Sald::Event &event)
 {
-    SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", event);
+    // SALD_LOG("ExampleLayer :: OnUpdate - DeltaTime: {0}", event);
 }
 
 Sandbox2DLayer::~Sandbox2DLayer()

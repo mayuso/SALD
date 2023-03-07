@@ -27,7 +27,6 @@
 
 // --- Renderer ---
 #include "Sald/Renderer/Material.h"
-#include "Sald/Renderer/Mesh.h"
 #include "Sald/Renderer/OpenGLContext.h"
 #include "Sald/Renderer/Renderer.h"
 #include "Sald/Renderer/Shader.h"
@@ -40,9 +39,9 @@
 #include "Sald/Renderer/2D/SpriteRenderer.h"
 
 // --- Renderer3D ---
-#include "Sald/Renderer/3D/Renderer3D.h"
-
+#include "Sald/Renderer/3D/Mesh.h"
 #include "Sald/Renderer/3D/Model.h"
+#include "Sald/Renderer/3D/Renderer3D.h"
 
 // --- Camera ---
 #include "Sald/Scene/Camera.h"

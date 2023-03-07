@@ -11,7 +11,7 @@ Sald::Texture::Texture(const char *fileLocation)
     m_Width = 0;
     m_Height = 0;
     m_BitDepth = 0;
-    if(!Load(fileLocation))
+    if (!Load(fileLocation))
     {
         SALD_CORE_ERROR("Failed to load texture at: {0}", fileLocation);
     }
@@ -34,14 +34,14 @@ bool Sald::Texture::Load(const char *fileLocation)
 
     glBindTexture(GL_TEXTURE_2D, m_TextureID);
 
-    GLenum format = Utils::GetFormat(m_BitDepth);
-    glTexImage2D(GL_TEXTURE_2D, 0, format, m_Width, m_Height, 0, format, GL_UNSIGNED_BYTE, texData);
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
+
+    GLenum format = Utils::GetFormat(m_BitDepth);
+    glTexImage2D(GL_TEXTURE_2D, 0, format, m_Width, m_Height, 0, format, GL_UNSIGNED_BYTE, texData);
+
     glGenerateMipmap(GL_TEXTURE_2D);
 
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -52,7 +52,6 @@ bool Sald::Texture::Load(const char *fileLocation)
 
 void Sald::Texture::Use()
 {
-    //glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, m_TextureID);
 }
 

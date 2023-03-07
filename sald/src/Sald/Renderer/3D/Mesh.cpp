@@ -1,5 +1,5 @@
 #include "saldpch.h"
-#include "Sald/Renderer/Mesh.h"
+#include "Sald/Renderer/3D/Mesh.h"
 
 Sald::Mesh::Mesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numberOfIndices, bool vertices_includes_uv)
 {

@@ -3,7 +3,6 @@
 
 #include "Sald/Renderer/Shader.h"
 #include "Sald/Renderer/Texture.h"
-#include "Sald/Renderer/Mesh.h"
 
 namespace Sald
 {
