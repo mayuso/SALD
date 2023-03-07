@@ -13,7 +13,6 @@ SandboxLayer::SandboxLayer()
     Sald::TextureManager::NewTexture("dirt", "Textures/dirt.png");
     Sald::TextureManager::NewTexture("plain", "Textures/plain.png");
 
-
     shinyMaterial = Sald::Material(1.0f, 32.0f);
     dullMaterial = Sald::Material(0.3f, 4.0f);
 
@@ -176,7 +175,7 @@ void SandboxLayer::LightningPass()
 
 void SandboxLayer::DirectionalShadowMapPass(Sald::DirectionalLight *light)
 {
-    Sald::Shader* directionalShadowShader = Sald::ShaderManager::GetShader("light");
+    Sald::Shader *directionalShadowShader = Sald::ShaderManager::GetShader("light");
     directionalShadowShader->Bind();
 
     light->GetShadowMap()->CreateFrameBuffer();
@@ -191,7 +190,7 @@ void SandboxLayer::DirectionalShadowMapPass(Sald::DirectionalLight *light)
 
 void SandboxLayer::OmniShadowMapPass(Sald::PointLight *light)
 {
-    Sald::Shader* omniShadowShader = Sald::ShaderManager::GetShader("shadowMap");
+    Sald::Shader *omniShadowShader = Sald::ShaderManager::GetShader("shadowMap");
     omniShadowShader->Bind();
     light->GetShadowMap()->CreateFrameBuffer();
 
@@ -213,7 +212,7 @@ void SandboxLayer::RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
     skybox.DrawSkybox(viewMatrix, projectionMatrix);
 
-    Sald::Shader* shader = Sald::ShaderManager::GetShader("shader");
+    Sald::Shader *shader = Sald::ShaderManager::GetShader("shader");
     shader->Bind();
 
     shader->SetMat4("projection", projectionMatrix);
@@ -230,6 +229,8 @@ void SandboxLayer::RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
     directionalLight.GetShadowMap()->Read(GL_TEXTURE2);
 
+    // 0 is Skybox, 1 is Texture and 2 is DirectionalShadowMap
+    // TODO: Learn how to do this properly, this should probably be done automatically inside the library. 
     shader->SetTexture(1);
     shader->SetDirectionalShadowMap(2);
     glm::vec3 lowerLight = m_Camera.GetCameraPosition();

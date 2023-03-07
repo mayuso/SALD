@@ -13,6 +13,7 @@ Sald::Model::~Model()
 
 void Sald::Model::Render()
 {
+    glActiveTexture(GL_TEXTURE1);
     for (size_t i = 0; i < m_MeshList.size(); i++)
     {
         unsigned int materialIndex = m_MeshToTex[i];
@@ -110,7 +111,6 @@ void Sald::Model::LoadMaterials(const aiScene *scene)
                 // TODO: Check if loaded correctly, and delete if not:
                 // delete m_TextureList[i];
                 // m_TextureList[i] = nullptr;
-                
             }
         }
         if (!m_TextureList[i])

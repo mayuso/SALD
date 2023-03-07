@@ -24,15 +24,14 @@ Sald::Texture::~Texture()
 
 bool Sald::Texture::Load(const char *fileLocation)
 {
-    glGenTextures(1, &m_TextureID);
-    glBindTexture(GL_TEXTURE_2D, m_TextureID);
-
     unsigned char *texData = stbi_load(fileLocation, &m_Width, &m_Height, &m_BitDepth, 0);
     if (!texData)
     {
         SALD_CORE_ERROR("Failed to find: {0}", fileLocation);
         return false;
     }
+    glGenTextures(1, &m_TextureID);
+    glBindTexture(GL_TEXTURE_2D, m_TextureID);
 
     GLenum format = Utils::GetFormat(m_BitDepth);
     glTexImage2D(GL_TEXTURE_2D, 0, format, m_Width, m_Height, 0, format, GL_UNSIGNED_BYTE, texData);
