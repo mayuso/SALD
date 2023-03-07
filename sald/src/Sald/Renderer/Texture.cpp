@@ -15,7 +15,6 @@ Sald::Texture::Texture(const char *fileLocation)
     {
         SALD_CORE_ERROR("Failed to load texture at: {0}", fileLocation);
     }
-    glGenTextures(1, &m_TextureID);
 }
 
 Sald::Texture::~Texture()
@@ -25,6 +24,9 @@ Sald::Texture::~Texture()
 
 bool Sald::Texture::Load(const char *fileLocation)
 {
+    glGenTextures(1, &m_TextureID);
+    glBindTexture(GL_TEXTURE_2D, m_TextureID);
+
     unsigned char *texData = stbi_load(fileLocation, &m_Width, &m_Height, &m_BitDepth, 0);
     if (!texData)
     {
@@ -32,19 +34,15 @@ bool Sald::Texture::Load(const char *fileLocation)
         return false;
     }
 
-    glBindTexture(GL_TEXTURE_2D, m_TextureID);
+    GLenum format = Utils::GetFormat(m_BitDepth);
+    glTexImage2D(GL_TEXTURE_2D, 0, format, m_Width, m_Height, 0, format, GL_UNSIGNED_BYTE, texData);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    GLenum format = Utils::GetFormat(m_BitDepth);
-    glTexImage2D(GL_TEXTURE_2D, 0, format, m_Width, m_Height, 0, format, GL_UNSIGNED_BYTE, texData);
-
     glGenerateMipmap(GL_TEXTURE_2D);
-
-    glBindTexture(GL_TEXTURE_2D, 0);
 
     stbi_image_free(texData);
     return true;
