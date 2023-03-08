@@ -4,7 +4,7 @@
 #include "Sald/Renderer/Renderer.h"
 #include "Sald/Events/Event.h"
 
-#include "Sald/Renderer/OpenGLContext.h"
+#include "Sald/Renderer/GraphicsContext.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -20,7 +20,7 @@ namespace Sald
         SALD_API Window(GLint windowWidth, GLint windowHeight);
         SALD_API ~Window();
 
-        SALD_API int Initialize();
+        SALD_API int Init();
         SALD_API GLFWwindow *GetWindow();
         SALD_API GLfloat GetBufferWidth();
         SALD_API GLfloat GetBufferHeight();
@@ -39,7 +39,7 @@ namespace Sald
 
     private:
         GLFWwindow *m_MainWindow;
-        std::unique_ptr<OpenGLContext> m_Context;
+        std::unique_ptr<GraphicsContext> m_Context;
 
         GLint m_BufferWidth, m_BufferHeight;
 

@@ -15,10 +15,15 @@ namespace Sald
     class Application
     {
     public:
-        SALD_API Application();
-        SALD_API Application(GLint windowWidth, GLint windowHeight);
+        enum class Dimensions
+        {
+            Two = 2,
+            Three = 3
+        };
+        SALD_API Application(GLint windowWidth, GLint windowHeight, Dimensions dimensionNumber);
+        SALD_API ~Application();
 
-        static Application& GetInstance() { return *s_Instance;}
+        static Application &GetInstance() { return *s_Instance; }
 
         SALD_API void Run();
 
@@ -32,17 +37,13 @@ namespace Sald
 
         SALD_API std::shared_ptr<Window> GetWindow();
 
-        SALD_API ~Application();
-
-    public:
-
-
     private:
-        static Application* s_Instance;
+        Application();
+        static Application *s_Instance;
         std::shared_ptr<Window> m_MainWindow;
         LayerStack m_LayerStack;
 
-        ShaderManager* m_ShaderManager;
+        ShaderManager *m_ShaderManager;
 
         bool m_Running = true;
         bool m_Minimized = false;

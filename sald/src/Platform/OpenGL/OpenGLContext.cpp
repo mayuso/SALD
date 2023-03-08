@@ -1,17 +1,11 @@
 #include "saldpch.h"
-#include "Sald/Renderer/OpenGLContext.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include "Sald/Core/Log.h"
 
 Sald::OpenGLContext::OpenGLContext(GLFWwindow *windowHandle)
     : m_WindowHandle(windowHandle)
 {
-}
-
-std::unique_ptr<Sald::OpenGLContext> Sald::OpenGLContext::Create(void *window)
-{
-
-    return std::make_unique<OpenGLContext>(static_cast<GLFWwindow *>(window));
 }
 
 void Sald::OpenGLContext::Init()

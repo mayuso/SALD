@@ -27,21 +27,18 @@
 
 // --- Renderer ---
 #include "Sald/Renderer/Material.h"
-#include "Sald/Renderer/OpenGLContext.h"
-#include "Sald/Renderer/Renderer.h"
+#include "Sald/Renderer/RenderCommand.h"
 #include "Sald/Renderer/Shader.h"
 #include "Sald/Renderer/ShaderManager.h"
 #include "Sald/Renderer/Texture.h"
 #include "Sald/Renderer/TextureManager.h"
 
 // --- Renderer2D ---
-#include "Sald/Renderer/2D/Renderer2D.h"
 #include "Sald/Renderer/2D/SpriteRenderer.h"
 
 // --- Renderer3D ---
 #include "Sald/Renderer/3D/Mesh.h"
 #include "Sald/Renderer/3D/Model.h"
-#include "Sald/Renderer/3D/Renderer3D.h"
 
 // --- Camera ---
 #include "Sald/Scene/Camera.h"
@@ -53,6 +50,5 @@
 #include "Sald/Utils/Timer.h"
 
 // --- REST --- (Still need to organize these)
-
 #include "Sald/Object.h"
 #include "Sald/Skybox.h"

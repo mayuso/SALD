@@ -206,9 +206,9 @@ void SandboxLayer::OmniShadowMapPass(Sald::PointLight *light)
 
 void SandboxLayer::RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
-    Sald::Renderer3D::SetViewport(0, 0, 1280, 720);
-    Sald::Renderer3D::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    Sald::Renderer3D::Clear();
+    Sald::RenderCommand::SetViewport(0, 0, 1280, 720);
+    Sald::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    Sald::RenderCommand::Clear();
 
     skybox.DrawSkybox(viewMatrix, projectionMatrix);
 

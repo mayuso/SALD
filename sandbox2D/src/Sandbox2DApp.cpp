@@ -3,7 +3,7 @@
 
 #include "Sald/Core/Log.h"
 
-Sandbox2DApp::Sandbox2DApp() : Sald::Application(800, 600)
+Sandbox2DApp::Sandbox2DApp() : Sald::Application(800, 600, Sald::Application::Dimensions::Two)
 {
     PushLayer(new Sandbox2DLayer());
 }

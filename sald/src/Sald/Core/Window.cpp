@@ -37,7 +37,7 @@ Sald::Window::~Window()
     glfwTerminate();
 }
 
-int Sald::Window::Initialize()
+int Sald::Window::Init()
 {
     m_Data.Title = "SALD - Main window";
 
@@ -64,14 +64,11 @@ int Sald::Window::Initialize()
         return 1;
     }
 
-    m_Context = OpenGLContext::Create(m_MainWindow);
+    m_Context = GraphicsContext::Create(m_MainWindow);
     m_Context->Init();
 
     // Get Buffer size information
     glfwGetFramebufferSize(m_MainWindow, &m_BufferWidth, &m_BufferHeight);
-
-    // TODO: This line breaks 2D Z ordering
-    glEnable(GL_DEPTH_TEST);
 
     glfwSetWindowUserPointer(m_MainWindow, &m_Data);
 

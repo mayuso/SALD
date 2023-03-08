@@ -1,36 +1,34 @@
 #include "saldpch.h"
 #include "Sald/Core/Application.h"
 #include "Sald/Core/Input.h"
-
 #include "Sald/Core/Log.h"
+
+#include "Sald/Renderer/2D/Renderer2D.h"
+#include "Sald/Renderer/3D/Renderer3D.h"
+
+#include "Sald/Renderer/RenderCommand.h"
 
 Sald::Application *Sald::Application::s_Instance = nullptr;
 
-Sald::Application::Application()
+Sald::Application::Application(GLint windowWidth, GLint windowHeight, Sald::Application::Dimensions dimensionNumber)
 {
+    Log::Init();
+    
     if (s_Instance)
         SALD_CORE_ERROR("Application already exists");
     s_Instance = this;
 
-    Log::Init();
-
-    m_MainWindow = std::make_shared<Window>();
-    m_MainWindow->Initialize();
-    m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-    m_MainWindow->SetCursorEnabled(true);
-    m_MainWindow->SetVSync(true);
-}
-
-Sald::Application::Application(GLint windowWidth, GLint windowHeight)
-{
-    if (s_Instance)
-        SALD_CORE_ERROR("Application already exists");
-    s_Instance = this;
-
-    Log::Init();
+    if (dimensionNumber == Sald::Application::Dimensions::Two)
+    {
+        Renderer2D::Init();
+    }
+    else
+    {
+        Renderer3D::Init();
+    }
 
     m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
-    m_MainWindow->Initialize();
+    m_MainWindow->Init();
     m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
     m_MainWindow->SetCursorEnabled(true);
     m_MainWindow->SetVSync(true);
@@ -89,7 +87,7 @@ bool Sald::Application::OnWindowResize(Sald::WindowResizeEvent &e)
         return false;
     }
     m_Minimized = false;
-    Renderer::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
+    RenderCommand::SetViewport(0, 0, e.GetWidth(), e.GetHeight());
     return false;
 }
 

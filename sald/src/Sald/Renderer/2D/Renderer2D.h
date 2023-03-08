@@ -7,5 +7,8 @@ namespace Sald
 {
     class Renderer2D : public Renderer
     {
+    public:
+        SALD_API Renderer2D();
+        SALD_API ~Renderer2D();
     };
 }

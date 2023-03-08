@@ -53,8 +53,8 @@ GameLayer::~GameLayer()
 void GameLayer::OnUpdate(GLfloat deltaTime)
 {
     // TODO: Make Render a Layer function at the same level as OnUpdate
-    Sald::Renderer2D::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    Sald::Renderer2D::Clear();
+    Sald::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    Sald::RenderCommand::Clear();
     Render();
 }
 

@@ -7,9 +7,8 @@ namespace Sald
 {
     class Renderer3D : public Renderer
     {
-
-    private:
-        Renderer3D();
-        ~Renderer3D();
+    public:
+        SALD_API Renderer3D();
+        SALD_API ~Renderer3D();
     };
 }

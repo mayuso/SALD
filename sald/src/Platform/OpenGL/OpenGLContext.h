@@ -1,17 +1,18 @@
 #pragma once
+#include "Sald/Renderer/GraphicsContext.h"
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Sald
 {
-    class OpenGLContext
+    class OpenGLContext : public GraphicsContext
     {
     public:
         OpenGLContext(GLFWwindow *windowHandle);
 
-        virtual void Init();
-        virtual void SwapBuffers();
-        static std::unique_ptr<Sald::OpenGLContext> Create(void *window);
+        virtual void Init() override;
+        virtual void SwapBuffers() override;
 
     private:
         GLFWwindow *m_WindowHandle;

@@ -3,6 +3,11 @@ target_precompile_headers(${PROJECT_NAME} PRIVATE saldpch.h)
 
 target_sources(sald
     PRIVATE
+    Platform/OpenGL/OpenGLRendererAPI.cpp
+    Platform/OpenGL/OpenGLContext.cpp
+
+    Sald/Renderer/RendererAPI.cpp
+    Sald/Renderer/Renderer.cpp
 
     PUBLIC
     Sald/Core/Application.cpp
@@ -19,17 +24,17 @@ target_sources(sald
     Sald/Light/ShadowMap.cpp
     Sald/Light/SpotLight.cpp
 
+    Sald/Renderer/GraphicsContext.cpp
     Sald/Renderer/Material.cpp
-
-    Sald/Renderer/OpenGLContext.cpp
+    Sald/Renderer/RenderCommand.cpp
     Sald/Renderer/Renderer.cpp
     Sald/Renderer/Shader.cpp
     Sald/Renderer/ShaderManager.cpp
     Sald/Renderer/Texture.cpp
     Sald/Renderer/TextureManager.cpp
 
-    Sald/Renderer/2D/Renderer2D.cpp
     Sald/Renderer/2D/SpriteRenderer.cpp
+    Sald/Renderer/2D/Renderer2D.cpp
 
     Sald/Renderer/3D/Mesh.cpp
     Sald/Renderer/3D/Model.cpp

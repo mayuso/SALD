@@ -31,8 +31,8 @@ void Sandbox2DLayer::CreateTriangle()
 
 void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
 {
-    Sald::Renderer2D::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    Sald::Renderer2D::Clear();
+    Sald::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    Sald::RenderCommand::Clear();
 
     if (direction)
     {
