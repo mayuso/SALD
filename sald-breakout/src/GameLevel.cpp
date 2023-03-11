@@ -35,16 +35,16 @@ void GameLevel::Load(const char *file, unsigned int levelWidth, unsigned int lev
     }
 }
 
-void GameLevel::Draw(Sald::SpriteRenderer &renderer)
+void GameLevel::Draw(Sald::SpriteRenderer *renderer)
 {
-    for (GameObject2D &tile : m_Bricks)
+    for (GameObject &tile : m_Bricks)
         if (!tile.Destroyed)
             tile.Draw(renderer);
 }
 
 bool GameLevel::IsCompleted()
 {
-    for (GameObject2D &tile : m_Bricks)
+    for (GameObject &tile : m_Bricks)
         if (!tile.IsSolid && !tile.Destroyed)
             return false;
     return true;
@@ -66,7 +66,7 @@ void GameLevel::Initialize(std::vector<std::vector<unsigned int>> tileData, unsi
             {
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                GameObject2D obj(pos, size, Sald::TextureManager::GetTexture("block_solid"), glm::vec3(0.8f, 0.8f, 0.7f));
+                GameObject obj(pos, size, Sald::TextureManager::GetTexture("block_solid"), glm::vec3(0.8f, 0.8f, 0.7f));
                 obj.IsSolid = true;
                 m_Bricks.push_back(obj);
             }
@@ -84,7 +84,7 @@ void GameLevel::Initialize(std::vector<std::vector<unsigned int>> tileData, unsi
 
                 glm::vec2 pos(unit_width * x, unit_height * y);
                 glm::vec2 size(unit_width, unit_height);
-                m_Bricks.push_back(GameObject2D(pos, size, Sald::TextureManager::GetTexture("block"), color));
+                m_Bricks.push_back(GameObject(pos, size, Sald::TextureManager::GetTexture("block"), color));
             }
         }
     }

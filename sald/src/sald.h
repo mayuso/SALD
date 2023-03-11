@@ -40,8 +40,9 @@
 #include "Sald/Renderer/3D/Mesh.h"
 #include "Sald/Renderer/3D/Model.h"
 
-// --- Camera ---
+// --- Scene ---
 #include "Sald/Scene/Camera.h"
+#include "Sald/Scene/Entity.h"
 
 // --- Utils ---
 #include "Sald/Utils/CommonValues.h"

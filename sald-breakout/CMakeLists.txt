@@ -11,10 +11,11 @@ add_executable(${PROJECT_NAME})
 target_sources(${PROJECT_NAME}
     PRIVATE
     src/main.cpp
+    src/BallObject.cpp
     src/BreakoutApp.cpp
     src/GameLayer.cpp
     src/GameLevel.cpp
-    src/GameObject2D.cpp
+    src/GameObject.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC

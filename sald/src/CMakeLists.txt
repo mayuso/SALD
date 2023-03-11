@@ -41,6 +41,7 @@ target_sources(sald
     Sald/Renderer/3D/Renderer3D.cpp
 
     Sald/Scene/Camera.cpp
+    Sald/Scene/Entity.cpp
 
     Sald/Utils/Utils.cpp
     Sald/Utils/TimeManager.cpp

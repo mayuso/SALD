@@ -1,5 +1,5 @@
 #include "saldpch.h"
-#include "Camera.h"
+#include "Sald/Scene/Camera.h"
 
 #include "Sald/Core/Input.h"
 

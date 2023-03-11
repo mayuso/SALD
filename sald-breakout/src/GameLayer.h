@@ -2,7 +2,7 @@
 #include "sald.h"
 
 #include "GameLevel.h"
-
+#include "BallObject.h"
 enum GameState
 {
     GAME_ACTIVE,
@@ -21,7 +21,7 @@ public:
 
     GameState m_State;
     bool Keys[1024];
-    unsigned int Width, Height;
+    unsigned int m_Width, m_Height;
     std::vector<GameLevel> Levels;
     unsigned int m_CurrentLevel;
 
@@ -34,5 +34,6 @@ public:
     void OnEvent(Sald::Event &event) override;
 
     Sald::SpriteRenderer *m_SpriteRenderer;
-    GameObject2D *player;
+    GameObject *m_Player;
+    BallObject *m_Ball;
 };

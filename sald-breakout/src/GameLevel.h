@@ -1,7 +1,7 @@
 
 #include <vector>
 #include "sald.h"
-#include "GameObject2D.h"
+#include "GameObject.h"
 
 class GameLevel
 {
@@ -9,13 +9,13 @@ public:
     GameLevel();
     ~GameLevel();
     // level state
-    std::vector<GameObject2D> m_Bricks;
+    std::vector<GameObject> m_Bricks;
     // constructor
 
     // loads level from file
     void Load(const char *file, unsigned int levelWidth, unsigned int levelHeight);
     // render level
-    void Draw(Sald::SpriteRenderer &renderer);
+    void Draw(Sald::SpriteRenderer *renderer);
     // check if the level is completed (all non-solid tiles are destroyed)
     bool IsCompleted();
 private:
