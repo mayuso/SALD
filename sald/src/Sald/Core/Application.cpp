@@ -13,10 +13,16 @@ Sald::Application *Sald::Application::s_Instance = nullptr;
 Sald::Application::Application(GLint windowWidth, GLint windowHeight, Sald::Application::Dimensions dimensionNumber)
 {
     Log::Init();
-    
+
     if (s_Instance)
         SALD_CORE_ERROR("Application already exists");
     s_Instance = this;
+
+    m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
+    m_MainWindow->Init();
+    m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+    m_MainWindow->SetCursorEnabled(true);
+    m_MainWindow->SetVSync(true);
 
     if (dimensionNumber == Sald::Application::Dimensions::Two)
     {
@@ -26,12 +32,6 @@ Sald::Application::Application(GLint windowWidth, GLint windowHeight, Sald::Appl
     {
         Renderer3D::Init();
     }
-
-    m_MainWindow = std::make_shared<Window>(windowWidth, windowHeight);
-    m_MainWindow->Init();
-    m_MainWindow->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-    m_MainWindow->SetCursorEnabled(true);
-    m_MainWindow->SetVSync(true);
 }
 
 Sald::Application::~Application()
