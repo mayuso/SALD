@@ -77,6 +77,13 @@ void GameLayer::OnUpdate(GLfloat deltaTime)
 
     this->DoCollisions();
 
+    if (m_Ball->Position.y >= m_Height) // did ball reach bottom edge?
+    {
+        SALD_LOG("RESET LEVEL AND PLAYER HERE");
+        //this->ResetLevel();
+        //this->ResetPlayer();
+    }
+
     Render();
 }
 
@@ -137,13 +144,54 @@ void GameLayer::DoCollisions()
     {
         if (!box.Destroyed)
         {
-            if (CheckCollisionCircle(*m_Ball, box))
+            Collision collision = CheckCollisionCircle(*m_Ball, box);
+            if (std::get<0>(collision)) // if collision is true
             {
+                // destroy block if not solid
                 if (!box.IsSolid)
                     box.Destroyed = true;
+                // collision resolution
+                Direction dir = std::get<1>(collision);
+                glm::vec2 diff_vector = std::get<2>(collision);
+                if (dir == LEFT || dir == RIGHT) // horizontal collision
+                {
+                    m_Ball->Velocity.x = -m_Ball->Velocity.x; // reverse horizontal velocity
+                    // relocate
+                    float penetration = m_Ball->Radius - std::abs(diff_vector.x);
+                    if (dir == LEFT)
+                        m_Ball->Position.x += penetration; // move ball to right
+                    else
+                        m_Ball->Position.x -= penetration; // move ball to left;
+                }
+                else // vertical collision
+                {
+                    m_Ball->Velocity.y = -m_Ball->Velocity.y; // reverse vertical velocity
+                    // relocate
+                    float penetration = m_Ball->Radius - std::abs(diff_vector.y);
+                    if (dir == UP)
+                        m_Ball->Position.y -= penetration; // move ball back up
+                    else
+                        m_Ball->Position.y += penetration; // move ball back down
+                }
             }
         }
     }
+
+    Collision result = CheckCollisionCircle(*m_Ball, *m_Player);
+    if (!m_Ball->Stuck && std::get<0>(result))
+    {
+        // check where it hit the board, and change velocity based on where it hit the board
+        float centerBoard = m_Player->Position.x + m_Player->Size.x / 2.0f;
+        float distance = (m_Ball->Position.x + m_Ball->Radius) - centerBoard;
+        float percentage = distance / (m_Ball->Size.x / 2.0f);
+        // then move accordingly
+        float strength = 2.0f;
+        glm::vec2 oldVelocity = m_Ball->Velocity;
+        m_Ball->Velocity.x = INITIAL_BALL_VELOCITY.x * percentage * strength; 
+        //m_Ball->Velocity.y = -m_Ball->Velocity.y;
+        m_Ball->Velocity.y = -1.0f * abs(m_Ball->Velocity.y);
+        m_Ball->Velocity = glm::normalize(m_Ball->Velocity) * glm::length(oldVelocity);
+    } 
 } 
 
 
@@ -160,7 +208,7 @@ bool GameLayer::CheckCollision(GameObject &one, GameObject &two)
 } 
 
 
-bool GameLayer::CheckCollisionCircle(BallObject &one, GameObject &two) // AABB - Circle collision
+Collision GameLayer::CheckCollisionCircle(BallObject &one, GameObject &two) // AABB - Circle collision
 {
     // get center point circle first 
     glm::vec2 center(one.Position + one.Radius);
@@ -177,5 +225,31 @@ bool GameLayer::CheckCollisionCircle(BallObject &one, GameObject &two) // AABB -
     glm::vec2 closest = aabb_center + clamped;
     // retrieve vector between center circle and closest point AABB and check if length <= radius
     difference = closest - center;
-    return glm::length(difference) < one.Radius;
+    if (glm::length(difference) <= one.Radius)
+        return std::make_tuple(true, VectorDirection(difference), difference);
+    else
+        return std::make_tuple(false, UP, glm::vec2(0.0f, 0.0f));
+}   
+
+
+Direction GameLayer::VectorDirection(glm::vec2 target)
+{
+    glm::vec2 compass[] = {
+        glm::vec2(0.0f, 1.0f),	// up
+        glm::vec2(1.0f, 0.0f),	// right
+        glm::vec2(0.0f, -1.0f),	// down
+        glm::vec2(-1.0f, 0.0f)	// left
+    };
+    float max = 0.0f;
+    unsigned int best_match = -1;
+    for (unsigned int i = 0; i < 4; i++)
+    {
+        float dot_product = glm::dot(glm::normalize(target), compass[i]);
+        if (dot_product > max)
+        {
+            max = dot_product;
+            best_match = i;
+        }
+    }
+    return (Direction)best_match;
 }   
