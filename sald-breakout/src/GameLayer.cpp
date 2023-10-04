@@ -137,7 +137,7 @@ void GameLayer::DoCollisions()
     {
         if (!box.Destroyed)
         {
-            if (CheckCollision(*m_Ball, box))
+            if (CheckCollisionCircle(*m_Ball, box))
             {
                 if (!box.IsSolid)
                     box.Destroyed = true;
@@ -159,8 +159,8 @@ bool GameLayer::CheckCollision(GameObject &one, GameObject &two)
     return collisionX && collisionY;
 } 
 
-/*
-bool CheckCollision(BallObject &one, GameObject &two) // AABB - Circle collision
+
+bool GameLayer::CheckCollisionCircle(BallObject &one, GameObject &two) // AABB - Circle collision
 {
     // get center point circle first 
     glm::vec2 center(one.Position + one.Radius);
@@ -179,4 +179,3 @@ bool CheckCollision(BallObject &one, GameObject &two) // AABB - Circle collision
     difference = closest - center;
     return glm::length(difference) < one.Radius;
 }   
-*/

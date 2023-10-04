@@ -36,7 +36,7 @@ public:
 
     void DoCollisions();
     bool CheckCollision(GameObject &one, GameObject &two);
-    //bool CheckCollision(BallObject &one, GameObject &two);
+    bool CheckCollisionCircle(BallObject &one, GameObject &two);
 
     Sald::SpriteRenderer *m_SpriteRenderer;
     GameObject *m_Player;
