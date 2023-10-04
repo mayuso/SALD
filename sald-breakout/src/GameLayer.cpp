@@ -2,6 +2,10 @@
 #include "sald.h"
 #include "GameObject.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 using namespace Sald;
 
 // Initial velocity of the Ball
@@ -42,10 +46,10 @@ GameLayer::GameLayer()
     three.Load("Levels/three.lvl", m_Width, m_Height / 2);
     GameLevel four;
     four.Load("Levels/four.lvl", m_Width, m_Height / 2);
-    this->Levels.push_back(one);
-    this->Levels.push_back(two);
-    this->Levels.push_back(three);
-    this->Levels.push_back(four);
+    m_Levels.push_back(one);
+    m_Levels.push_back(two);
+    m_Levels.push_back(three);
+    m_Levels.push_back(four);
     m_CurrentLevel = 0;
     // configure game objects
     glm::vec2 playerPos = glm::vec2(m_Width / 2.0f - PLAYER_SIZE.x / 2.0f, m_Height - PLAYER_SIZE.y);
@@ -70,6 +74,8 @@ void GameLayer::OnUpdate(GLfloat deltaTime)
     Sald::RenderCommand::Clear();
 
     m_Ball->Move(deltaTime, m_Width);
+
+    this->DoCollisions();
 
     Render();
 }
@@ -116,10 +122,61 @@ void GameLayer::Render()
         // draw background
         m_SpriteRenderer->Draw(Sald::TextureManager::GetTexture("background"), glm::vec2(0.0f, 0.0f), glm::vec2(m_Width, m_Height), 0.0f);
         // draw level
-        this->Levels[m_CurrentLevel].Draw(m_SpriteRenderer);
+        m_Levels[m_CurrentLevel].Draw(m_SpriteRenderer);
         // draw player
         m_Player->Draw(m_SpriteRenderer);
 
         m_Ball->Draw(m_SpriteRenderer);
     }
 }
+
+
+void GameLayer::DoCollisions()
+{
+    for (GameObject &box : m_Levels[m_CurrentLevel].m_Bricks)
+    {
+        if (!box.Destroyed)
+        {
+            if (CheckCollision(*m_Ball, box))
+            {
+                if (!box.IsSolid)
+                    box.Destroyed = true;
+            }
+        }
+    }
+} 
+
+
+bool GameLayer::CheckCollision(GameObject &one, GameObject &two)
+{
+    // collision x-axis?
+    bool collisionX = one.Position.x + one.Size.x >= two.Position.x &&
+        two.Position.x + two.Size.x >= one.Position.x;
+    // collision y-axis?
+    bool collisionY = one.Position.y + one.Size.y >= two.Position.y &&
+        two.Position.y + two.Size.y >= one.Position.y;
+    // collision only if on both axes
+    return collisionX && collisionY;
+} 
+
+/*
+bool CheckCollision(BallObject &one, GameObject &two) // AABB - Circle collision
+{
+    // get center point circle first 
+    glm::vec2 center(one.Position + one.Radius);
+    // calculate AABB info (center, half-extents)
+    glm::vec2 aabb_half_extents(two.Size.x / 2.0f, two.Size.y / 2.0f);
+    glm::vec2 aabb_center(
+        two.Position.x + aabb_half_extents.x, 
+        two.Position.y + aabb_half_extents.y
+    );
+    // get difference vector between both centers
+    glm::vec2 difference = center - aabb_center;
+    glm::vec2 clamped = glm::clamp(difference, -aabb_half_extents, aabb_half_extents);
+    // add clamped value to AABB_center and we get the value of box closest to circle
+    glm::vec2 closest = aabb_center + clamped;
+    // retrieve vector between center circle and closest point AABB and check if length <= radius
+    difference = closest - center;
+    return glm::length(difference) < one.Radius;
+}   
+*/

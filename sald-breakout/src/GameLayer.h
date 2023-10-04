@@ -3,6 +3,7 @@
 
 #include "GameLevel.h"
 #include "BallObject.h"
+
 enum GameState
 {
     GAME_ACTIVE,
@@ -22,7 +23,7 @@ public:
     GameState m_State;
     bool Keys[1024];
     unsigned int m_Width, m_Height;
-    std::vector<GameLevel> Levels;
+    std::vector<GameLevel> m_Levels;
     unsigned int m_CurrentLevel;
 
     void Init();
@@ -32,6 +33,10 @@ public:
 
     void OnUpdate(GLfloat deltaTime) override;
     void OnEvent(Sald::Event &event) override;
+
+    void DoCollisions();
+    bool CheckCollision(GameObject &one, GameObject &two);
+    //bool CheckCollision(BallObject &one, GameObject &two);
 
     Sald::SpriteRenderer *m_SpriteRenderer;
     GameObject *m_Player;
