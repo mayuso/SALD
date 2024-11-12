@@ -1,4 +1,9 @@
-# Build environment
+# SALD
+
+![](otherResources/sandbox.gif)
+![](otherResources/breakout.gif)
+
+## Build environment
 
 This is just a recommendation, as any modern compiler can do the job well, but I currently work with:
 
@@ -6,7 +11,7 @@ This is just a recommendation, as any modern compiler can do the job well, but I
 * On Windows: Visual Studio 17.1.0 (2022)
 * On Linux: GCC 9.3.0
 
-# In Ubuntu / Pop!_OS
+## In Ubuntu / Pop!_OS
 
 ### Compile
 
@@ -17,7 +22,7 @@ This is just a recommendation, as any modern compiler can do the job well, but I
 
     sudo apt install gdb
  
-# FAQ
+## FAQ
 
 ### 1) Can you use SALD for your own projects?
 
@@ -29,7 +34,7 @@ Probably not. This is a tiny project and other engines do everything SALD does, 
 
 I'd personally recommend Godot: [Website](https://godotengine.org/), [Repository](https://github.com/godotengine/godot)
  
-# Development
+## Development
 
 Update submodules:
  
