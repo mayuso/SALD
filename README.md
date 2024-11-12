@@ -1,7 +1,10 @@
 # SALD
 
-![](otherResources/sandbox.gif)
-![](otherResources/breakout.gif)
+
+3D             |  2D
+:-------------------------:|:-------------------------:
+![](otherResources/sandbox.gif)  |  ![](otherResources/breakout.gif)
+
 
 ## Build environment
 
