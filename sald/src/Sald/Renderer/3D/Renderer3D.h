@@ -10,5 +10,7 @@ namespace Sald
     public:
         SALD_API Renderer3D();
         SALD_API ~Renderer3D();
+
+        SALD_API static void Init();
     };
 }

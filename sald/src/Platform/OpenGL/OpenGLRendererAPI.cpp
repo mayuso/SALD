@@ -2,17 +2,6 @@
 
 void Sald::OpenGLRendererAPI::Init()
 {
-    glDepthFunc(GL_NEVER);
-    /*if(dimensionNumber == Application::Dimensions::Two)
-    {
-        glDepthFunc(GL_NEVER);
-    }
-    else
-    {
-        glEnable(GL_DEPTH_TEST);
-    }*/
-
-    //
 }
 
 void Sald::OpenGLRendererAPI::SetClearColor(float r, float g, float b, float a)

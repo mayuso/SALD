@@ -12,3 +12,9 @@ Sald::Renderer2D::~Renderer2D()
 {
 }
 
+void Sald::Renderer2D::Init()
+{
+    Sald::Renderer::Init();
+    glDisable(GL_DEPTH_TEST);
+}
+
