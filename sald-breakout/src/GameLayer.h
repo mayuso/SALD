@@ -1,4 +1,5 @@
 #pragma once
+#include "Sald/Core/Timestep.h"
 #include "sald.h"
 
 #include "GameLevel.h"
@@ -40,7 +41,7 @@ public:
     void ProcessInput(float dt);
     void Render();
 
-    void OnUpdate(GLfloat deltaTime) override;
+    void OnUpdate(Sald::Timestep timestep) override;
     void OnEvent(Sald::Event &event) override;
 
     void DoCollisions();

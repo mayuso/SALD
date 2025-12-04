@@ -67,13 +67,13 @@ GameLayer::~GameLayer()
 {
 }
 
-void GameLayer::OnUpdate(GLfloat deltaTime)
+void GameLayer::OnUpdate(Sald::Timestep timestep)
 {
     // TODO: Make Render a Layer function at the same level as OnUpdate
     Sald::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Sald::RenderCommand::Clear();
 
-    m_Ball->Move(deltaTime, m_Width);
+    m_Ball->Move(timestep, m_Width);
 
     this->DoCollisions();
 

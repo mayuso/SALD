@@ -149,9 +149,9 @@ void SandboxLayer::CreateShaders()
     Sald::ShaderManager::NewShader("shadowMap", "Shaders/omni_directional_shadow_map.vert", "Shaders/omni_directional_shadow_map.geom", "Shaders/omni_directional_shadow_map.frag");
 }
 
-void SandboxLayer::OnUpdate(GLfloat deltaTime)
+void SandboxLayer::OnUpdate(Sald::Timestep timestep)
 {
-    m_Camera.OnUpdate(deltaTime);
+    m_Camera.OnUpdate(timestep);
     if (Sald::Input::IsKeyPressed(Sald::Key::L))
     {
         spotLights[0].Toggle();

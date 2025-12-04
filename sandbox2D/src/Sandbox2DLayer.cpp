@@ -29,7 +29,7 @@ void Sandbox2DLayer::CreateTriangle()
     meshList.push_back(obj1);*/
 }
 
-void Sandbox2DLayer::OnUpdate(GLfloat deltaTime)
+void Sandbox2DLayer::OnUpdate(Sald::Timestep timestep)
 {
     Sald::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     Sald::RenderCommand::Clear();

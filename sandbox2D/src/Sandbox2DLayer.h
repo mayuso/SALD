@@ -1,4 +1,5 @@
 #pragma once
+#include "Sald/Core/Timestep.h"
 #include "sald.h"
 
 class Sandbox2DLayer : public Sald::Layer
@@ -7,7 +8,7 @@ public:
     Sandbox2DLayer();
     ~Sandbox2DLayer();
 
-    void OnUpdate(GLfloat deltaTime) override;
+    void OnUpdate(Sald::Timestep timestep) override;
     void OnEvent(Sald::Event &event) override;
 
 private:

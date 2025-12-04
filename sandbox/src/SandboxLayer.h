@@ -1,4 +1,5 @@
 #pragma once
+#include "Sald/Core/Timestep.h"
 #include "sald.h"
 
 #include <assimp/Importer.hpp>
@@ -18,7 +19,7 @@ public:
     SandboxLayer();
     ~SandboxLayer();
 
-    void OnUpdate(GLfloat deltaTime) override;
+    void OnUpdate(Sald::Timestep timestep) override;
     void OnEvent(Sald::Event &event) override;
 
 private:
