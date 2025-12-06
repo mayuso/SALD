@@ -1,18 +1,18 @@
-[submodule "sald/vendor/glfw"]
-	path = sald/vendor/glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "sald/vendor/glm"]
-	path = sald/vendor/glm
-	url = https://github.com/g-truc/glm.git
-[submodule "sald/vendor/stb"]
-	path = sald/vendor/stb
-	url = https://github.com/nothings/stb.git
-[submodule "sald/vendor/assimp"]
-	path = sald/vendor/assimp
-	url = https://github.com/assimp/assimp.git
-[submodule "sald/vendor/soil"]
-	path = sald/vendor/soil
-	url = https://github.com/littlstar/soil.git
-[submodule "sald/vendor/spdlog"]
-	path = sald/vendor/spdlog
-	url = https://github.com/gabime/spdlog.git
+[submodule "vendor/assimp"]
+	path = vendor/assimp
+	url = git@github.com:assimp/assimp.git
+[submodule "vendor/glfw"]
+	path = vendor/glfw
+	url = git@github.com:glfw/glfw.git
+[submodule "vendor/glm"]
+	path = vendor/glm
+	url = git@github.com:g-truc/glm.git
+[submodule "vendor/soil"]
+	path = vendor/soil
+	url = git@github.com:littlstar/soil.git
+[submodule "vendor/spdlog"]
+	path = vendor/spdlog
+	url = git@github.com:gabime/spdlog.git
+[submodule "vendor/stb"]
+	path = vendor/stb
+	url = git@github.com:nothings/stb.git
