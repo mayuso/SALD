@@ -432,4 +432,4 @@ FodyWeavers.xsd
 
 # Folders
 build/*
-release/*
+install/*
