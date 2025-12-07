@@ -1,45 +1,60 @@
 # SALD
 
+OpenGL wrapper / engine. Created mostly for learning and prototyping purposes.
 
-3D             |  2D
-:-------------------------:|:-------------------------:
-![](otherResources/sandbox.gif)  |  ![](otherResources/breakout.gif)
+## Examples
 
+*   [**SALD-Sandbox3D**](https://github.com/mayuso/SALD-Sandbox3D) - A 3D sandbox project.
+*   [**SALD-Breakout**](https://github.com/mayuso/SALD-Breakout) - A 2D breakout game.
 
-## Build environment
+## Usage
 
-This is just a recommendation, as any modern compiler can do the job well, but I currently work with:
+### Build from source
 
-* CMake 3.22.2
-* On Windows: Visual Studio 17.1.0 (2022)
-* On Linux: GCC 9.3.0
+Ensure you have CMake and a C++ compiler installed.
 
-## In Ubuntu / Pop!_OS
+**1. Clone the repository**
 
-### Compile
+```bash
+git clone https://github.com/mayuso/SALD.git
+cd SALD
+```
 
-    sudo apt install xorg-dev libglu1-mesa-dev
-	sudo apt install ninja-build
+**2. Update submodules**
 
-### Debug
+This project relies on external dependencies included as submodules.
 
-    sudo apt install gdb
- 
+```bash
+git submodule update --init --recursive
+```
+
+**3. Build and Run (Debug)**
+
+For quick testing or development:
+
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
+
+### Release Build
+
+To create an optimized build:
+
+```bash
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake --build . --config Release
+```
+
 ## FAQ
 
-### 1) Can you use SALD for your own projects?
+**Can you use SALD for your own projects?**
+Sure.
 
-Sure
-
-### 1.1) Should you use it?
-
-Probably not. This is a tiny project and other engines do everything SALD does, but better, and even more. 
-
-I'd personally recommend Godot: [Website](https://godotengine.org/), [Repository](https://github.com/godotengine/godot)
- 
-## Development
-
-Update submodules:
- 
-    git submodule update --recursive --remote   
-
+**Should you use it?**
+Probably not. This is a tiny project and other engines do everything SALD does, but better, and even more.
+I'd personally recommend Godot: [Website](https://godotengine.org/), [Repository](https://github.com/godotengine/godot).
