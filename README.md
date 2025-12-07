@@ -36,7 +36,7 @@ For quick testing or development:
 mkdir build
 cd build
 cmake ..
-cmake --build .
+cmake --build . --parallel
 ```
 
 ### Release Build
@@ -47,7 +47,7 @@ To create an optimized build:
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
-cmake --build . --config Release
+cmake --build . --config Release --parallel
 ```
 
 ## FAQ
