@@ -39,7 +39,7 @@ cmake ..
 cmake --build . --parallel
 ```
 
-### Release Build
+### Install Build
 
 To create an optimized build:
 
@@ -48,6 +48,7 @@ mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build . --config Release --parallel
+cmake --install . --config Release
 ```
 
 ## FAQ
