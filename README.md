@@ -16,19 +16,11 @@ Ensure you have CMake and a C++ compiler installed.
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/mayuso/SALD.git
+git clone https://github.com/mayuso/SALD.git --recursive
 cd SALD
 ```
 
-**2. Update submodules**
-
-This project relies on external dependencies included as submodules.
-
-```bash
-git submodule update --init --recursive
-```
-
-**3. Build and Run (Debug)**
+**2. Build and Run (Debug)**
 
 For quick testing or development:
 
@@ -50,6 +42,14 @@ cmake -DCMAKE_BUILD_TYPE=Release ..
 cmake --build . --config Release --parallel
 cmake --install . --config Release
 ```
+
+### Other useful commands (mainly for me)
+
+```bash
+# Update submodules
+git submodule update --remote --recursive
+```
+
 
 ## FAQ
 
