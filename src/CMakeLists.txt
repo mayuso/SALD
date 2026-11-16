@@ -1,4 +1,4 @@
-add_library(sald saldpch.cpp)
+add_library(sald)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE saldpch.h)
 
@@ -53,7 +53,6 @@ target_sources(sald
 target_include_directories(sald
     PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}
-    ${CMAKE_CURRENT_LIST_DIR}/src
     ${CMAKE_CURRENT_LIST_DIR}/../vendor/glfw/include
     ${CMAKE_CURRENT_LIST_DIR}/../vendor/glad/include
     ${CMAKE_CURRENT_LIST_DIR}/../vendor/glm
