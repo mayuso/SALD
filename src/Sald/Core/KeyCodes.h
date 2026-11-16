@@ -1,6 +1,8 @@
 #pragma once
 #include "Sald/Core/Core.h"
 
+#include <cstdint>
+
 namespace Sald
 {
 	using KeyCode = uint16_t;
