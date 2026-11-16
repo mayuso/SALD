@@ -18,11 +18,10 @@ namespace Sald
         SALD_API void Clear();
 
     private:
-        GLenum GetFormat();
         bool Load(const char *fileLocation);
 
-        GLuint m_TextureID;
-        int m_Width, m_Height, m_BitDepth;
+        GLuint m_TextureID = 0;
+        int m_Width = 0, m_Height = 0, m_BitDepth = 0;
     };
 
 }
