@@ -33,15 +33,21 @@ Sald::Application::Application(GLint windowWidth, GLint windowHeight,
   }
 }
 
-Sald::Application::~Application() {}
+Sald::Application::~Application() {
+  if (s_Instance == this)
+    s_Instance = nullptr;
+}
 
 void Sald::Application::Run() {
   while (m_Running) {
-    GLfloat time = (GLfloat)glfwGetTime();
+    // Keep the absolute time as a double: a float loses sub-millisecond
+    // precision after a few hours of uptime, only the delta fits in one
+    double time = glfwGetTime();
     // Cap the step so a stall (window drag, breakpoint, first frame) does not
     // produce a huge delta that makes fast objects tunnel through others
-    constexpr GLfloat maxTimestep = 1.0f / 30.0f;
-    Timestep timestep = std::min(time - m_LastFrameTime, maxTimestep);
+    constexpr double maxTimestep = 1.0 / 30.0;
+    Timestep timestep =
+        static_cast<float>(std::min(time - m_LastFrameTime, maxTimestep));
     m_LastFrameTime = time;
 
     if (!m_Minimized) {

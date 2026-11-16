@@ -34,14 +34,13 @@ public:
   SALD_API std::shared_ptr<Window> GetWindow();
 
 private:
-  Application();
   static Application *s_Instance;
   std::shared_ptr<Window> m_MainWindow;
   LayerStack m_LayerStack;
 
   bool m_Running = true;
   bool m_Minimized = false;
-  GLfloat m_LastFrameTime = 0.0f;
+  double m_LastFrameTime = 0.0;
 };
 
 }

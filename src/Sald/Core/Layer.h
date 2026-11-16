@@ -19,7 +19,7 @@ public:
 
 protected:
   std ::string m_DebugName;
-  bool m_Enabled;
+  bool m_Enabled = true;
 };
 
 } // namespace Sald

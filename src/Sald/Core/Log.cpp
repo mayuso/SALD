@@ -9,6 +9,10 @@ std::shared_ptr<spdlog::logger> Sald::Log::s_CoreLogger;
 
 void Sald::Log::Init()
 {
+    // spdlog throws when a logger name is registered twice
+    if (s_CoreLogger)
+        return;
+
     std::vector<spdlog::sink_ptr> logSinks;
     logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
     logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("Sald.log", true));
