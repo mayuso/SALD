@@ -39,8 +39,6 @@ private:
   std::shared_ptr<Window> m_MainWindow;
   LayerStack m_LayerStack;
 
-  ShaderManager *m_ShaderManager;
-
   bool m_Running = true;
   bool m_Minimized = false;
   GLfloat m_LastFrameTime = 0.0f;

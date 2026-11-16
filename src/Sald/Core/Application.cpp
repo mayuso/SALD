@@ -31,10 +31,7 @@ Sald::Application::Application(GLint windowWidth, GLint windowHeight,
   }
 }
 
-Sald::Application::~Application() {
-  if (m_ShaderManager)
-    delete m_ShaderManager;
-}
+Sald::Application::~Application() {}
 
 void Sald::Application::Run() {
   while (m_Running) {

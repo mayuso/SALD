@@ -2,7 +2,7 @@
 #include "saldpch.h"
 #include <algorithm>
 
-Sald::LayerStack::LayerStack() { m_LayerInsert = m_Layers.begin(); }
+Sald::LayerStack::LayerStack() {}
 
 Sald::LayerStack::~LayerStack() {
   for (Layer *layer : m_Layers) {
@@ -11,7 +11,8 @@ Sald::LayerStack::~LayerStack() {
 }
 
 void Sald::LayerStack::PushLayer(Layer *layer) {
-  m_Layers.emplace(m_LayerInsert, layer);
+  m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
+  m_LayerInsertIndex++;
 }
 
 void Sald::LayerStack::PushOverlay(Layer *overlay) {
@@ -19,14 +20,17 @@ void Sald::LayerStack::PushOverlay(Layer *overlay) {
 }
 
 void Sald::LayerStack::PopLayer(Layer *layer) {
-  auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
-  if (it != m_Layers.end()) {
+  auto layersEnd = m_Layers.begin() + m_LayerInsertIndex;
+  auto it = std::find(m_Layers.begin(), layersEnd, layer);
+  if (it != layersEnd) {
     m_Layers.erase(it);
+    m_LayerInsertIndex--;
   }
 }
 
 void Sald::LayerStack::PopOverlay(Layer *overlay) {
-  auto it = std ::find(m_Layers.begin(), m_Layers.end(), overlay);
+  auto it = std::find(m_Layers.begin() + m_LayerInsertIndex, m_Layers.end(),
+                      overlay);
   if (it != m_Layers.end()) {
     m_Layers.erase(it);
   }

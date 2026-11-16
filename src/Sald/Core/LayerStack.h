@@ -19,7 +19,9 @@ namespace Sald
 
     private:
         std ::vector<Layer *> m_Layers;
-        std ::vector<Layer *>::iterator m_LayerInsert;
+        // layers occupy [0, m_LayerInsertIndex), overlays follow; an index (not an
+        // iterator) stays valid when the vector reallocates
+        size_t m_LayerInsertIndex = 0;
     };
 
 }
