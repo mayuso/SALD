@@ -14,7 +14,7 @@ std::unique_ptr<Sald::GraphicsContext> Sald::GraphicsContext::Create(void* windo
 {
     switch (Sald::RendererAPI::GetAPI())
     {
-        case Sald::RendererAPI::API::None:    SALD_CORE_WARN("RendererAPI::None is currently not supported!");
+        case Sald::RendererAPI::API::None:    SALD_CORE_WARN("RendererAPI::None is currently not supported!"); return nullptr;
         case Sald::RendererAPI::API::OpenGL:  return std::make_unique<Sald::OpenGLContext>(static_cast<GLFWwindow*>(window));
     }
 
