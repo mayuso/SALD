@@ -1,6 +1,8 @@
 #pragma once
 #include "Sald/Core/Core.h"
 
+#include <chrono>
+
 /*
 ------------------------ HOW TO USE: ----------------------------
 {

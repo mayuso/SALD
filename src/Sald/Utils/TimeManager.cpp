@@ -3,7 +3,7 @@
 
 #include "Sald/Core/Log.h"
 
-double Sald::TimeManager::CalculateFrameRate(bool writeToConsole = false) {
+double Sald::TimeManager::CalculateFrameRate(bool writeToConsole) {
   static double frameCount = 0.0f;
   static double timeSinceLastFPSRefresh =
       GetTime(); // This will hold the time per second to test against
@@ -24,8 +24,8 @@ double Sald::TimeManager::CalculateFrameRate(bool writeToConsole = false) {
     currentFPS = frameCount * 1000 / (CurrentTime - timeSinceLastFPSRefresh);
 
     if (writeToConsole)
-      SALD_CORE_ERROR("Current Frames Per Second: {0} ---- DeltaTime: {1}",
-                      currentFPS, DeltaTime);
+      SALD_CORE_LOG("Current Frames Per Second: {0} ---- DeltaTime: {1}",
+                    currentFPS, DeltaTime);
 
     frameCount = 0;
     timeSinceLastFPSRefresh = CurrentTime;
@@ -33,13 +33,12 @@ double Sald::TimeManager::CalculateFrameRate(bool writeToConsole = false) {
   return currentFPS;
 }
 
-// This returns the current time in milliseconds (uses C++ 11 system_clock)
+// This returns the current time in milliseconds. steady_clock, not
+// system_clock: the wall clock can jump (NTP, DST, manual changes), which
+// would produce negative or huge deltas
 double Sald::TimeManager::GetTime() {
-  auto beginningOfTime = std::chrono::system_clock::now().time_since_epoch();
-  auto ms =
-      std::chrono::duration_cast<std::chrono::milliseconds>(beginningOfTime)
-          .count();
-  return ms;
+  auto sinceEpoch = std::chrono::steady_clock::now().time_since_epoch();
+  return std::chrono::duration<double, std::milli>(sinceEpoch).count();
 }
 
 // This pauses the current thread for an amount of time in milliseconds

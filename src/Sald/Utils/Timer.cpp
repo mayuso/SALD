@@ -20,5 +20,5 @@ void Sald::Timer::Stop()
 
     auto duration = end - start;
 
-    SALD_CORE_LOG("{0} μs", duration);
+    SALD_CORE_LOG("{0} us", duration);
 }

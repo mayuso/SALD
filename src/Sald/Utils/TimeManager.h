@@ -1,5 +1,4 @@
-#ifndef _TimeManager_H
-#define _TimeManager_H
+#pragma once
 #include "Sald/Core/Core.h"
 
 namespace Sald
@@ -14,21 +13,20 @@ namespace Sald
             return instance;
         }
 
-        SALD_API double CalculateFrameRate(bool writeToConsole);
+        SALD_API double CalculateFrameRate(bool writeToConsole = false);
+        // Milliseconds on a monotonic clock
         SALD_API double GetTime();
         SALD_API void SleepThread(int ms);
 
-        // This is the time slice that stores the total time in seconds that has elapsed since the last frame
+        // This is the time slice that stores the total time in milliseconds that has elapsed since the last frame
         double DeltaTime = 0;
 
-        // This is the current time in seconds
+        // This is the current time in milliseconds
         double CurrentTime = 0;
 
     private:
-        TimeManager(){};                             // Private so that it can  not be called
-        TimeManager(TimeManager const &);            // copy constructor is private
-        TimeManager &operator=(TimeManager const &); // assignment operator is private
+        TimeManager() = default; // Private: use Instance()
+        TimeManager(TimeManager const &) = delete;
+        TimeManager &operator=(TimeManager const &) = delete;
     };
 }
-
-#endif
