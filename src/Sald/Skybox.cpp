@@ -9,6 +9,12 @@ Sald::Skybox::Skybox()
 
 Sald::Skybox::Skybox(std::vector<std::string> faceLocations)
 {
+    if (faceLocations.size() < 6)
+    {
+        SALD_CORE_ERROR("Skybox needs 6 face textures, got {0}", faceLocations.size());
+        return;
+    }
+
     // Shader setup
     skyShader = new Shader();
     skyShader->CreateFromFiles("Shaders/skybox.vert", "Shaders/skybox.frag");
@@ -27,6 +33,7 @@ Sald::Skybox::Skybox(std::vector<std::string> faceLocations)
             return;
         }
         GLenum format = Utils::GetFormat(bitDepth);
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // stb rows are tightly packed
         glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, texData);
         stbi_image_free(texData);
     }
@@ -73,6 +80,10 @@ Sald::Skybox::Skybox(std::vector<std::string> faceLocations)
 
 void Sald::Skybox::DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 {
+    // Default-constructed, or a face texture failed to load
+    if (!skyMesh || !skyShader)
+        return;
+
     viewMatrix = glm::mat4(glm::mat3(viewMatrix));
 
     glDepthMask(GL_FALSE);
@@ -85,7 +96,11 @@ void Sald::Skybox::DrawSkybox(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
 
-    skyShader->Validate();
+    if (!m_Validated)
+    {
+        skyShader->Validate();
+        m_Validated = true;
+    }
     skyMesh->RenderMesh();
 
     glDepthMask(GL_TRUE);

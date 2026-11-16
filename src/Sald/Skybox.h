@@ -25,10 +25,12 @@ namespace Sald
         SALD_API ~Skybox();
 
     private:
-        Mesh *skyMesh;
-        Shader *skyShader;
+        Mesh *skyMesh = nullptr;
+        Shader *skyShader = nullptr;
 
-        GLuint textureId;
+        GLuint textureId = 0;
+        // glValidateProgram is a debug check; run it on the first draw only
+        bool m_Validated = false;
     };
 
 }
