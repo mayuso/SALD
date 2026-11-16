@@ -3,8 +3,6 @@
 
 #include "Sald/Core/Log.h"
 
-#include "glm/gtc/type_ptr.hpp"
-
 Sald::Shader::Shader() : m_RendererID(0) {}
 
 Sald::Shader::~Shader() {}
@@ -58,6 +56,8 @@ void Sald::Shader::ClearShader() {
     glDeleteProgram(m_RendererID);
     m_RendererID = 0;
   }
+  // Locations belong to the deleted program
+  m_UniformLocationCache.clear();
 }
 
 void Sald::Shader::CompileShader(const char *vertexCode,
@@ -125,12 +125,16 @@ void Sald::Shader::AddShader(GLuint theProgram, const char *shaderCode,
 
   glGetShaderiv(theShader, GL_COMPILE_STATUS, &result);
   if (!result) {
-    glGetProgramInfoLog(theShader, sizeof(eLog), NULL, eLog);
+    glGetShaderInfoLog(theShader, sizeof(eLog), NULL, eLog);
     SALD_CORE_ERROR("Error compiling the {0} shader: '{1}'", shaderType, eLog);
+    glDeleteShader(theShader);
     return;
   }
 
   glAttachShader(theProgram, theShader);
+  // Only flags it: the shader object lives on until the program that it is
+  // attached to is deleted
+  glDeleteShader(theShader);
 }
 
 void Sald::Shader::SetTexture(GLuint textureUnit) {
@@ -142,9 +146,10 @@ void Sald::Shader::SetDirectionalShadowMap(GLuint textureUnit) {
 void Sald::Shader::SetDirectionalLightTransform(glm::mat4 *lTransform) {
   SetMat4("directionalLightTransform", *lTransform);
 }
-void Sald::Shader::SetOmniLightMatrices(std::vector<glm::mat4> lightMatrices) {
+void Sald::Shader::SetOmniLightMatrices(
+    const std::vector<glm::mat4> &lightMatrices) {
   char locBuff[100] = {'\0'};
-  for (size_t i = 0; i < 6; i++) {
+  for (size_t i = 0; i < 6 && i < lightMatrices.size(); i++) {
     snprintf(locBuff, sizeof(locBuff), "lightMatrices[%zu]", i);
     SetMat4(locBuff, lightMatrices[i]);
   }
@@ -170,13 +175,14 @@ void Sald::Shader::SetMat4(const std::string &name, const glm::mat4 &matrix) {
 }
 
 GLint Sald::Shader::GetUniformLocation(const std::string &name) {
-  if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
-    return m_UniformLocationCache[name];
+  auto cached = m_UniformLocationCache.find(name);
+  if (cached != m_UniformLocationCache.end())
+    return cached->second;
 
   GLint location = glGetUniformLocation(m_RendererID, name.c_str());
   if (location == -1)
     SALD_CORE_WARN("Warning: uniform '{0}' doesn't exist!", name);
 
-  m_UniformLocationCache[name] = location;
+  m_UniformLocationCache.emplace(name, location);
   return location;
 }

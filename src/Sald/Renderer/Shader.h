@@ -36,7 +36,7 @@ public:
   SALD_API void SetTexture(GLuint textureUnit);
   SALD_API void SetDirectionalShadowMap(GLuint textureUnit);
   SALD_API void SetDirectionalLightTransform(glm::mat4 *lTransform);
-  SALD_API void SetOmniLightMatrices(std::vector<glm::mat4> lightMatrices);
+  SALD_API void SetOmniLightMatrices(const std::vector<glm::mat4> &lightMatrices);
 
 private:
   GLuint m_RendererID;
