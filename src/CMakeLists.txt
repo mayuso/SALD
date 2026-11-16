@@ -8,9 +8,7 @@ target_sources(sald
     Platform/OpenGL/OpenGLContext.cpp
 
     Sald/Renderer/RendererAPI.cpp
-    Sald/Renderer/Renderer.cpp
 
-    PUBLIC
     Sald/Core/Application.cpp
     Sald/Core/Input.cpp
     Sald/Core/Layer.cpp
@@ -65,3 +63,10 @@ target_include_directories(sald
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC glad glfw glm assimp spdlog)
+
+# SALD_API marks symbols as dllexport/dllimport, which only applies to a shared
+# build. For a static library it must expand to nothing, otherwise consumers
+# get LNK4217/LNK4286 warnings.
+if(NOT BUILD_SHARED_LIBS)
+    target_compile_definitions(${PROJECT_NAME} PUBLIC SALD_API=)
+endif()
