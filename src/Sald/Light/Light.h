@@ -22,7 +22,6 @@ namespace Sald
 
         SALD_API ShadowMap *GetShadowMap();
 
-        SALD_API void UseLight(Shader *shader);
         SALD_API void Toggle();
 
     protected:
@@ -30,9 +29,9 @@ namespace Sald
         GLfloat m_AmbientIntensity;
         GLfloat m_DiffuseIntensity;
 
-        glm::mat4 m_LightProj;
-        ShadowMap *m_ShadowMap;
-        bool _isOn;
+        glm::mat4 m_LightProj = glm::mat4(1.0f);
+        ShadowMap *m_ShadowMap = nullptr;
+        bool _isOn = true;
     };
 
 }

@@ -9,7 +9,8 @@ namespace Sald
     public:
         SALD_API OmniShadowMap();
         SALD_API ~OmniShadowMap();
-        SALD_API bool Init(unsigned int width, unsigned int height);
+        SALD_API bool Init(GLuint width, GLuint height) override;
+        SALD_API void Read(GLenum textureUnit) override;
     };
 
 }

@@ -36,6 +36,7 @@ bool Sald::ShadowMap::Init(GLuint width, GLuint height)
     if (Status != GL_FRAMEBUFFER_COMPLETE)
     {
         SALD_CORE_ERROR("Framebuffer error: {0}", Status);
+        DeleteFrameBuffer(); // do not leave the broken framebuffer bound
         return false;
     }
     DeleteFrameBuffer();

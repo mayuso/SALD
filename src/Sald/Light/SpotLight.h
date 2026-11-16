@@ -15,7 +15,7 @@ namespace Sald
                            GLfloat red, GLfloat green, GLfloat blue,
                            GLfloat aIntensity, GLfloat dIntensity,
                            GLfloat xPos, GLfloat yPos, GLfloat zPos,
-                           GLfloat xDir, GLfloat yDur, GLfloat zDir,
+                           GLfloat xDir, GLfloat yDir, GLfloat zDir,
                            GLfloat con, GLfloat lin, GLfloat exp, GLfloat edg,
                            size_t id);
         SALD_API ~SpotLight();
@@ -26,7 +26,7 @@ namespace Sald
 
     private:
         glm::vec3 m_Direction;
-        GLfloat m_Edge, m_ProcEdge;
+        GLfloat m_Edge = 0.0f, m_ProcEdge = 1.0f; // m_ProcEdge = cos(m_Edge)
     };
 
 }

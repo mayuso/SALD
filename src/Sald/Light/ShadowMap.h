@@ -9,10 +9,10 @@ namespace Sald
     {
     public:
         SALD_API ShadowMap();
-        SALD_API ~ShadowMap();
+        SALD_API virtual ~ShadowMap();
 
         SALD_API virtual bool Init(GLuint width, GLuint height);
-        SALD_API void Read(GLenum textureUnit);
+        SALD_API virtual void Read(GLenum textureUnit);
 
         SALD_API void CreateFrameBuffer();
         SALD_API void DeleteFrameBuffer();
@@ -22,7 +22,7 @@ namespace Sald
 
     protected:
         GLuint m_FBO, m_ShadowMap;
-        GLuint m_ShadowWidth, m_ShadowHeight;
+        GLuint m_ShadowWidth = 0, m_ShadowHeight = 0;
     };
 
 }

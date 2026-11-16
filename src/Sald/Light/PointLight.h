@@ -27,7 +27,7 @@ namespace Sald
     protected:
         glm::vec3 m_Position;
         GLfloat m_Constant, m_Linear, m_Exponent;
-        GLfloat m_FarPlane;
+        GLfloat m_FarPlane = 0.0f;
         size_t m_Id;
     };
 

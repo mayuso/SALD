@@ -9,7 +9,7 @@ Sald::OmniShadowMap::~OmniShadowMap()
 {
 }
 
-bool Sald::OmniShadowMap::Init(unsigned int width, unsigned int height)
+bool Sald::OmniShadowMap::Init(GLuint width, GLuint height)
 {
     m_ShadowWidth = width;
     m_ShadowHeight = height;
@@ -41,10 +41,19 @@ bool Sald::OmniShadowMap::Init(unsigned int width, unsigned int height)
     if (Status != GL_FRAMEBUFFER_COMPLETE)
     {
         SALD_CORE_ERROR("Framebuffer error: {0}", Status);
+        DeleteFrameBuffer(); // do not leave the broken framebuffer bound
         return false;
     }
 
     DeleteFrameBuffer();
 
     return true;
+}
+
+void Sald::OmniShadowMap::Read(GLenum texUnit)
+{
+    // The base class binds to GL_TEXTURE_2D, which is GL_INVALID_OPERATION for
+    // a cube map and leaves the sampler without a texture
+    glActiveTexture(texUnit);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, m_ShadowMap);
 }

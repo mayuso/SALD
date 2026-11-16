@@ -28,6 +28,9 @@ Sald::PointLight::PointLight(GLuint shadowWidth, GLuint shadowHeight,
     float aspect = (float)shadowWidth / (float)shadowHeight;
     m_LightProj = glm::perspective(glm::radians(90.f), aspect, near, far);
 
+    // Replace the 2D shadow map the Light constructor created, which would
+    // otherwise leak its framebuffer and depth texture
+    delete m_ShadowMap;
     m_ShadowMap = new OmniShadowMap();
     m_ShadowMap->Init(shadowWidth, shadowHeight);
 }
@@ -77,6 +80,7 @@ void Sald::PointLight::UseLight(Shader *shader, unsigned int lightCount, unsigne
 std::vector<glm::mat4> Sald::PointLight::CalculateLightTransform()
 {
     std::vector<glm::mat4> lightTransforms;
+    lightTransforms.reserve(6);
     lightTransforms.push_back(m_LightProj *
                               glm::lookAt(m_Position, m_Position + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
     lightTransforms.push_back(m_LightProj *
