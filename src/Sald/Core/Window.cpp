@@ -9,31 +9,18 @@
 #include "Sald/Events/KeyEvent.h"
 #include "Sald/Events/MouseEvent.h"
 
-Sald::Window::Window()
-    : m_XChange(0.0f), m_YChange(0.0f)
-{
-    m_Data.Width = 1280;
-    m_Data.Height = 720;
-    for (size_t i = 0; i < sizeof(m_Keys); ++i)
-    {
-        m_Keys[i] = 0;
-    }
-}
+Sald::Window::Window() : Window(1280, 720) {}
 
 Sald::Window::Window(GLint windowWidth, GLint windowHeight)
-    : m_XChange(0.0f), m_YChange(0.0f)
 {
     m_Data.Width = windowWidth;
     m_Data.Height = windowHeight;
-    for (size_t i = 0; i < sizeof(m_Keys); ++i)
-    {
-        m_Keys[i] = 0;
-    }
 }
 
 Sald::Window::~Window()
 {
-    glfwDestroyWindow(m_MainWindow);
+    if (m_MainWindow)
+        glfwDestroyWindow(m_MainWindow);
     glfwTerminate();
 }
 
@@ -68,11 +55,18 @@ int Sald::Window::Init()
     m_Context->Init();
 
     // Get Buffer size information
-    glfwGetFramebufferSize(m_MainWindow, &m_BufferWidth, &m_BufferHeight);
+    glfwGetFramebufferSize(m_MainWindow, &m_Data.BufferWidth, &m_Data.BufferHeight);
 
     glfwSetWindowUserPointer(m_MainWindow, &m_Data);
 
     // Set GLFW callbacks
+    glfwSetFramebufferSizeCallback(m_MainWindow, [](GLFWwindow *window, int width, int height)
+                                   {
+        WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+        data.BufferWidth = width;
+        data.BufferHeight = height; });
+
     glfwSetWindowSizeCallback(m_MainWindow, [](GLFWwindow *window, int width, int height)
                               {
         WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -97,7 +91,7 @@ int Sald::Window::Init()
         {
             case GLFW_PRESS:
             {
-                KeyPressedEvent event(key, 0);
+                KeyPressedEvent event(key, false);
                 data.eventCallback(event);
                 break;
             }
@@ -163,8 +157,8 @@ GLFWwindow *Sald::Window::GetWindow()
 {
     return m_MainWindow;
 }
-GLfloat Sald::Window::GetBufferWidth() { return m_BufferWidth; }
-GLfloat Sald::Window::GetBufferHeight() { return m_BufferHeight; }
+GLfloat Sald::Window::GetBufferWidth() { return (GLfloat)m_Data.BufferWidth; }
+GLfloat Sald::Window::GetBufferHeight() { return (GLfloat)m_Data.BufferHeight; }
 bool Sald::Window::GetShouldClose() { return glfwWindowShouldClose(m_MainWindow); }
 
 bool *Sald::Window::GetKeys()
@@ -175,6 +169,12 @@ bool *Sald::Window::GetKeys()
 void Sald::Window::ShowFPS()
 {
     double fpsCount = TimeManager::Instance().CalculateFrameRate(false);
+    // The value only changes about once per second; retitling the window is a
+    // comparatively expensive OS call, so skip it on the frames in between
+    if (fpsCount == m_DisplayedFPS)
+        return;
+    m_DisplayedFPS = fpsCount;
+
     std::string titleString = "SALD - Main window - " + std::to_string(fpsCount) + " FPS";
     glfwSetWindowTitle(m_MainWindow, titleString.c_str());
 }

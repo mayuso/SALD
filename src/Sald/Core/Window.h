@@ -9,8 +9,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
-
 namespace Sald
 {
     class Window
@@ -18,7 +16,7 @@ namespace Sald
     public:
         SALD_API Window();
         SALD_API Window(GLint windowWidth, GLint windowHeight);
-        SALD_API ~Window();
+        SALD_API virtual ~Window();
 
         SALD_API int Init();
         SALD_API GLFWwindow *GetWindow();
@@ -38,23 +36,21 @@ namespace Sald
         SALD_API virtual void OnUpdate();
 
     private:
-        GLFWwindow *m_MainWindow;
+        GLFWwindow *m_MainWindow = nullptr;
         std::unique_ptr<GraphicsContext> m_Context;
 
-        GLint m_BufferWidth, m_BufferHeight;
+        // Last value written to the window title, so it is only rewritten when it changes
+        double m_DisplayedFPS = -1.0;
 
-        double m_LastFrameTime, m_FrameCount;
-
-        bool m_Keys[1024];
-
-        GLfloat m_LastX, m_LastY, m_XChange, m_YChange;
-        bool m_MouseFirstMoved;
+        bool m_Keys[1024] = {};
 
         struct WindowData
         {
             std::string Title;
-            unsigned int Width, Height;
-            bool VSync;
+            unsigned int Width = 0, Height = 0;
+            // Framebuffer size in pixels; differs from Width/Height on HiDPI displays
+            int BufferWidth = 0, BufferHeight = 0;
+            bool VSync = false;
 
             EventCallbackFn eventCallback;
         };
