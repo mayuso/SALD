@@ -27,7 +27,14 @@ Sald::Camera::~Camera()
 
 void Sald::Camera::OnUpdate(GLfloat deltaTime)
 {
-    const glm::vec2 &mouse{Input::GetMouseX(), Input::GetMouseY()};
+    const glm::vec2 mouse = Input::GetMousePosition();
+    // There is no previous position on the first update: measuring from (0, 0)
+    // would swing the camera by wherever the cursor happens to be
+    if (!m_HasMousePosition)
+    {
+        m_InitialMousePosition = mouse;
+        m_HasMousePosition = true;
+    }
     glm::vec2 mouseMoveDelta = (mouse - m_InitialMousePosition) * 0.01f;
     m_InitialMousePosition = mouse;
 
