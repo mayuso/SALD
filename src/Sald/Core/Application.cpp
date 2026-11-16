@@ -3,6 +3,8 @@
 #include "Sald/Core/Log.h"
 #include "saldpch.h"
 
+#include <algorithm>
+
 #include "Sald/Renderer/2D/Renderer2D.h"
 #include "Sald/Renderer/3D/Renderer3D.h"
 
@@ -36,7 +38,10 @@ Sald::Application::~Application() {}
 void Sald::Application::Run() {
   while (m_Running) {
     GLfloat time = (GLfloat)glfwGetTime();
-    Timestep timestep = time - m_LastFrameTime;
+    // Cap the step so a stall (window drag, breakpoint, first frame) does not
+    // produce a huge delta that makes fast objects tunnel through others
+    constexpr GLfloat maxTimestep = 1.0f / 30.0f;
+    Timestep timestep = std::min(time - m_LastFrameTime, maxTimestep);
     m_LastFrameTime = time;
 
     if (!m_Minimized) {
