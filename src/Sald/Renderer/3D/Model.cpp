@@ -56,6 +56,8 @@ void Sald::Model::LoadMesh(aiMesh *mesh, const aiScene *scene)
 {
     std::vector<GLfloat> vertices;
     std::vector<unsigned int> indices;
+    vertices.reserve((size_t)mesh->mNumVertices * 8); // position + uv + normal
+    indices.reserve((size_t)mesh->mNumFaces * 3);     // triangulated on import
 
     for (size_t i = 0; i < mesh->mNumVertices; i++)
     {
@@ -72,14 +74,20 @@ void Sald::Model::LoadMesh(aiMesh *mesh, const aiScene *scene)
     }
     for (size_t i = 0; i < mesh->mNumFaces; i++)
     {
-        aiFace face = mesh->mFaces[i];
+        const aiFace &face = mesh->mFaces[i]; // copying an aiFace reallocates its index array
         for (size_t j = 0; j < face.mNumIndices; j++)
         {
             indices.push_back(face.mIndices[j]);
         }
     }
 
-    Mesh *newMesh = new Mesh(&vertices[0], &indices[0], vertices.size(), indices.size(), true);
+    if (vertices.empty() || indices.empty())
+    {
+        SALD_CORE_WARN("Skipping empty mesh '{0}'", mesh->mName.C_Str());
+        return;
+    }
+
+    Mesh *newMesh = new Mesh(vertices.data(), indices.data(), (unsigned int)vertices.size(), (unsigned int)indices.size(), true);
     m_MeshList.push_back(newMesh);
     m_MeshToTex.push_back(mesh->mMaterialIndex);
 }
@@ -99,13 +107,14 @@ void Sald::Model::LoadMaterials(const aiScene *scene)
             aiString path;
             if (material->GetTexture(aiTextureType_DIFFUSE, 0, &path) == AI_SUCCESS)
             {
-                int idx = std::string(path.data).rfind("\\");
-                if (idx == -1)
+                // Keep only the file name: models often embed the author's absolute path
+                std::string fileName(path.data);
+                size_t separator = fileName.find_last_of("/\\");
+                if (separator != std::string::npos)
                 {
-                    idx = std::string(path.data).rfind("/");
+                    fileName.erase(0, separator + 1);
                 }
-                std::string fileName = std::string(path.data).substr(idx + 1);
-                std::string texPath = std::string("Textures/") + fileName;
+                std::string texPath = "Textures/" + fileName;
 
                 m_TextureList[i] = new Texture(texPath.c_str());
                 // TODO: Check if loaded correctly, and delete if not:
@@ -139,4 +148,10 @@ void Sald::Model::Clear()
             m_TextureList[i] = nullptr;
         }
     }
+
+    // Drop the now-null entries too, otherwise Render() would dereference
+    // them and a later Load() would append after them
+    m_MeshList.clear();
+    m_TextureList.clear();
+    m_MeshToTex.clear();
 }

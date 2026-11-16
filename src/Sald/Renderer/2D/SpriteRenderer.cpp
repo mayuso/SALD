@@ -13,12 +13,12 @@ SpriteRenderer::SpriteRenderer(Shader *shader)
 SpriteRenderer::~SpriteRenderer()
 {
     glDeleteVertexArrays(1, &m_VAO);
+    glDeleteBuffers(1, &m_VBO);
 }
 
 void SpriteRenderer::CreateSprite()
 {
     // configure VAO/VBO
-    unsigned int VBO;
     float vertices[] = {
         // pos      // tex
         0.0f, 1.0f, 0.0f, 1.0f,
@@ -30,9 +30,9 @@ void SpriteRenderer::CreateSprite()
         1.0f, 0.0f, 1.0f, 0.0f};
 
     glGenVertexArrays(1, &m_VAO);
-    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &m_VBO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindVertexArray(m_VAO);

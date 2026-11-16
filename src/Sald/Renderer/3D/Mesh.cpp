@@ -45,16 +45,17 @@ void Sald::Mesh::CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned i
         glEnableVertexAttribArray(0);
     }
 
+    // Unbind the VAO first: the element buffer binding is part of the VAO
+    // state, so unbinding the IBO while the VAO is bound would detach it
+    glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
 void Sald::Mesh::RenderMesh()
 {
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
+    glBindVertexArray(m_VAO); // brings its element buffer binding with it
     glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 

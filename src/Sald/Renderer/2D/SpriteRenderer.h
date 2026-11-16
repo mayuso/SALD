@@ -18,7 +18,7 @@ namespace Sald
         void CreateSprite();
 
         Shader *m_Shader;
-        GLuint m_VAO;
+        GLuint m_VAO = 0, m_VBO = 0;
     };
 
 }
