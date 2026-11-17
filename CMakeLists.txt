@@ -9,7 +9,6 @@ if(UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -fPIC")
     set(CMAKE_CXX_FLAGS_DEBUG "-g")
     set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath='$ORIGIN'")
 endif()
 
 add_subdirectory(vendor/glad EXCLUDE_FROM_ALL)
@@ -24,15 +23,24 @@ add_subdirectory(vendor/assimp EXCLUDE_FROM_ALL)
 
 add_subdirectory(src)
 
-install(FILES src/sald.h src/saldpch.h
-    DESTINATION ${PROJECT_SOURCE_DIR}/install/include
-)
+# Only when SALD is built on its own: a project that pulls it in with
+# add_subdirectory installs its own files, not SALD's headers and library
+if(PROJECT_IS_TOP_LEVEL)
+    # `cmake --install` goes to install/ unless a prefix is given (--prefix <dir>)
+    if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+        set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}/install" CACHE PATH "Install directory" FORCE)
+    endif()
 
-install(DIRECTORY src/Sald
-    DESTINATION ${PROJECT_SOURCE_DIR}/install/include
-    FILES_MATCHING PATTERN "*.h"
-)
+    install(FILES src/sald.h src/saldpch.h
+        DESTINATION include
+    )
 
-install(TARGETS ${PROJECT_NAME}
-    DESTINATION ${PROJECT_SOURCE_DIR}/install/lib
-)
+    install(DIRECTORY src/Sald
+        DESTINATION include
+        FILES_MATCHING PATTERN "*.h"
+    )
+
+    install(TARGETS ${PROJECT_NAME}
+        DESTINATION lib
+    )
+endif()

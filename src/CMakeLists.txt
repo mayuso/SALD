@@ -2,6 +2,9 @@ add_library(sald)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE saldpch.h)
 
+# PUBLIC so projects linking sald also compile its headers as C++20
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_20)
+
 target_sources(sald
     PRIVATE
     Platform/OpenGL/OpenGLRendererAPI.cpp
