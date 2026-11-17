@@ -57,8 +57,7 @@ void SpriteRenderer::Draw(Texture *texture, glm::vec2 position, glm::vec2 size, 
     m_Shader->SetMat4("model", model);
     m_Shader->SetFloat3("spriteColor", color.x, color.y, color.z);
 
-    glActiveTexture(GL_TEXTURE0);
-    texture->Use();
+    texture->Use(0);
 
     glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);

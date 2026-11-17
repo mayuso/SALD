@@ -50,8 +50,9 @@ bool Sald::Texture::Load(const char *fileLocation)
     return true;
 }
 
-void Sald::Texture::Use()
+void Sald::Texture::Use(GLuint textureUnit)
 {
+    glActiveTexture(GL_TEXTURE0 + textureUnit);
     glBindTexture(GL_TEXTURE_2D, m_TextureID);
 }
 

@@ -14,7 +14,8 @@ namespace Sald
         SALD_API Texture(const char *fileLoc);
         SALD_API ~Texture();
 
-        SALD_API void Use();
+        // Binds to texture unit GL_TEXTURE0 + textureUnit (and leaves it active)
+        SALD_API void Use(GLuint textureUnit = 0);
         SALD_API void Clear();
 
     private:

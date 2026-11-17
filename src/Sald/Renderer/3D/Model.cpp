@@ -13,14 +13,13 @@ Sald::Model::~Model()
 
 void Sald::Model::Render()
 {
-    glActiveTexture(GL_TEXTURE1);
     for (size_t i = 0; i < m_MeshList.size(); i++)
     {
         unsigned int materialIndex = m_MeshToTex[i];
 
         if (materialIndex < m_TextureList.size() && m_TextureList[materialIndex])
         {
-            m_TextureList[materialIndex]->Use();
+            m_TextureList[materialIndex]->Use(1); // the 3D shader samples theTexture from unit 1
         }
         m_MeshList[i]->RenderMesh();
     }
