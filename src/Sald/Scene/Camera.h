@@ -46,6 +46,8 @@ namespace Sald
         // Off while the cursor is free, so moving it over the window does not turn the camera
         SALD_API void SetMouseLookEnabled(bool enabled);
         SALD_API void SetPosition(glm::vec3 position);
+        // Degrees; yaw -90 looks down -Z, pitch is clamped to +-89.9
+        SALD_API void SetRotation(GLfloat yaw, GLfloat pitch);
 
         SALD_API glm::vec3 GetCameraPosition();
         SALD_API glm::vec3 GetCameraDirection();

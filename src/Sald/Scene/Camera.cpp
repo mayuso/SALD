@@ -154,6 +154,13 @@ void Sald::Camera::SetPosition(glm::vec3 position)
         SnapToGround();
 }
 
+void Sald::Camera::SetRotation(GLfloat yaw, GLfloat pitch)
+{
+    m_Yaw = yaw;
+    m_Pitch = glm::clamp(pitch, -89.9f, 89.9f);
+    MoveCamera();
+}
+
 void Sald::Camera::SnapToGround()
 {
     float ground = m_GroundHeight ? m_GroundHeight(m_Position.x, m_Position.z) : 0.0f;
