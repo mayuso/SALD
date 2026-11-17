@@ -17,7 +17,7 @@ public:
   enum class Dimensions { Two = 2, Three = 3 };
   SALD_API Application(GLint windowWidth, GLint windowHeight,
                        Dimensions dimensionNumber);
-  SALD_API ~Application();
+  SALD_API virtual ~Application();
 
   static Application &GetInstance() { return *s_Instance; }
 
