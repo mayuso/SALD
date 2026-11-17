@@ -16,7 +16,6 @@ namespace Sald
                             GLfloat aIntensity, GLfloat dIntensity,
                             GLfloat xPos, GLfloat yPos, GLfloat zPos,
                             GLfloat con, GLfloat lin, GLfloat exp, size_t id);
-        SALD_API ~PointLight();
 
         SALD_API void UseLight(Shader *shader, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
 

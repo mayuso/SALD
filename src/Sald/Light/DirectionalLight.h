@@ -12,7 +12,6 @@ namespace Sald
                                   GLfloat red, GLfloat green, GLfloat blue,
                                   GLfloat aIntensity, GLfloat dIntensity,
                                   GLfloat xDir, GLfloat yDir, GLfloat zDir);
-        SALD_API ~DirectionalLight();
 
         SALD_API void UseLight(Shader *shader);
 

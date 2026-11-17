@@ -14,7 +14,7 @@ Sald::Light::Light(GLuint shadowWidth, GLuint shadowHeight,
                    GLfloat red, GLfloat green, GLfloat blue,
                    GLfloat aIntensity, GLfloat dIntensity)
 {
-    m_ShadowMap = new ShadowMap();
+    m_ShadowMap = std::make_unique<ShadowMap>();
     m_ShadowMap->Init(shadowWidth, shadowHeight);
 
     m_Color = glm::vec3(red, green, blue);
@@ -35,5 +35,5 @@ Sald::Light::~Light()
 
 Sald::ShadowMap *Sald::Light::GetShadowMap()
 {
-    return m_ShadowMap;
+    return m_ShadowMap.get();
 }

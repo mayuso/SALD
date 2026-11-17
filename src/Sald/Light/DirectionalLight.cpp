@@ -15,10 +15,6 @@ Sald::DirectionalLight::DirectionalLight(GLuint shadowWidth, GLuint shadowHeight
     m_LightProj = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, 0.1f, 100.0f);
 }
 
-Sald::DirectionalLight::~DirectionalLight()
-{
-}
-
 void Sald::DirectionalLight::UseLight(Shader *shader)
 {
     shader->SetFloat3("directionalLight.base.color", m_Color.x, m_Color.y, m_Color.z);

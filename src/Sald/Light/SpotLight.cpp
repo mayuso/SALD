@@ -21,10 +21,6 @@ Sald::SpotLight::SpotLight(GLuint shadowWidth, GLuint shadowHeight,
     m_ProcEdge = cosf(glm::radians(m_Edge));
 }
 
-Sald::SpotLight::~SpotLight()
-{
-}
-
 void Sald::SpotLight::UseLight(Shader *shader, unsigned int lightCount, unsigned int textureUnit, unsigned int offset)
 {
     if (lightCount > MAX_SPOT_LIGHTS)

@@ -18,7 +18,6 @@ namespace Sald
                            GLfloat xDir, GLfloat yDir, GLfloat zDir,
                            GLfloat con, GLfloat lin, GLfloat exp, GLfloat edg,
                            size_t id);
-        SALD_API ~SpotLight();
 
         SALD_API void UseLight(Shader *shader, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
 
